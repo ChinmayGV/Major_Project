@@ -55,7 +55,10 @@ app.post("/listings", async (req, res) => {
   await Listing.insertOne({
     title: title,
     description: description,
-    image: image,
+    image: {
+      filename: "listingimage",
+      url: image,
+    },
     price: price,
     location: location,
     country: country,
@@ -74,12 +77,16 @@ app.get("/listings/:id/edit", async (req, res) => {
 app.put("/listings/:id", async (req, res) => {
   let { id } = req.params;
   let { title, description, image, price, location, country } = req.body;
+  console.log(req.body);
   await Listing.findByIdAndUpdate(
     id,
     {
       title: title,
       description: description,
-      image: image,
+      image: {
+        filename: "listingimage",
+        url: image,
+      },
       price: price,
       location: location,
       country: country,
