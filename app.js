@@ -77,7 +77,6 @@ app.get("/listings/:id/edit", async (req, res) => {
 app.put("/listings/:id", async (req, res) => {
   let { id } = req.params;
   let { title, description, image, price, location, country } = req.body;
-  console.log(req.body);
   await Listing.findByIdAndUpdate(
     id,
     {
