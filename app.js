@@ -6,6 +6,7 @@ const path = require("path");
 const Listing = require("./models/listing.js");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
+const countryMap = require("./init/countryCode.js");
 
 main()
   .then((res) => {
@@ -52,6 +53,8 @@ app.get("/listings/:id", async (req, res) => {
 //Create Route
 app.post("/listings", async (req, res) => {
   let { title, description, image, price, location, country } = req.body;
+  let countryCode = req.body.country;
+  let countryName = countryMap[countryCode];
   await Listing.insertOne({
     title: title,
     description: description,
@@ -61,7 +64,7 @@ app.post("/listings", async (req, res) => {
     },
     price: price,
     location: location,
-    country: country,
+    country: countryName,
   });
   res.redirect("/listings");
 });
@@ -77,6 +80,8 @@ app.get("/listings/:id/edit", async (req, res) => {
 app.put("/listings/:id", async (req, res) => {
   let { id } = req.params;
   let { title, description, image, price, location, country } = req.body;
+  let countryCode = req.body.country;
+  let countryName = countryMap[countryCode];
   await Listing.findByIdAndUpdate(
     id,
     {
@@ -88,7 +93,7 @@ app.put("/listings/:id", async (req, res) => {
       },
       price: price,
       location: location,
-      country: country,
+      country: countryName,
     },
     { runValidators: true }
   );

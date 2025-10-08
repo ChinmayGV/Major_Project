@@ -106,3 +106,27 @@ body {
   padding-left: 0;
   padding-right: 0;
 }
+
+/* Experiment */
+/* .select2-container {
+  width: 330px !important;
+} */
+/* .select2-selection__rendered {
+  line-height: 38px !important;
+} */
+.select2-selection {
+  height: 38px !important;
+}
+.flag-icon {
+  width: 20px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+#country-select {
+  /* This centers your "-- Choose the country --" placeholder */
+  text-align-last: center !important;
+
+  /* This is also good practice to center all the options in the open list */
+  text-align: center !important;
+}

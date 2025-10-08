@@ -2,7 +2,12 @@
 <div class="row mt-2">
   <div class="col-8 offset-2">
     <h3>Edit Your Listing</h3>
-    <form method="Post" action="/listings/<%= listing._id %>?_method=put">
+    <form
+      method="Post"
+      action="/listings/<%= listing._id %>?_method=put"
+      novalidate
+      class="needs-validation"
+    >
       <div class="mb-3">
         <label for="title" class="form-label">Title</label>
         <input
@@ -10,14 +15,19 @@
           name="title"
           value="<%=listing.title %>"
           class="form-control"
+          required
         />
+        <div class="valid-feedback">Title looks good</div>
+        <div class="invalid-feedback">Please enter the title</div>
       </div>
 
       <div class="mb-3">
         <label for="description" class="form-label">Description</label>
-        <textarea name="description" class="form-control">
+        <textarea name="description" class="form-control" required>
 <%= listing.description%></textarea
         >
+        <div class="invalid-feedback">description can't be empty</div>
+        <div class="valid-feedback">sounds good!</div>
       </div>
 
       <div class="mb-3">
@@ -27,26 +37,46 @@
           name="image"
           value="<%=listing.image.url%>"
           class="form-control"
+          required
         />
+        <div class="invalid-feedback">image field required</div>
       </div>
       <div class="row">
-        <div class="mb-3 col-md-4">
+        <div class="mb-3 col-12 col-md-4">
           <label for="price" class="form-label">Price</label>
           <input
             type="number"
             name="price"
             value="<%= listing.price%>"
             class="form-control"
+            required
           />
+          <div class="invalid-feedback">Price field required</div>
         </div>
-        <div class="mb-3 col-md-8">
-          <label for="country" class="form-label">country</label>
-          <input
+        <div class="mb-3 col-12 col-md-8">
+          <label for="country" class="form-label">Country</label>
+          <!-- <input
             type="text"
             name="country"
             value="<%= listing.country%>"
             class="form-control"
-          />
+            required
+          /> -->
+          <!-- <br /> -->
+          <select
+            id="country-select"
+            name="country"
+            class="form-select"
+            required
+            aria-label="Default select example"
+          >
+            <option value="" selected disabled id="firstline">
+              <%= listing.country%>
+            </option>
+            <%- include('../includes/country.ejs') %>
+          </select>
+
+          <div class="invalid-feedback">Country field required</div>
         </div>
       </div>
       <div class="mb-3">
@@ -56,10 +86,14 @@
           name="location"
           value="<%= listing.location%>"
           class="form-control"
+          required
         />
+        <div class="invalid-feedback">Location field required</div>
       </div>
 
       <button class="btn mt-3 mb-3 btn-dark edit-btn">Edit :&#41;</button>
     </form>
   </div>
 </div>
+<script src="/js/flag.js"></script>
+<!-- <script src="/js/script.js"></script> -->
