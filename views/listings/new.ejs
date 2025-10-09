@@ -40,10 +40,8 @@
         <div class="mb-3 col-12 col-md-4">
           <label for="price" class="form-label">Price</label>
           <input
-            type="number"
-            ,
+            type="text"
             name="price"
-            ,
             placeholder="1200"
             class="form-control"
             required
@@ -72,7 +70,7 @@
             <option value="" selected disabled>-- Choose the country --</option>
             <%- include('../includes/country.ejs') %>
           </select>
-          <div class="invalid-feedback">Please enter the country name</div>
+          <div class="invalid-feedback">Please select the country</div>
         </div>
       </div>
 

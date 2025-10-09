@@ -7,7 +7,23 @@ const Listing = require("./models/listing.js");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const countryMap = require("./init/countryCode.js");
+const ExpressError = require("./utils/ExpressError.js");
+const { listingSchema } = require("./schema.js");
+// This middleware function can be placed after your 'require' statements
 
+const validateListing = (req, res, next) => {
+  // 1. Validate the request body against your schema
+  const { error } = listingSchema.validate(req.body);
+
+  if (error) {
+    // 2. If there is an error, extract the message and throw it
+    const errMsg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(400, errMsg);
+  } else {
+    // 3. If there is no error, call next() to proceed to the route handler
+    next();
+  }
+};
 main()
   .then((res) => {
     console.log("connected successfully to DB");
@@ -51,20 +67,17 @@ app.get("/listings/:id", async (req, res) => {
 });
 
 //Create Route
-app.post("/listings", async (req, res) => {
-  let { title, description, image, price, location, country } = req.body;
-  let countryCode = req.body.country;
-  let countryName = countryMap[countryCode];
-  await Listing.insertOne({
-    title: title,
-    description: description,
+app.post("/listings", validateListing, async (req, res) => {
+  const newListingData = req.body;
+  const countryName = countryMap[newListingData.country];
+
+  await Listing.create({
+    ...newListingData,
+    country: countryName,
     image: {
       filename: "listingimage",
-      url: image,
+      url: newListingData.image,
     },
-    price: price,
-    location: location,
-    country: countryName,
   });
   res.redirect("/listings");
 });
@@ -77,23 +90,20 @@ app.get("/listings/:id/edit", async (req, res) => {
 });
 
 //Update Route
-app.put("/listings/:id", async (req, res) => {
+app.put("/listings/:id", validateListing, async (req, res) => {
   let { id } = req.params;
-  let { title, description, image, price, location, country } = req.body;
-  let countryCode = req.body.country;
-  let countryName = countryMap[countryCode];
+  const newListingData = req.body;
+  const countryName = countryMap[newListingData.country];
+
   await Listing.findByIdAndUpdate(
     id,
     {
-      title: title,
-      description: description,
+      ...newListingData,
+      country: countryName,
       image: {
         filename: "listingimage",
-        url: image,
+        url: newListingData.image,
       },
-      price: price,
-      location: location,
-      country: countryName,
     },
     { runValidators: true }
   );
@@ -122,6 +132,16 @@ app.delete("/listings/:id", async (req, res) => {
 //   console.log("sample was saved");
 //   res.send("sucessful");
 // });
+
+app.all(/.*/, (req, res) => {
+  throw new ExpressError(404, "Page Not Found");
+});
+
+app.use((err, req, res, next) => {
+  let { statusCode = 500, message = "Something went wrong" } = err;
+  // res.status(statusCode).send(message);
+  res.render("error.ejs", { err, statusCode, message });
+});
 
 app.listen(port, () => {
   console.log(`Server is Listening to the Port:${port}`);
