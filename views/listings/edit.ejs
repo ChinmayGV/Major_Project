@@ -45,13 +45,15 @@
         <div class="mb-3 col-12 col-md-4">
           <label for="price" class="form-label">Price</label>
           <input
-            type="number"
+            type="text"
             name="price"
+            inputmode="decimal"
+            pattern="[0-9]*\.?[0-9]+"
             value="<%= listing.price%>"
             class="form-control"
             required
           />
-          <div class="invalid-feedback">Price field required</div>
+          <div class="invalid-feedback">Enter valid price</div>
         </div>
         <div class="mb-3 col-12 col-md-8">
           <label for="country" class="form-label">Country</label>
@@ -70,7 +72,9 @@
             required
             aria-label="Default select example"
           >
-            <option value="" selected disabled id="firstline">
+            <option
+              value="<%= Object.keys(countryMap).find(key => countryMap[key] === listing.country) %>"
+            >
               &nbsp;&nbsp;<%= listing.country%>
             </option>
             <%- include('../includes/country.ejs') %>
