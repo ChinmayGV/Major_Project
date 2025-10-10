@@ -8,12 +8,26 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const countryMap = require("./init/countryCode.js");
 const ExpressError = require("./utils/ExpressError.js");
-const { listingSchema } = require("./schema.js");
+const { listingSchema, reviewSchema } = require("./schema.js");
+const Review = require("./models/review.js");
 // This middleware function can be placed after your 'require' statements
 
 const validateListing = (req, res, next) => {
   // 1. Validate the request body against your schema
   const { error } = listingSchema.validate(req.body);
+
+  if (error) {
+    // 2. If there is an error, extract the message and throw it
+    const errMsg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(400, errMsg);
+  } else {
+    // 3. If there is no error, call next() to proceed to the route handler
+    next();
+  }
+};
+const validateReview = (req, res, next) => {
+  // 1. Validate the request body against your schema
+  const { error } = reviewSchema.validate(req.body);
 
   if (error) {
     // 2. If there is an error, extract the message and throw it
@@ -62,7 +76,7 @@ app.get("/listings/new", (req, res) => {
 app.get("/listings/:id", async (req, res) => {
   let { id } = req.params;
 
-  const listing = await Listing.findById(id);
+  const listing = await Listing.findById(id).populate("reviews");
   res.render("listings/show.ejs", { listing });
 });
 
@@ -120,6 +134,19 @@ app.delete("/listings/:id", async (req, res) => {
   res.redirect("/listings");
 });
 
+//Reviews
+//Post Route
+app.post("/listings/:id/reviews", validateReview, async (req, res) => {
+  let listing = await Listing.findById(req.params.id);
+  let newReview = new Review(req.body.review);
+
+  listing.reviews.push(newReview);
+  await newReview.save();
+  await listing.save();
+
+  console.log(req.body.review);
+  res.redirect(`/listings/${req.params.id}`);
+});
 // app.get("/listtesting", async (req, res) => {
 //   let sampleData = new Listing({
 //     title: "The Lion Den",

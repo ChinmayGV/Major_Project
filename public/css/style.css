@@ -79,7 +79,7 @@ body {
   text-align: center;
 }
 .card-img-overlay:hover {
-  opacity: 0.2;
+  opacity: 0.4;
   background-color: white;
 }
 .add-btn {
@@ -129,4 +129,19 @@ body {
 
   /* This is also good practice to center all the options in the open list */
   text-align: center !important;
+}
+.review-border {
+  border: 1px solid #dee2e6 !important;
+  padding: 10px !important;
+}
+.date {
+  font-size: 12px !important;
+}
+
+.review-body {
+  display: flex !important;
+  justify-content: space-between !important;
+}
+.golden-star {
+  color: gold !important;
 }
