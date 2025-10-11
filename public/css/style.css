@@ -52,7 +52,7 @@ body {
   align-items: space-evenly;
 }
 
-.card {
+.listing-card {
   border: none !important;
   margin-bottom: 2rem;
 }
@@ -123,19 +123,13 @@ body {
   vertical-align: middle;
 }
 
-#country-select {
-  /* This centers your "-- Choose the country --" placeholder */
-  text-align-last: center !important;
-
-  /* This is also good practice to center all the options in the open list */
-  text-align: center !important;
-}
 .review-border {
-  border: 1px solid #dee2e6 !important;
+  /* border: 1px solid #dee2e6 !important; */
   padding: 10px !important;
 }
 .date {
-  font-size: 12px !important;
+  font-size: 10px !important;
+  /* padding: 5px !important; */
 }
 
 .review-body {
@@ -143,5 +137,119 @@ body {
   justify-content: space-between !important;
 }
 .golden-star {
+  color: gold !important;
+}
+
+.rating-brdr {
+  font-weight: 100 !important;
+}
+.rating-comment {
+  font-weight: 400 !important;
+  font-size: small;
+}
+.review-breaker {
+  height: 0.2rem !important;
+  /* color: #dee2e6; */
+}
+.rvw-del-btn {
+  height: 20px !important;
+  width: 50px !important;
+  font-size: 10px !important;
+  padding: 2px !important;
+}
+.rvw-del-btn:hover {
+  background-color: #fe424d !important;
+  color: black !important;
+  border: none !important;
+}
+.review-box {
+  border: none !important;
+  padding: 5px !important;
+}
+/* adding max height to review box with adding scroll bar function */
+.review-list {
+  margin-bottom: 2rem;
+  max-height: 420px !important; /* Set the maximum height */
+  overflow-y: auto !important;
+}
+
+/* Style the scrollbar for WebKit browsers */
+.review-list::-webkit-scrollbar {
+  width: 2px !important; /* Width of the scrollbar */
+}
+
+.review-list::-webkit-scrollbar-track {
+  background: #f1f1f1 !important; /* Color of the tracking area */
+}
+
+.review-list::-webkit-scrollbar-thumb {
+  background: #888 !important; /* Color of the scroll thumb */
+  border-radius: 4px !important; /* Round the corners of the thumb */
+}
+
+.review-list::-webkit-scrollbar-thumb:hover {
+  background: #555 !important; /* Color of the thumb on hover */
+}
+/* //---------------------------------------------------------------------// */
+/* --------------adding rating star function --------------------------------- */
+/* Container for the stars */
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse; /* This flips the stars back to the correct LTR order */
+  justify-content: flex-end;
+}
+
+/* Hide the actual radio buttons */
+.star-rating input[type="radio"] {
+  display: none;
+}
+
+/* Style the labels as stars */
+.star-rating label {
+  font-size: 2rem; /* Make the stars bigger */
+  color: #ccc; /* Color for an empty star */
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+/* --- The Magic Part --- */
+
+/* When you hover over a star, color it AND all the stars that come AFTER it (which are visually before it due to row-reverse) */
+
+/* Container for the stars */
+/* Container for the stars */
+.star-rating {
+  display: flex !important;
+  flex-direction: row-reverse !important; /* Flips the stars to the correct LTR order */
+  justify-content: flex-end !important;
+}
+
+/* Hide the actual radio buttons */
+.star-rating input[type="radio"] {
+  display: none !important;
+}
+
+/* Style the labels as stars */
+.star-rating label {
+  content: "★" !important;
+  font-size: 2rem !important;
+  color: #ccc !important; /* Default color for an empty star */
+  cursor: pointer !important;
+  transition: color 0.2s ease-in-out !important;
+}
+
+/* * --- THIS IS THE FIX --- 
+ * When you hover over a label, color ITSELF and all the labels AFTER it
+ * in the HTML (which are visually BEFORE it due to row-reverse).
+*/
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color: gold !important;
+}
+
+/* * This rule makes the selection "stick" after you click.
+ * It colors all the labels that come after the selected radio button.
+*/
+.star-rating input[type="radio"]:checked ~ label {
   color: gold !important;
 }
