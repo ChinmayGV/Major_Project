@@ -33,7 +33,9 @@
   </head>
   <body>
     <%- include("../includes/navbar.ejs") %>
-    <div class="container"><%- body %></div>
+    <div class="container">
+      <%- include("../includes/flash.ejs") %> <%- body %>
+    </div>
 
     <%- include("../includes/footer.ejs") %>
     <script
@@ -43,5 +45,7 @@
     ></script>
     <script src="/js/script.js"></script>
     <script src="/js/flag.js"></script>
+    <script src="/js/flashRemove.js"></script>
+    <script src="/js/passViewer.js"></script>
   </body>
 </html>

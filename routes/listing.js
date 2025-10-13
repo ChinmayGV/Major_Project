@@ -4,6 +4,7 @@ const { listingSchema } = require("../schema.js");
 const ExpressError = require("../utils/ExpressError.js");
 const Listing = require("../models/listing.js");
 const countryMap = require("../init/countryCode.js");
+
 const validateListing = (req, res, next) => {
   // 1. Validate the request body against your schema
   const { error } = listingSchema.validate(req.body);
@@ -33,6 +34,10 @@ router.get("/:id", async (req, res) => {
   let { id } = req.params;
 
   const listing = await Listing.findById(id).populate("reviews");
+  if (!listing) {
+    req.flash("error", "Listing you requested for does not exist");
+    return res.redirect("/listings");
+  }
   // console.log(req.body);
   res.render("listings/show.ejs", { listing });
 });
@@ -50,6 +55,7 @@ router.post("/", validateListing, async (req, res) => {
       url: newListingData.image,
     },
   });
+  req.flash("success", "New Listing Created (:");
   res.redirect("/listings");
 });
 
@@ -57,6 +63,10 @@ router.post("/", validateListing, async (req, res) => {
 router.get("/:id/edit", async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id);
+  if (!listing) {
+    req.flash("error", "Listing you requested for does not exist");
+    return res.redirect("/listings");
+  }
   res.render("listings/edit.ejs", { listing, countryMap });
 });
 
@@ -78,6 +88,7 @@ router.put("/:id", validateListing, async (req, res) => {
     },
     { runValidators: true }
   );
+  req.flash("success", "Listing Updated");
   res.redirect(`/listings/${id}`);
 });
 
@@ -86,6 +97,7 @@ router.delete("/:id", async (req, res) => {
   let { id } = req.params;
   //   res.send("deleted successfully");
   await Listing.findByIdAndDelete(id);
+  req.flash("success", "Listing Deleted!");
   res.redirect("/listings");
 });
 
