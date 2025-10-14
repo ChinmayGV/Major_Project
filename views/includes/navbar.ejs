@@ -15,6 +15,31 @@
         <a class="nav-link" href="/listings">All Listings</a>
         <a class="nav-link" href="/listings/new">Add new Listings</a>
       </div>
+      <div class="navbar-nav ms-auto">
+        <!-- <a class="nav-link" href="/signup">Sign up</a>
+        <a class="nav-link" href="/login">Log in</a>
+        <a class="nav-link" href="/logout">Log out</a> -->
+        <% if(!currUser) {%>
+        <button id="menu-button" class="menu-toggle">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div id="dropdown-menu" class="menu-content">
+          <a href="/login">Login</a>
+          <a href="/signup">Sign up</a>
+        </div>
+        <% } %> <% if(currUser){ %>
+        <button id="menu-button" class="menu-toggle">
+          <i class="fa-regular fa-user"></i>
+        </button>
+
+        <div id="dropdown-menu" class="menu-content">
+          <a href="/logout"
+            >Logout <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          </a>
+        </div>
+        <% } %>
+      </div>
     </div>
   </div>
 </nav>

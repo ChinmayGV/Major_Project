@@ -1,7 +1,7 @@
 <%- layout("/layouts/boilerplate") %>
 
 <div class="row mt-3">
-  <h2 class="col-6 offset-3">SignUp to WanderLusT</h2>
+  <h2 class="col-6 offset-3 login-signup">SignUp to WanderLusT</h2>
   <div class="col-6 offset-3">
     <form method="post" action="/signup" class="needs-validation" novalidate>
       <div class="mb-3">
@@ -9,6 +9,7 @@
         <input
           type="text"
           name="username"
+          autocomplete="off"
           placeholder="Enter username"
           class="form-control"
           id="username"
@@ -21,6 +22,7 @@
         <input
           type="email"
           name="email"
+          autocomplete="off"
           placeholder="someone@333gmail.com"
           class="form-control"
           id="email"
@@ -37,13 +39,26 @@
             class="form-control"
             id="password"
             required
+            minlength="8"
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}"
           />
           <i class="fa-regular fa-eye" id="togglePassword"></i>
+
+          <div class="invalid-feedback">
+            Password must be at least 8 characters long and include uppercase,
+            lowercase, a number, and a special character.
+          </div>
         </div>
       </div>
       <div class="login-box">
-        <button class="btn btn-dark signUp">signUp</button>
-        <span>Already have an account?<a href="/login">login</a></span>
+        <button class="btn btn-dark allbtn">signUp</button>
+        <span
+          >Already have an account?<a
+            href="/login"
+            class="link-underline-primary link-underline-opacity-0-hover"
+            >login</a
+          ></span
+        >
       </div>
     </form>
   </div>

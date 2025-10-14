@@ -30,7 +30,7 @@
         <label for="image" class="form-label">Image Link</label>
         <input
           type="text"
-          ,
+          autocomplete="off"
           name="image"
           placeholder="enter the image url"
           class="form-control"
@@ -42,6 +42,7 @@
           <input
             type="text"
             name="price"
+            autocomplete="off"
             inputmode="decimal"
             pattern="[0-9]*\.?[0-9]+"
             placeholder="1200"
@@ -82,14 +83,15 @@
           type="text"
           name="location"
           placeholder="Karnataka , Manglore"
+          autocomplete="off"
           class="form-control"
           required
         />
         <div class="invalid-feedback">Please enter the location</div>
       </div>
 
-      <br /><br />
-      <button class="btn btn-dark mb-3 add-btn">Add :&#41;</button>
+      <br />
+      <button class="btn btn-dark mb-3 allbtn">Add :&#41;</button>
     </form>
   </div>
 </div>

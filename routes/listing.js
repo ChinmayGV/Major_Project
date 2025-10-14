@@ -4,19 +4,7 @@ const { listingSchema } = require("../schema.js");
 const ExpressError = require("../utils/ExpressError.js");
 const Listing = require("../models/listing.js");
 const countryMap = require("../init/countryCode.js");
-
-const validateListing = (req, res, next) => {
-  // 1. Validate the request body against your schema
-  const { error } = listingSchema.validate(req.body);
-  if (error) {
-    // 2. If there is an error, extract the message and throw it
-    const errMsg = error.details.map((el) => el.message).join(",");
-    throw new ExpressError(400, errMsg);
-  } else {
-    // 3. If there is no error, call next() to proceed to the route handler
-    next();
-  }
-};
+const { isLoggedIn, isOwner, validateListing } = require("../middleware.js");
 
 //Index Route
 router.get("/", async (req, res) => {
@@ -25,7 +13,7 @@ router.get("/", async (req, res) => {
 });
 
 //New Route
-router.get("/new", (req, res) => {
+router.get("/new", isLoggedIn, (req, res) => {
   res.render("listings/new.ejs");
 });
 
@@ -33,34 +21,42 @@ router.get("/new", (req, res) => {
 router.get("/:id", async (req, res) => {
   let { id } = req.params;
 
-  const listing = await Listing.findById(id).populate("reviews");
+  const listing = await Listing.findById(id)
+    .populate({
+      path: "reviews",
+      populate: {
+        path: "author",
+      },
+    })
+    .populate("owner");
   if (!listing) {
     req.flash("error", "Listing you requested for does not exist");
     return res.redirect("/listings");
   }
-  // console.log(req.body);
+
   res.render("listings/show.ejs", { listing });
 });
 
 //Create Route
-router.post("/", validateListing, async (req, res) => {
+router.post("/", isLoggedIn, validateListing, async (req, res) => {
   const newListingData = req.body;
   const countryName = countryMap[newListingData.country];
 
-  await Listing.create({
+  let newlisting = await Listing.create({
     ...newListingData,
     country: countryName,
     image: {
       filename: "listingimage",
       url: newListingData.image,
     },
+    owner: req.user._id,
   });
   req.flash("success", "New Listing Created (:");
   res.redirect("/listings");
 });
 
 //Edit Route
-router.get("/:id/edit", async (req, res) => {
+router.get("/:id/edit", isLoggedIn, isOwner, async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id);
   if (!listing) {
@@ -71,7 +67,7 @@ router.get("/:id/edit", async (req, res) => {
 });
 
 //Update Route
-router.put("/:id", validateListing, async (req, res) => {
+router.put("/:id", isLoggedIn, validateListing, async (req, res) => {
   let { id } = req.params;
   const newListingData = req.body;
   const countryName = countryMap[newListingData.country];
@@ -93,7 +89,7 @@ router.put("/:id", validateListing, async (req, res) => {
 });
 
 //Delete Route
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", isLoggedIn, isOwner, async (req, res) => {
   let { id } = req.params;
   //   res.send("deleted successfully");
   await Listing.findByIdAndDelete(id);
