@@ -190,70 +190,7 @@ body {
 .review-list::-webkit-scrollbar-thumb:hover {
   background: #555 !important; /* Color of the thumb on hover */
 }
-/* //---------------------------------------------------------------------// */
-/* --------------adding rating star function --------------------------------- */
-/* Container for the stars */
-.star-rating {
-  display: flex;
-  flex-direction: row-reverse; /* This flips the stars back to the correct LTR order */
-  justify-content: flex-end;
-}
 
-/* Hide the actual radio buttons */
-.star-rating input[type="radio"] {
-  display: none;
-}
-
-/* Style the labels as stars */
-.star-rating label {
-  font-size: 2rem; /* Make the stars bigger */
-  color: #ccc; /* Color for an empty star */
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-/* --- The Magic Part --- */
-
-/* When you hover over a star, color it AND all the stars that come AFTER it (which are visually before it due to row-reverse) */
-
-/* Container for the stars */
-/* Container for the stars */
-.star-rating {
-  display: flex !important;
-  flex-direction: row-reverse !important; /* Flips the stars to the correct LTR order */
-  justify-content: flex-end !important;
-}
-
-/* Hide the actual radio buttons */
-.star-rating input[type="radio"] {
-  display: none !important;
-}
-
-/* Style the labels as stars */
-.star-rating label {
-  content: "★" !important;
-  font-size: 2rem !important;
-  color: #ccc !important; /* Default color for an empty star */
-  cursor: pointer !important;
-  transition: color 0.2s ease-in-out !important;
-}
-
-/* * --- THIS IS THE FIX --- 
- * When you hover over a label, color ITSELF and all the labels AFTER it
- * in the HTML (which are visually BEFORE it due to row-reverse).
-*/
-.star-rating label:hover,
-.star-rating label:hover ~ label {
-  color: gold !important;
-}
-
-/* * This rule makes the selection "stick" after you click.
- * It colors all the labels that come after the selected radio button.
-*/
-.star-rating input[type="radio"]:checked ~ label {
-  color: gold !important;
-}
-/* //-------------------for reviews done------------------//  */
 .allbtn:hover {
   background-color: #fe424d !important;
   color: white !important;
@@ -364,4 +301,19 @@ body {
 .login-signup::selection {
   background-color: #fe424d !important;
   color: white !important;
+}
+
+.rvw-user {
+  font-size: 13px !important;
+  padding-left: 4.5px !important  ;
+  padding-top: 1px !important;
+  padding-bottom: 3px !important  ;
+  margin-right: 4px !important;
+}
+#rvw-user {
+  height: 10px !important;
+  width: 10px !important;
+  border: 0.5px solid black !important;
+  border-radius: 50% !important;
+  margin: 3px !important;
 }

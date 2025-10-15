@@ -5,96 +5,38 @@ const ExpressError = require("../utils/ExpressError.js");
 const Listing = require("../models/listing.js");
 const countryMap = require("../init/countryCode.js");
 const { isLoggedIn, isOwner, validateListing } = require("../middleware.js");
-
-//Index Route
-router.get("/", async (req, res) => {
-  const allListings = await Listing.find({});
-  res.render("./listings/index.ejs", { allListings });
+const listingController = require("../controllers/listings.js");
+const multer = require("multer"); //to parse form data
+const { storage } = require("../cloudConfig.js");
+const upload = multer({
+  storage,
+  limits: {
+    // The value is in bytes. This example sets a 5 MB limit.
+    fileSize: 1024 * 1024 * 3,
+  },
 });
+
+router
+  .route("/")
+  .get(listingController.index)
+  .post(
+    isLoggedIn,
+    validateListing,
+    upload.single("image"),
+    listingController.createListing,
+    listingController.multerSizehandler
+  );
 
 //New Route
-router.get("/new", isLoggedIn, (req, res) => {
-  res.render("listings/new.ejs");
-});
+router.get("/new", isLoggedIn, listingController.renderNewForm);
 
-//Show Route
-router.get("/:id", async (req, res) => {
-  let { id } = req.params;
-
-  const listing = await Listing.findById(id)
-    .populate({
-      path: "reviews",
-      populate: {
-        path: "author",
-      },
-    })
-    .populate("owner");
-  if (!listing) {
-    req.flash("error", "Listing you requested for does not exist");
-    return res.redirect("/listings");
-  }
-
-  res.render("listings/show.ejs", { listing });
-});
-
-//Create Route
-router.post("/", isLoggedIn, validateListing, async (req, res) => {
-  const newListingData = req.body;
-  const countryName = countryMap[newListingData.country];
-
-  let newlisting = await Listing.create({
-    ...newListingData,
-    country: countryName,
-    image: {
-      filename: "listingimage",
-      url: newListingData.image,
-    },
-    owner: req.user._id,
-  });
-  req.flash("success", "New Listing Created (:");
-  res.redirect("/listings");
-});
+router
+  .route("/:id")
+  .get(listingController.showListing)
+  .put(isLoggedIn, validateListing, listingController.editListing)
+  .delete(isLoggedIn, isOwner, listingController.deleteListing);
 
 //Edit Route
-router.get("/:id/edit", isLoggedIn, isOwner, async (req, res) => {
-  let { id } = req.params;
-  const listing = await Listing.findById(id);
-  if (!listing) {
-    req.flash("error", "Listing you requested for does not exist");
-    return res.redirect("/listings");
-  }
-  res.render("listings/edit.ejs", { listing, countryMap });
-});
-
-//Update Route
-router.put("/:id", isLoggedIn, validateListing, async (req, res) => {
-  let { id } = req.params;
-  const newListingData = req.body;
-  const countryName = countryMap[newListingData.country];
-
-  await Listing.findByIdAndUpdate(
-    id,
-    {
-      ...newListingData,
-      country: countryName,
-      image: {
-        filename: "listingimage",
-        url: newListingData.image,
-      },
-    },
-    { runValidators: true }
-  );
-  req.flash("success", "Listing Updated");
-  res.redirect(`/listings/${id}`);
-});
-
-//Delete Route
-router.delete("/:id", isLoggedIn, isOwner, async (req, res) => {
-  let { id } = req.params;
-  //   res.send("deleted successfully");
-  await Listing.findByIdAndDelete(id);
-  req.flash("success", "Listing Deleted!");
-  res.redirect("/listings");
-});
+router.get("/:id/edit", isLoggedIn, isOwner, listingController.renderEditForm);
 
 module.exports = router;
