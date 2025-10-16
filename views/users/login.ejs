@@ -1,7 +1,7 @@
 <%- layout("/layouts/boilerplate") %>
 
 <div class="row mt-3">
-  <h2 class="col-6 offset-3 login-signup">Login</h2>
+  <h2 class="col-6 offset-3 login-signup" id="title">Login</h2>
   <div class="col-6 offset-3">
     <form method="post" action="/login" class="needs-validation" novalidate>
       <div class="mb-3">
@@ -32,7 +32,7 @@
       </div>
       <div class="login-box">
         <button class="btn btn-dark allbtn">login</button>
-        <span
+        <span id="have-acnt"
           >don't have an account?<a
             href="/signup"
             class="link-underline-primary link-underline-opacity-0-hover"

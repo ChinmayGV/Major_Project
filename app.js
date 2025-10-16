@@ -19,6 +19,7 @@ const User = require("./models/user.js");
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
+const termsRouter = require("./routes/terms&policy.js");
 
 main()
   .then((res) => {
@@ -49,9 +50,9 @@ const sessionOptions = {
     httpOnly: true,
   },
 };
-app.get("/", (req, res) => {
-  res.send("Hi I am root");
-});
+// app.get("/", (req, res) => {
+//   res.send("Hi I am root");
+// });
 
 app.use(session(sessionOptions));
 app.use(flash());
@@ -83,6 +84,7 @@ app.get("/demouser", async (req, res) => {
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
+app.use("/terms", termsRouter);
 
 app.all(/.*/, (req, res) => {
   throw new ExpressError(404, "Page Not Found");

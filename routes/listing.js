@@ -33,7 +33,14 @@ router.get("/new", isLoggedIn, listingController.renderNewForm);
 router
   .route("/:id")
   .get(listingController.showListing)
-  .put(isLoggedIn, validateListing, listingController.editListing)
+  .put(
+    isLoggedIn,
+    isOwner,
+    upload.single("image"),
+    validateListing,
+    listingController.editListing,
+    listingController.multerSizehandler
+  )
   .delete(isLoggedIn, isOwner, listingController.deleteListing);
 
 //Edit Route

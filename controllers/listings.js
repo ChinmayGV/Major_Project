@@ -1,6 +1,9 @@
 const Listing = require("../models/listing.js");
 const countryMap = require("../init/countryCode.js");
 const multer = require("multer");
+const ExpressError = require("../utils/ExpressError.js");
+const axios = require("axios");
+
 module.exports.index = async (req, res) => {
   const allListings = await Listing.find({});
   res.render("./listings/index.ejs", { allListings });
@@ -32,6 +35,23 @@ module.exports.showListing = async (req, res) => {
 module.exports.createListing = async (req, res) => {
   let url = req.file.path;
   let filename = req.file.filename;
+  const locationString = req.body.location;
+
+  // The URL for the OpenCage API
+  const geocodeUrl = `https://api.opencagedata.com/geocode/v1/json`;
+
+  // The parameters for the request, including your key
+  const params = {
+    q: locationString,
+    key: process.env.OPENCAGE_MAP_TOKEN,
+    limit: 1,
+  };
+
+  // Make the API call
+  const response = await axios.get(geocodeUrl, { params });
+  const geometry = response.data.results[0].geometry;
+  // const newListing = new Listing(req.body.listing);
+  // newListing.location.coordinates = [geometry.lng, geometry.lat];
   const newListingData = req.body;
   const countryName = countryMap[newListingData.country];
 
@@ -41,6 +61,10 @@ module.exports.createListing = async (req, res) => {
     image: {
       filename: filename,
       url: url,
+    },
+    geometry: {
+      type: "Point",
+      coordinates: [geometry.lng, geometry.lat],
     },
     owner: req.user._id,
   });
@@ -63,18 +87,59 @@ module.exports.editListing = async (req, res) => {
   const newListingData = req.body;
   const countryName = countryMap[newListingData.country];
 
+  const locationString = req.body.location;
+  const geocodeUrl = `https://api.opencagedata.com/geocode/v1/json`;
+  const params = {
+    q: locationString,
+    key: process.env.OPENCAGE_MAP_TOKEN,
+    limit: 1,
+  };
+  const response = await axios.get(geocodeUrl, { params });
+  const geometry = response.data.results[0].geometry;
+
   await Listing.findByIdAndUpdate(
     id,
     {
       ...newListingData,
       country: countryName,
-      image: {
-        filename: "listingimage",
-        url: newListingData.image,
+      geometry: {
+        type: "Point",
+        coordinates: [geometry.lng, geometry.lat],
       },
     },
     { runValidators: true }
   );
+
+  if (req.file) {
+    const locationString = req.body.location;
+    const geocodeUrl = `https://api.opencagedata.com/geocode/v1/json`;
+    const params = {
+      q: locationString,
+      key: process.env.OPENCAGE_MAP_TOKEN,
+      limit: 1,
+    };
+    const response = await axios.get(geocodeUrl, { params });
+    const geometry = response.data.results[0].geometry;
+    let url = req.file.path;
+    let filename = req.file.filename;
+    await Listing.findByIdAndUpdate(
+      id,
+      {
+        ...newListingData,
+        country: countryName,
+        image: {
+          filename: filename,
+          url: url,
+        },
+        geometry: {
+          type: "Point",
+          coordinates: [geometry.lng, geometry.lat],
+        },
+      },
+      { runValidators: true }
+    );
+  }
+
   req.flash("success", "Listing Updated");
   res.redirect(`/listings/${id}`);
 };

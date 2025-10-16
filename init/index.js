@@ -23,4 +23,28 @@ const initDB = async () => {
   console.log("Data was initialized ");
 };
 
-initDB();
+// async function updateListings() {
+//   try {
+//     const defaultCoordinates = [77.6245, 12.9279]; // [longitude, latitude]
+
+//     const result = await Listing.updateMany(
+//       { geometry: { $exists: false } },
+//       {
+//         $set: {
+//           geometry: {
+//             type: "Point",
+//             coordinates: defaultCoordinates,
+//           },
+//         },
+//       }
+//     );
+
+//     console.log("Update successful!");
+//     console.log(`${result.modifiedCount} listings were updated.`);
+//   } catch (err) {
+//     console.error("Error updating listings:", err);
+//   }
+// }
+
+// initDB();
+// updateListings();

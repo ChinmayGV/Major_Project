@@ -24,6 +24,18 @@ const listingSchema = new Schema({
   location: {
     type: String,
   },
+  geometry: {
+    type: {
+      type: String,
+      enum: ["Point"],
+      required: true,
+      default: "Point",
+    },
+    coordinates: {
+      type: [Number],
+      required: true,
+    },
+  },
   country: {
     type: String,
   },
@@ -39,13 +51,13 @@ const listingSchema = new Schema({
   },
 });
 
-listingSchema.post("findOneAndDelete", async (listing) => {
-  // This function will run after a listing is deleted
-  if (listing && listing.reviews.length) {
-    // If the deleted listing had reviews...
-    const result = await Review.deleteMany({ _id: { $in: listing.reviews } });
-  }
-});
+// listingSchema.post("findOneAndDelete", async (listing) => {
+//   // This function will run after a listing is deleted
+//   if (listing && listing.reviews.length) {
+//     // If the deleted listing had reviews...
+//     const result = await Review.deleteMany({ _id: { $in: listing.reviews } });
+//   }
+// });
 
 const Listing = mongoose.model("Listing", listingSchema);
 module.exports = Listing;
