@@ -1,8 +1,30 @@
+<style>
+  .btn-search {
+    background-color: #fe424d;
+    color: white;
+    border-radius: 25px;
+    padding: 0 1rem 0 1rem;
+  }
+  .btn-search i {
+    display: inline;
+    margin-right: 0.5rem;
+  }
+  .btn-search:hover {
+    background-color: #fe424d;
+    color: white;
+  }
+  .search-inp {
+    border-radius: 25px;
+    padding: 0.5rem 3rem 0.5rem 3rem;
+    font-size: 1rem;
+  }
+</style>
+
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="/listings"
       ><i class="fa-regular fa-compass mr-0"></i
-      ><span id="brand" class="d-none d-sm-inline">WanderLusT</span></a
+      ><span id="brand" class="d-none d-sm-inline BRAND">WanderLusT</span></a
     >
     <button
       class="navbar-toggler"
@@ -16,6 +38,19 @@
       <!-- <div class="navbar-nav">
         <a class="nav-link" href="/listings">Explore</a>
       </div> -->
+      <div class="navbar-nav ms-auto">
+        <form class="d-flex" role="search">
+          <input
+            class="form-control me-2 search-inp"
+            type="search"
+            placeholder="Search Destination.."
+            aria-label="Search"
+          />
+          <button class="btn btn-search" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>Search
+          </button>
+        </form>
+      </div>
       <div class="navbar-nav ms-auto">
         <span id="addlisting">
           <a class="nav-link" href="/listings/new">Add new Listing</a>

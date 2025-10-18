@@ -45,6 +45,11 @@ const initDB = async () => {
 //     console.error("Error updating listings:", err);
 //   }
 // }
+// let updateCategory = async () => {
+//   await Listing.updateMany({}, { $set: { category: "Trending" } });
+// };
+
+// updateCategory();
 
 // initDB();
 // updateListings();

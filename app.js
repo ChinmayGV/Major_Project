@@ -11,6 +11,7 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -21,6 +22,8 @@ const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 const termsRouter = require("./routes/terms&policy.js");
 
+const dbUrl = process.env.ATLAS_DB_URL;
+const mongourl = "mongodb://127.0.0.1:27017/WanderLusT";
 main()
   .then((res) => {
     console.log("connected successfully to DB");
@@ -29,7 +32,7 @@ main()
     console.log(err);
   });
 async function main() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/WanderLusT");
+  await mongoose.connect(dbUrl);
 }
 
 app.set("view engine", "ejs");
@@ -40,8 +43,23 @@ app.use(express.json());
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
+  crypto: {
+    secret: process.env.SECRET,
+  },
+  touchAfter: 24 * 3600,
+  serverSelectionTimeoutMS: 30000, // 30 seconds
+  socketTimeoutMS: 45000,
+});
+
+store.on("error", () => {
+  console.log("ERROR in mongo session store");
+});
+
 const sessionOptions = {
-  secret: "mySuperCode",
+  store,
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {

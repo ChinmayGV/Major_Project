@@ -10,7 +10,22 @@ module.exports.listingSchema = Joi.object({
   geometry: Joi.object({
     type: Joi.string().valid("Point"),
     coordinates: Joi.array().items(Joi.number()).required().length(2),
-  }).required(),
+  }),
+  category: Joi.string()
+    .required()
+    .valid(
+      "Trending",
+      "Rooms",
+      "Mountains",
+      "Iconic Cities",
+      "Castles",
+      "Amazing Pools",
+      "Camping",
+      "Farms",
+      "Arctic",
+      "Domes",
+      "Boats"
+    ),
 });
 
 module.exports.reviewSchema = Joi.object({

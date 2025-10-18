@@ -30,10 +30,35 @@
         <div class="invalid-feedback">description can't be empty</div>
         <div class="valid-feedback">sounds good!</div>
       </div>
-
+      <!-- 
       <div class="mb-3">
         <label for="image" class="form-label">Upload new Image</label>
         <input type="file" name="image" class="form-control" />
+      </div> -->
+      <div class="row">
+        <div class="mb-3 col-12 col-md-6">
+          <label for="image" class="form-label">Upload new Image</label>
+          <input type="file" name="image" class="form-control" />
+        </div>
+        <div class="mb-3 col-12 col-md-6">
+          <label for="category" class="form-label">Category</label>
+          <select class="form-select" id="category" name="category">
+            <option selected value="<%= listing.category %>">
+              <%= listing.category %>
+            </option>
+            <option value="Trending">Trending</option>
+            <option value="Rooms">Rooms</option>
+            <option value="Mountains">Mountains</option>
+            <option value="Iconic Cities">Iconic Cities</option>
+            <option value="Castles">Castles</option>
+            <option value="Amazing Pools">Amazing Pools</option>
+            <option value="Camping">Camping</option>
+            <option value="Farms">Farms</option>
+            <option value="Arctic">Arctic</option>
+            <option value="Domes">Domes</option>
+            <option value="Boats">Boats</option>
+          </select>
+        </div>
       </div>
       <div class="row">
         <div class="mb-3 col-12 col-md-4">

@@ -4,6 +4,10 @@ body {
   flex-direction: column;
   min-height: 100vh;
 }
+.BRAND::selection {
+  background-color: #fe424d !important;
+  color: white !important;
+}
 #brand {
   font-family: "Playwrite DE SAS", cursive;
   color: #fe424d;
@@ -98,12 +102,12 @@ body {
 }
 
 /* Card Effect */
-.card-img-overlay {
-  opacity: 0;
+/* .card-img-overlay {
+  opacity: ;
   text-align: center;
-}
+} */
 .card-img-overlay:hover {
-  opacity: 0.4;
+  opacity: 0.2;
   background-color: white;
 }
 .add-btn {
@@ -240,7 +244,7 @@ body {
   justify-content: space-between;
 }
 
-.was-validated .form-control:valid {
+.was-validated .form-control :valid {
   background-image: none !important;
 }
 .was-validated #password:invalid {

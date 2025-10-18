@@ -5,7 +5,7 @@ const ExpressError = require("../utils/ExpressError.js");
 const axios = require("axios");
 
 module.exports.index = async (req, res) => {
-  const allListings = await Listing.find({});
+  const allListings = await Listing.find({}).maxTimeMS(30000);
   res.render("./listings/index.ejs", { allListings });
 };
 
@@ -96,8 +96,7 @@ module.exports.editListing = async (req, res) => {
   };
   const response = await axios.get(geocodeUrl, { params });
   const geometry = response.data.results[0].geometry;
-
-  await Listing.findByIdAndUpdate(
+  let result = await Listing.findByIdAndUpdate(
     id,
     {
       ...newListingData,
@@ -109,17 +108,8 @@ module.exports.editListing = async (req, res) => {
     },
     { runValidators: true }
   );
-
+  console.log(result);
   if (req.file) {
-    const locationString = req.body.location;
-    const geocodeUrl = `https://api.opencagedata.com/geocode/v1/json`;
-    const params = {
-      q: locationString,
-      key: process.env.OPENCAGE_MAP_TOKEN,
-      limit: 1,
-    };
-    const response = await axios.get(geocodeUrl, { params });
-    const geometry = response.data.results[0].geometry;
     let url = req.file.path;
     let filename = req.file.filename;
     await Listing.findByIdAndUpdate(
