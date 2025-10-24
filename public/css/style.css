@@ -244,7 +244,7 @@ body {
   justify-content: space-between;
 }
 
-.was-validated .form-control :valid {
+.was-validated .form-control:valid {
   background-image: none !important;
 }
 .was-validated #password:invalid {
