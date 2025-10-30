@@ -50,3 +50,18 @@ module.exports.userSchema = Joi.object({
     }),
   username: Joi.string().required(),
 });
+
+module.exports.searchSchema = Joi.object({
+  // 'q' is the name of your query parameter (e.g., /search?q=hello)
+  q: Joi.string()
+    .trim() // Removes leading/trailing whitespace
+    .max(100) // Prevents super long queries (DoS attack)
+    .allow(""), // Allows an empty search (e.g., /search?q=)
+});
+
+module.exports.searchSuggestionSchema = Joi.object({
+  q: Joi.string()
+    .trim()
+    .max(50) // Keep it short for suggestions
+    .allow(""),
+});

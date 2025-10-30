@@ -87,3 +87,23 @@ module.exports.isreviewAuthor = async (req, res, next) => {
   }
   next();
 };
+
+module.exports.validateSearch = (schema, property) => {
+  return (req, res, next) => {
+    // 'property' will be 'body', 'query', or 'params'
+    const { error } = schema.validate(req[property], { abortEarly: false });
+
+    if (error) {
+      const errorMessages = error.details.map((detail) => detail.message);
+      req.flash("error", "search lenght should be below length 100");
+      res.redirect("/listings");
+      return;
+    }
+
+    // IMPORTANT: Overwrite the req property with the validated and
+    // sanitized value (e.g., the trimmed string)
+    req[property] = schema.validate(req[property]).value;
+
+    next();
+  };
+};

@@ -107,7 +107,7 @@ body {
   text-align: center;
 } */
 .card-img-overlay:hover {
-  opacity: 0.2;
+  opacity: 0.1;
   background-color: white;
 }
 .add-btn {

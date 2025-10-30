@@ -94,53 +94,134 @@
   .tax-info {
     display: none;
   }
+
+  .filter a {
+    display: flex;
+    flex-direction: column; /* Stacks icon and text vertically */
+    align-items: center; /* Centers them horizontally */
+    justify-content: center; /* Centers them vertically */
+    text-decoration: none; /* Removes the link underline */
+    color: #6c757d; /* Sets the link color */
+    padding: 0.5rem; /* Adds some space */
+    /* font-size: 1rem; */
+  }
+
+  .filter a span {
+    font-size: 0.9rem; /* Makes the text a bit smaller */
+    margin-top: 0.25rem; /*Adds space between icon and text*/
+  }
+
+  /* Optional: Add a hover effect */
+  .filter a:hover {
+    opacity: 1;
+  }
+
+  #filters .filter a.active {
+    color: red;
+    opacity: 0.9;
+  }
 </style>
 <div id="filter-component-wrapper">
   <div class="outer">
     <div id="filters">
       <div class="filter">
-        <div><i class="fa-solid fa-fire"></i></div>
-        <p class="para">Trending</p>
+        <a
+          href="/listings?category=Trending"
+          class="<%= (typeof currentCategory !== 'undefined' && currentCategory === 'Trending') ? 'active' : '' %>"
+        >
+          <i class="fa-solid fa-fire"></i>
+          <span>Trending</span>
+        </a>
       </div>
       <div class="filter">
-        <div><i class="fa-solid fa-bed"></i></div>
-        <p class="para">Rooms</p>
+        <a
+          href="/listings?category=Rooms"
+          class="<%= (typeof currentCategory !== 'undefined' && currentCategory === 'Rooms') ? 'active' : '' %>"
+        >
+          <i class="fa-solid fa-bed"></i>
+          <span>Rooms</span>
+        </a>
       </div>
       <div class="filter">
-        <div><i class="fa-solid fa-mountain-city"></i></div>
-        <p class="para">Iconic Cities</p>
+        <a
+          href="/listings?category=Iconic Cities"
+          class="<%= (typeof currentCategory !== 'undefined' && currentCategory === 'Iconic Cities') ? 'active' : '' %>"
+        >
+          <i class="fa-solid fa-mountain-city"></i>
+          <span>Iconic Cities</span>
+        </a>
       </div>
       <div class="filter">
-        <div><i class="fa-solid fa-mountain"></i></div>
-        <p class="para">Mountains</p>
+        <a
+          href="/listings?category=Mountains"
+          class="<%= (typeof currentCategory !== 'undefined' && currentCategory === 'Mountains') ? 'active' : '' %>"
+        >
+          <i class="fa-solid fa-mountain"></i>
+          <span>Mountains</span>
+        </a>
       </div>
       <div class="filter">
-        <div><i class="fa-solid fa-house-chimney"></i></div>
-        <p class="para">Castles</p>
+        <a
+          href="/listings?category=Castles"
+          class="<%= (typeof currentCategory !== 'undefined' && currentCategory === 'Castles') ? 'active' : '' %>"
+        >
+          <i class="fa-solid fa-house-chimney"></i>
+          <span>Castles</span>
+        </a>
       </div>
       <div class="filter">
-        <div><i class="fa-solid fa-person-swimming"></i></div>
-        <p class="para">Pools</p>
+        <a
+          href="/listings?category=Pools"
+          class="<%= (typeof currentCategory !== 'undefined' && currentCategory === 'Pools') ? 'active' : '' %>"
+        >
+          <i class="fa-solid fa-person-swimming"></i>
+          <span>Pools</span>
+        </a>
       </div>
       <div class="filter">
-        <div><i class="fa-solid fa-campground"></i></div>
-        <p class="para">Camping</p>
+        <a
+          href="/listings?category=Camping"
+          class="<%= (typeof currentCategory !== 'undefined' && currentCategory === 'Camping') ? 'active' : '' %>"
+        >
+          <i class="fa-solid fa-campground"></i>
+          <span>Camping</span>
+        </a>
       </div>
       <div class="filter">
-        <div><i class="fa-solid fa-tractor"></i></div>
-        <p class="para">Farms</p>
+        <a
+          href="/listings?category=Farms"
+          class="<%= (typeof currentCategory !== 'undefined' && currentCategory === 'Farms') ? 'active' : '' %>"
+        >
+          <i class="fa-solid fa-tractor"></i>
+          <span>Farms</span>
+        </a>
       </div>
       <div class="filter">
-        <div><i class="fa-solid fa-snowflake"></i></div>
-        <p class="para">Arctic</p>
+        <a
+          href="/listings?category=Arctic"
+          class="<%= (typeof currentCategory !== 'undefined' && currentCategory === 'Arctic') ? 'active' : '' %>"
+        >
+          <i class="fa-solid fa-snowflake"></i>
+          <span>Arctic</span>
+        </a>
       </div>
       <div class="filter">
-        <div><i class="fa-solid fa-igloo"></i></div>
-        <p class="para">Domes</p>
+        <a
+          href="/listings?category=Domes"
+          class="<%= (typeof currentCategory !== 'undefined' && currentCategory === 'Domes') ? 'active' : '' %>"
+        >
+          <i class="fa-solid fa-igloo"></i>
+          <span>Domes</span>
+        </a>
       </div>
       <div class="filter">
-        <div><i class="fa-solid fa-sailboat"></i></div>
-        <p class="para">Boats</p>
+        <a
+          href="/listings?category=Boats"
+          class="<%= (typeof currentCategory !== 'undefined' && currentCategory === 'Boats') ? 'active' : '' %>"
+        >
+          <i class="fa-solid fa-sailboat"></i>
+          <span>Boats</span>
+        </a>
       </div>
     </div>
     <div class="tax-switch">

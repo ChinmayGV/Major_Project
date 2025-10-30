@@ -3,12 +3,88 @@ const countryMap = require("../init/countryCode.js");
 const multer = require("multer");
 const ExpressError = require("../utils/ExpressError.js");
 const axios = require("axios");
+const Fuse = require("fuse.js");
 
 module.exports.index = async (req, res) => {
-  const allListings = await Listing.find({}).maxTimeMS(30000);
-  res.render("./listings/index.ejs", { allListings });
+  const { category } = req.query;
+  let filter = {};
+  if (category) {
+    filter.category = category;
+  }
+  const allListings = await Listing.find(filter);
+  if (allListings.length === 0) {
+    req.flash("error", `Currently no place under ${category} section`);
+    res.redirect("/listings");
+    return;
+  }
+  res.render("./listings/index.ejs", {
+    allListings,
+    currentCategory: category,
+  });
 };
+module.exports.search = async (req, res) => {
+  try {
+    // 1. FIX: Get 'search' from req.query, not 'q'
+    const query = req.query.q;
+    if (!query) {
+      res.redirect("/listings");
+      return;
+    }
 
+    const allListings = await Listing.find({});
+
+    const options = {
+      keys: ["title", "location", "country"],
+      includeScore: true,
+      threshold: 0.2,
+    };
+
+    const fuse = new Fuse(allListings, options);
+    const results = fuse.search(query);
+    const searchResults = results.map((result) => result.item);
+    if (searchResults.length === 0) {
+      req.flash("error", "No listings found matching that search.");
+      res.redirect("/listings");
+      return;
+    }
+
+    res.render("listings/index.ejs", {
+      allListings: searchResults, // This should be 'allListings' if using index.ejs
+      query: query,
+    });
+  } catch (err) {
+    console.error(err);
+    // Handle errors
+  }
+};
+module.exports.suggestion = async (req, res) => {
+  try {
+    const { q } = req.query;
+
+    // If the query is empty, send no suggestions
+    if (!q) {
+      return res.json([]);
+    }
+
+    // Create a case-insensitive regex to find titles
+    // that *start with* the query string (the '^' symbol).
+    // This is fast and what you want for autocomplete.
+    const searchRegex = new RegExp("^" + q, "i");
+
+    // Find matching listings
+    const suggestions = await Listing.find({ title: { $regex: searchRegex } })
+      .select("title") // IMPORTANT: Only get the 'title' field
+      .limit(10); // IMPORTANT: Only send a few suggestions
+
+    // Map the results to a simple array of strings
+    const titles = suggestions.map((listing) => listing.title);
+
+    res.json(titles);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+};
 module.exports.renderNewForm = (req, res) => {
   res.render("listings/new.ejs");
 };

@@ -16,7 +16,6 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
-
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
@@ -32,7 +31,7 @@ main()
     console.log(err);
   });
 async function main() {
-  await mongoose.connect(dbUrl);
+  await mongoose.connect(mongourl);
 }
 
 app.set("view engine", "ejs");
@@ -44,7 +43,7 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 
 const store = MongoStore.create({
-  mongoUrl: dbUrl,
+  mongoUrl: mongourl,
   crypto: {
     secret: process.env.SECRET,
   },
@@ -68,9 +67,9 @@ const sessionOptions = {
     httpOnly: true,
   },
 };
-// app.get("/", (req, res) => {
-//   res.send("Hi I am root");
-// });
+app.get("/", (req, res) => {
+  res.send("Hi I am root");
+});
 
 app.use(session(sessionOptions));
 app.use(flash());

@@ -1,10 +1,19 @@
 const express = require("express");
 const router = express.Router();
-const { listingSchema } = require("../schema.js");
+const {
+  listingSchema,
+  searchSchema,
+  searchSuggestionSchema,
+} = require("../schema.js");
 const ExpressError = require("../utils/ExpressError.js");
 const Listing = require("../models/listing.js");
 const countryMap = require("../init/countryCode.js");
-const { isLoggedIn, isOwner, validateListing } = require("../middleware.js");
+const {
+  isLoggedIn,
+  isOwner,
+  validateListing,
+  validateSearch,
+} = require("../middleware.js");
 const listingController = require("../controllers/listings.js");
 const multer = require("multer"); //to parse form data
 const { storage } = require("../cloudConfig.js");
@@ -27,6 +36,16 @@ router
     listingController.multerSizehandler
   );
 
+router.get(
+  "/search",
+  validateSearch(searchSchema, "query"),
+  listingController.search
+);
+router.get(
+  "/suggestions",
+  validateSearch(searchSuggestionSchema, "query"),
+  listingController.suggestion
+);
 //New Route
 router.get("/new", isLoggedIn, listingController.renderNewForm);
 
