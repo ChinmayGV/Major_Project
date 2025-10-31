@@ -51,5 +51,5 @@ const initDB = async () => {
 
 // updateCategory();
 
-// initDB();
+initDB();
 // updateListings();

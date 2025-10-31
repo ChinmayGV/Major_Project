@@ -29,7 +29,7 @@ const listingSchema = new Schema({
       "Mountains",
       "Iconic Cities",
       "Castles",
-      "Amazing Pools",
+      "Pools",
       "Camping",
       "Farms",
       "Arctic",

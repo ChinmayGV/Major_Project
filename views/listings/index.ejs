@@ -120,6 +120,18 @@
     color: red;
     opacity: 0.9;
   }
+
+  .btn-outline-light {
+    background-color: transparent;
+    color: #6c757d;
+    /* opacity: 0.7; */
+    border: 1px solid #dee2e6;
+    height: 42px;
+  }
+  .btn-outline-light:hover {
+    color: #6c757d;
+    opacity: 1;
+  }
 </style>
 <div id="filter-component-wrapper">
   <div class="outer">
@@ -236,6 +248,32 @@
           >Check Taxes</label
         >
       </div>
+    </div>
+    <button
+      class="btn btn-outline-light"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#filterOffcanvas"
+      aria-controls="filterOffcanvas"
+    >
+      <i class="fa-solid fa-filter"></i> Filters
+    </button>
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="filterOffcanvas"
+      aria-labelledby="filterOffcanvasLabel"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="filterOffcanvasLabel">Filters</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="offcanvas-body"><%- include('../partials/filter.ejs') %></div>
     </div>
   </div>
 </div>

@@ -15,7 +15,7 @@ body {
 #addlisting {
   height: 40px;
   width: 135px;
-
+  padding-top: 10px !important ;
   margin-right: 10px;
   border-radius: 50px;
 }
@@ -33,7 +33,7 @@ body {
   flex: 1;
 }
 .navbar {
-  height: 5rem;
+  height: 5rem !important;
   background-color: white !important;
 }
 .fa-compass {
@@ -43,6 +43,7 @@ body {
 .nav-link {
   color: #222222 !important;
   padding-left: 20px !important;
+
   font-size: 13px !important  ;
   font-weight: 600 !important;
 }
@@ -377,4 +378,8 @@ body {
   margin-top: 10px;
   z-index: 10000;
   /* border: 1px solid black; */
+}
+
+.mode-btn {
+  padding: 10px !important ;
 }

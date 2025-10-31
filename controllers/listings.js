@@ -1,3 +1,4 @@
+const countryList = require("../utils/countries.js");
 const Listing = require("../models/listing.js");
 const countryMap = require("../init/countryCode.js");
 const multer = require("multer");
@@ -6,22 +7,68 @@ const axios = require("axios");
 const Fuse = require("fuse.js");
 
 module.exports.index = async (req, res) => {
-  const { category } = req.query;
+  const { category, sort, country } = req.query;
+
   let filter = {};
   if (category) {
     filter.category = category;
   }
-  const allListings = await Listing.find(filter);
-  if (allListings.length === 0) {
-    req.flash("error", `Currently no place under ${category} section`);
-    res.redirect("/listings");
-    return;
+
+  let selectedCountries = [];
+  if (!country) {
+    selectedCountries = [];
+  } else if (typeof country === "string") {
+    selectedCountries = [country];
+  } else {
+    selectedCountries = country;
   }
+
+  if (selectedCountries.length > 0) {
+    const regexCountries = selectedCountries.map((c) => new RegExp(c, "i"));
+    // Add it to the *same* filter object
+    filter.country = { $in: regexCountries };
+  }
+
+  // 3. Build the sort object
+  let sortOption = {};
+  if (sort === "price_asc") sortOption = { price: 1 };
+  else if (sort === "price_desc") sortOption = { price: -1 };
+  const allListings = await Listing.find(filter).sort(sortOption);
+  if (allListings.length === 0) {
+    // Check if any filters were applied at all
+    if (category || selectedCountries.length > 0) {
+      req.flash("error", "No listings found matching your current filters.");
+      res.redirect("/listings");
+      return;
+    }
+  }
+  // 6. Render the page with ALL data for the EJS files
   res.render("./listings/index.ejs", {
     allListings,
-    currentCategory: category,
+    currentCategory: category, // Your original variable
+    allCountries: countryList, // For the filter partial
+    selectedCountries, // For the filter partial
+    selectedSort: sort || "", // For the filter partial
   });
 };
+
+// module.exports.index = async (req, res) => {
+//   const { category } = req.query;
+//   let filter = {};
+//   if (category) {
+//     filter.category = category;
+//   }
+//   const allListings = await Listing.find(filter);
+//   if (allListings.length === 0) {
+//     req.flash("error", `Currently no place under ${category} section`);
+//     res.redirect("/listings");
+//     return;
+//   }
+//   res.render("./listings/index.ejs", {
+//     allListings,
+//     currentCategory: category,
+//   });
+// };
 module.exports.search = async (req, res) => {
   try {
     // 1. FIX: Get 'search' from req.query, not 'q'
