@@ -15,7 +15,8 @@ body {
 #addlisting {
   height: 40px;
   width: 135px;
-  padding-top: 10px !important ;
+  /* padding-top: 10px !important ; */
+  margin-top: 25px;
   margin-right: 10px;
   border-radius: 50px;
 }
@@ -36,6 +37,9 @@ body {
   height: 5rem !important;
   background-color: white !important;
 }
+#menu-button {
+  margin-top: 25px;
+}
 .fa-compass {
   color: #fe424d;
   font-size: 1.7rem;
@@ -43,7 +47,6 @@ body {
 .nav-link {
   color: #222222 !important;
   padding-left: 20px !important;
-
   font-size: 13px !important  ;
   font-weight: 600 !important;
 }
@@ -84,19 +87,25 @@ body {
 .listing-card {
   border: none !important;
   margin-bottom: 2rem;
+  border-radius: 2rem !important;
+  background-color: transparent !important;
 }
 .card-img-top {
-  border-radius: 1rem !important;
+  border-radius: 2rem !important;
   width: 100% !important;
   object-fit: cover !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important ;
+  padding-top: 10px !important ;
 }
 
 .card-body {
-  padding: 0 !important;
+  padding: 5px !important;
+  padding-left: 10px !important;
 }
 
-.card-text p {
-  font-weight: 400;
+.card-text {
+  font-weight: 300 !important;
 }
 .listing-link {
   text-decoration: none !important;
@@ -109,7 +118,8 @@ body {
 } */
 .card-img-overlay:hover {
   opacity: 0.1;
-  background-color: white;
+  background-color: lightblue;
+  border-radius: 1rem !important;
 }
 .add-btn {
   background-color: #fe424d !important;
@@ -380,6 +390,17 @@ body {
   /* border: 1px solid black; */
 }
 
-.mode-btn {
-  padding: 10px !important ;
+.mode-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  padding-right: 10px !important;
+}
+
+.mode-div p {
+  color: black !important;
+  font-size: small !important;
+  padding: 0;
 }
