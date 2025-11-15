@@ -22,6 +22,8 @@ router
     }),
     userController.login
   );
+// --- In your user/auth routes file ---
 
+router.get("/verify-email", userController.verifyEmail);
 router.get("/logout", userController.logout);
 module.exports = router;

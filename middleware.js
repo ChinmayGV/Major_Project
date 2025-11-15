@@ -107,3 +107,21 @@ module.exports.validateSearch = (schema, property) => {
     next();
   };
 };
+
+// --- In a middleware file ---
+
+module.exports.isVerified = (req, res, next) => {
+  // We also check req.isAuthenticated() to ensure they are logged in
+  if (req.isAuthenticated() && req.user.isVerified) {
+    return next(); // User is logged in AND verified
+  }
+
+  if (req.isAuthenticated() && !req.user.isVerified) {
+    req.flash("error", "Please verify your email to access this page.");
+    return res.redirect("/login"); // Or to a "please verify" page
+  }
+
+  // Not logged in at all
+  req.flash("error", "You must be signed in to do that.");
+  res.redirect("/login");
+};
