@@ -2,6 +2,7 @@ const User = require("../models/user.js");
 const crypto = require("crypto");
 // const nodemailer = require("nodemailer");
 const transporter = require("../config/nodemail.js");
+const { sendVerificationEmail } = require("../config/sendVerificationEmail.js");
 module.exports.renderSignUp = (req, res) => {
   res.render("users/signup.ejs");
 };
@@ -58,12 +59,16 @@ module.exports.signup = async (req, res, next) => {
     // --- UNCOMMENT THIS BLOCK TO SEND REAL EMAIL ---
     await transporter.sendMail({
       to: registeredUser.email,
-      from: "your-email@wanderlust.com", // Must be your authenticated email
+      from: ` <${process.env.EMAIL_USER}>`, // Must be your authenticated email
       subject: "Verify Your Email for Wanderlust",
       html: `
-        <p>Thanks for registering for Wanderlust!</p>
-        <p>Please click this link to verify your email:</p>
-        <a href="${verificationLink}">${verificationLink}</a>
+        <h1>Email Verification</h1>
+        <p>Thank you for signing up! Please click the link below to verify your email address:</p>
+        <a href="${verificationLink}" style="padding: 10px 15px; background-color: #0d6efd; color: white; text-decoration: none; border-radius: 5px;">
+          Verify Email
+        </a>
+        <br>
+        <p>If you did not create an account, please ignore this email.</p>
       `,
     });
 
@@ -77,7 +82,7 @@ module.exports.signup = async (req, res, next) => {
     // We have removed the req.login() block
 
     req.flash("success", "click on the link sent to your email");
-    res.redirect("/login"); // Send them to the login page
+    res.redirect("/signup/email"); // Send them to the login page
   } catch (e) {
     req.flash("error", e.message);
     res.redirect("/signup");
@@ -142,5 +147,56 @@ module.exports.verifyEmail = async (req, res) => {
   } catch (e) {
     req.flash("error", "Something went wrong.");
     res.redirect("/login");
+  }
+};
+
+module.exports.renderEmailPage = (req, res) => {
+  res.render("partials/emailPage.ejs");
+};
+
+module.exports.renderReVerifyEmailPage = (req, res) => {
+  res.render("users/resendVerificationPage.ejs", { email: req.user.email });
+};
+
+module.exports.resendEmail = async (req, res) => {
+  try {
+    const { email: newEmail } = req.body;
+    const user = await User.findById(req.user._id);
+
+    // 1. Generate a secure random token
+    const verificationToken = crypto.randomBytes(32).toString("hex");
+    user.emailVerificationToken = verificationToken; // Ensure your User model has this field
+    user.emailVerificationTokenExpires = Date.now() + 3600000; // 1 hour expiry
+
+    let flashMessage = "";
+
+    // CASE 1: User updated their email address
+    if (newEmail !== user.email) {
+      user.email = newEmail;
+      user.isEmailVerified = false; // Mark new email as unverified
+      flashMessage = `Email address updated. A verification link has been sent to ${user.email}.`;
+    }
+    // CASE 2: User is resending to the SAME email
+    else {
+      flashMessage = `A new verification link has been sent to ${user.email}.`;
+    }
+
+    // Save changes (new token, new expiry, and potentially new email)
+    await user.save();
+
+    // 2. Create the full verification URL
+    // Make sure to set "BASE_URL" in your .env file (e.g., http://localhost:3000)
+    const verificationLink = `http://${req.headers.host}/verify-email?token=${verificationToken}`;
+
+    // 3. Send the email with the link
+    await sendVerificationEmail(user.email, verificationLink);
+
+    req.flash("success", flashMessage + " Please check your inbox.");
+    // Redirect back to the same page, or wherever you prefer
+    res.redirect("/signup/email");
+  } catch (e) {
+    console.error("Error in resend-verification:", e);
+    req.flash("error", "Something went wrong. Please try again.");
+    res.redirect("/signup/email");
   }
 };

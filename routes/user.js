@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user.js");
 const passport = require("passport");
-const { saveRedirectUrl } = require("../middleware.js");
+const { saveRedirectUrl, isLoggedIn } = require("../middleware.js");
 const { validateUser } = require("../middleware.js");
 const userController = require("../controllers/users.js");
 
@@ -26,4 +26,15 @@ router
 
 router.get("/verify-email", userController.verifyEmail);
 router.get("/logout", userController.logout);
+router.get("/signup/email", userController.renderEmailPage);
+router.get(
+  "/resend-verification-link",
+  isLoggedIn,
+  userController.renderReVerifyEmailPage
+);
+router.post(
+  "/resend-verification-link",
+  isLoggedIn,
+  userController.resendEmail
+);
 module.exports = router;

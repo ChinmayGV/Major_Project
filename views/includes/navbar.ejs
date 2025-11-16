@@ -13,7 +13,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav ms-auto">
+      <!-- <div class="navbar-nav ms-auto">
         <form
           class="d-flex"
           role="search"
@@ -33,8 +33,33 @@
           </button>
           <div id="suggestions-box"></div>
         </form>
+      </div> -->
+      <div class="navbar-nav ms-auto">
+        <% const hideOnPaths = ['/login', '/signup','/listings/new']; let
+        shouldShow = true; if (typeof currentPath !== 'undefined') { shouldShow
+        = !hideOnPaths.includes(currentPath) && !currentPath.includes('/edit');
+        } %> <% if (shouldShow) { %>
+        <form
+          class="d-flex"
+          role="search"
+          action="/listings/search"
+          method="get"
+        >
+          <input
+            class="form-control me-2 search-inp"
+            type="search"
+            placeholder="Search Destination.."
+            aria-label="Search"
+            name="q"
+            autocomplete="off"
+          />
+          <button class="btn btn-search" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>Search
+          </button>
+          <div id="suggestions-box"></div>
+        </form>
+        <% } %>
       </div>
-
       <div class="navbar-nav ms-auto">
         <!-- <div class="mode-div">
           <span class="mode-btn">

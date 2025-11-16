@@ -1,0 +1,36 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <h1 class="text-center">Verify Your Email</h1>
+    <p>
+      Your email is not yet verified. Please use the form below to resend the
+      verification code. If you entered the wrong email during signup, you can
+      correct it here.
+    </p>
+
+    <form
+      action="/resend-verification-link"
+      method="POST"
+      class="needs-validation"
+      novalidate
+    >
+      <div class="mb-3">
+        <label for="email" class="form-label">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-control"
+          required
+          value="<%= email %>"
+        />
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">Please enter a valid email.</div>
+      </div>
+      <button type="submit" class="btn btn-success">
+        Resend Verification Code
+      </button>
+    </form>
+  </div>
+</div>

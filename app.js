@@ -67,6 +67,12 @@ const sessionOptions = {
     httpOnly: true,
   },
 };
+
+app.use((req, res, next) => {
+  res.locals.currentPath = req.path; // This is the "route" you want to check
+  next();
+});
+
 app.get("/", (req, res) => {
   res.send("Hi I am root");
 });
@@ -87,6 +93,7 @@ app.use((req, res, next) => {
   res.locals.currUser = req.user;
   next();
 });
+
 app.get("/demouser", async (req, res) => {
   let fakeUser = new User({
     email: "student@33gmail.com",

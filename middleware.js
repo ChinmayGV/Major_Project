@@ -118,7 +118,7 @@ module.exports.isVerified = (req, res, next) => {
 
   if (req.isAuthenticated() && !req.user.isVerified) {
     req.flash("error", "Please verify your email to access this page.");
-    return res.redirect("/login"); // Or to a "please verify" page
+    return res.redirect("/resend-verification-link"); // Or to a "please verify" page
   }
 
   // Not logged in at all

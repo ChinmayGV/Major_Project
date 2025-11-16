@@ -6,11 +6,18 @@ const {
   validateReview,
   isLoggedIn,
   isreviewAuthor,
+  isVerified,
 } = require("../middleware.js");
 const reviewController = require("../controllers/reviews.js");
 //Reviews
 //Post Route
-router.post("/", isLoggedIn, validateReview, reviewController.createReview);
+router.post(
+  "/",
+  isLoggedIn,
+  isVerified,
+  validateReview,
+  reviewController.createReview
+);
 
 //Delete Review Route
 router.delete(
