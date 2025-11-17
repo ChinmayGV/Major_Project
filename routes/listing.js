@@ -13,6 +13,7 @@ const {
   isOwner,
   validateListing,
   validateSearch,
+  isVerified,
 } = require("../middleware.js");
 const listingController = require("../controllers/listings.js");
 const multer = require("multer"); //to parse form data
@@ -47,7 +48,7 @@ router.get(
   listingController.suggestion
 );
 //New Route
-router.get("/new", isLoggedIn, listingController.renderNewForm);
+router.get("/new", isLoggedIn, isVerified, listingController.renderNewForm);
 
 router
   .route("/:id")

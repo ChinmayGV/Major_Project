@@ -35,10 +35,11 @@
         </form>
       </div> -->
       <div class="navbar-nav ms-auto">
-        <% const hideOnPaths = ['/login', '/signup','/listings/new']; let
-        shouldShow = true; if (typeof currentPath !== 'undefined') { shouldShow
-        = !hideOnPaths.includes(currentPath) && !currentPath.includes('/edit');
-        } %> <% if (shouldShow) { %>
+        <% const hideOnPaths = ['/login',
+        '/signup','/listings/new','/resend-verification-link']; let shouldShow =
+        true; if (typeof currentPath !== 'undefined') { shouldShow =
+        !hideOnPaths.includes(currentPath) && !currentPath.includes('/edit'); }
+        %> <% if (shouldShow) { %>
         <form
           class="d-flex"
           role="search"
@@ -79,11 +80,8 @@
           <a class="nav-link" href="/listings/new">Add new Listing</a>
         </span>
 
-        <!-- <a class="nav-link" href="/signup">Sign up</a>
-        <a class="nav-link" href="/login">Log in</a>
-        <a class="nav-link" href="/logout">Log out</a> -->
         <% if(!currUser) {%>
-        <button id="menu-button" class="menu-toggle">
+        <button id="menu-button" class="menu-toggle" aria-label="Open menu">
           <i class="fa-solid fa-bars"></i>
         </button>
 
@@ -92,14 +90,51 @@
           <a href="/signup">Sign up</a>
         </div>
         <% } %> <% if(currUser){ %>
-        <button id="menu-button" class="menu-toggle">
+        <button
+          id="menu-button"
+          class="menu-toggle"
+          aria-label="Open user menu"
+        >
           <i class="fa-regular fa-user"></i>
         </button>
 
-        <div id="dropdown-menu" class="menu-content">
-          <a href="/logout"
-            >Logout <i class="fa-solid fa-arrow-right-from-bracket"></i>
-          </a>
+        <div id="dropdown-menu" class="menu-content chrome-style">
+          <div class="menu-header">
+            <a href="/myprofile" class="UserProfile">
+              <div class="header-avatar">
+                <% if (currUser.profilePicture) { %>
+                <img
+                  src="<%= currUser.profilePicture %>"
+                  alt="<%= currUser.username || 'User' %>"
+                />
+                <% } else { %>
+                <i class="fa-regular fa-user"></i>
+                <% } %>
+              </div>
+            </a>
+
+            <div class="header-info">
+              <span class="user-name"><%= currUser.username || 'User' %></span>
+              <span class="user-email"
+                ><%= currUser.email || 'email@example.com' %></span
+              >
+            </div>
+          </div>
+
+          <nav class="menu-links">
+            <a href="/likings">My Reviews</a>
+            <a href="/MyBookings">Bookings</a>
+            <a href="/settings">Settings</a>
+          </nav>
+
+          <hr class="menu-divider" />
+
+          <nav class="menu-links">
+            <a href="/logout" class="logout-link">
+              Logout
+              <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </a>
+          </nav>
         </div>
         <% } %>
       </div>

@@ -1,0 +1,210 @@
+/* --- Color Variables (Easy to customize) --- */
+:root {
+  /* Light Theme (Logged Out) */
+  --nav-bg: #ffffff;
+  --nav-border: #e0e0e0;
+  --nav-text: #333;
+  --nav-hover-bg: #f4f4f4;
+
+  /* Dark Theme (Logged In) */
+  /* --dark-bg: #282828;
+  --dark-bg-hover: #3a3a3a;
+  --dark-border: #444;
+  --dark-text-primary: #e8eaed;
+  --dark-text-secondary: #bdc1c6;
+  --dark-red: #f28b82; */
+
+  --dark-bg: var(--nav-bg); /* Use light background */
+  --dark-bg-hover: var(--nav-hover-bg); /* Use light hover */
+  --dark-border: var(--nav-border); /* Use light border */
+  --dark-text-primary: var(--nav-text); /* Use dark text */
+  --dark-text-secondary: #555; /* A slightly lighter dark text */
+  --dark-red: #d9534f;
+
+  /* General */
+  --primary-color: #007bff;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  margin: 0;
+}
+
+/* --- Main Navbar Structure --- */
+.navbar {
+  background-color: var(--nav-bg);
+  border-bottom: 1px solid var(--nav-border);
+  padding: 10px 20px;
+  display: flex;
+  justify-content: flex-end; /* Pushes menu to the right */
+}
+
+.navbar-menu {
+  position: relative; /* Required for the dropdown */
+}
+
+/* --- Round Button (Works for both states) --- */
+.menu-toggle {
+  background: none;
+  border: 1px solid var(--nav-border);
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: var(--nav-text);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-toggle:hover {
+  background-color: var(--nav-hover-bg);
+}
+
+.menu-toggle:focus {
+  outline: 2px solid var(--primary-color);
+  box-shadow: 0 0 5px var(--primary-color);
+}
+
+/* --- Base Dropdown (Hidden by default) --- */
+.menu-content {
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px) translateX(-20px);
+  position: absolute;
+  top: 120%;
+  right: 0;
+  min-width: 180px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+}
+
+/* --- Show Class (Added by JavaScript) --- */
+.menu-content.show {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) translateX(-20px);
+}
+
+/* --- STYLE 1: Light Menu (Logged Out) --- */
+/* Uses :not() to only select the non-chrome-style menu */
+.menu-content:not(.chrome-style) {
+  background-color: var(--nav-bg);
+  border: 1px solid var(--nav-border);
+  overflow: hidden; /* Clips the links to the border-radius */
+}
+
+.menu-content:not(.chrome-style) a {
+  display: block;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: var(--nav-text);
+  font-size: 0.95rem;
+}
+
+.menu-content:not(.chrome-style) a:hover {
+  background-color: var(--nav-hover-bg);
+}
+
+/* --- STYLE 2: Dark Menu (Logged In) --- */
+.menu-content.chrome-style {
+  background-color: var(--dark-bg);
+  border: 1px solid var(--dark-border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  min-width: 280px;
+  padding: 8px 0;
+}
+
+.menu-header {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--dark-border);
+  margin-bottom: 8px;
+}
+
+.header-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--dark-bg-hover);
+  color: var(--dark-text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.header-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.header-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.header-info .user-name {
+  font-weight: 600;
+  color: var(--dark-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.header-info .user-email {
+  font-size: 0.85rem;
+  color: var(--dark-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chrome-style .menu-links a {
+  display: block;
+  padding: 10px 16px;
+  text-decoration: none;
+  color: var(--dark-text-primary);
+  font-size: 0.9rem;
+  border-radius: 4px;
+  margin: 2px 8px;
+}
+
+.chrome-style .menu-links a:hover {
+  background-color: var(--dark-bg-hover);
+}
+
+.menu-divider {
+  border: none;
+  border-top: 1px solid var(--dark-border);
+  margin: 8px 0;
+}
+
+.chrome-style .logout-link {
+  color: var(--dark-red);
+}
+
+.chrome-style .logout-link:hover {
+  color: var(--dark-red);
+  background-color: rgba(242, 139, 130, 0.1);
+}
+
+.header-avatar:hover {
+  transform: scale(1.03); /* Makes it 10% bigger */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  cursor: pointer; /* Changes the mouse to a hand */
+}
