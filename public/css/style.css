@@ -359,3 +359,88 @@ body {
   font-size: small !important;
   padding: 0;
 }
+
+/* for prfile box email  */
+.verify {
+  color: darkgoldenrod;
+  text-decoration: none;
+}
+.Email {
+  color: #555555;
+}
+/* 1. The Container */
+.verify {
+  position: relative;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  z-index: 1; /* Base z-index */
+}
+
+/* Lift on hover so it sits on top of other text */
+.verify:hover {
+  z-index: 9999;
+}
+
+/* 2. The Tooltip Body (Light Mode) */
+.verify::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 125%; /* Moved up slightly */
+  left: 75%;
+  transform: translateX(-50%);
+
+  /* --- Light Mode Styling --- */
+  background-color: #ffffff; /* White background */
+  color: #333333; /* Dark Grey text */
+  border: 1px solid #e0e0e0; /* Very subtle border */
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); /* Soft shadow to make it pop */
+  font-weight: 500; /* Slightly bolder text looks better in light mode */
+  /* ------------------------ */
+
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  font-family: sans-serif;
+
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+/* 3. The Triangle Arrow (Light Mode) */
+.verify::after {
+  content: "";
+  position: absolute;
+  bottom: 115%; /* Adjust to touch the bottom of bubble */
+  left: 50%;
+  transform: translateX(-50%);
+
+  border-width: 6px;
+  border-style: solid;
+
+  /* --- Light Mode Arrow --- */
+  /* Only the top border is white (pointing down), others transparent */
+  border-color: #ffffff transparent transparent transparent;
+  /* ------------------------ */
+
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+/* 4. Reveal on Hover (Slide up effect) */
+.verify:hover::before {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-5px);
+}
+.verify:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-5px);
+}
+/* ----------------------------- */

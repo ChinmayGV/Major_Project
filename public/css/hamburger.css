@@ -45,29 +45,36 @@ body {
 }
 
 /* --- Round Button (Works for both states) --- */
+/* 1. The Button Container */
 .menu-toggle {
-  background: none;
-  border: 1px solid var(--nav-border);
+  width: 40px; /* Fixed width */
+  height: 40px; /* Fixed height */
+  border-radius: 50%; /* Makes the button a circle */
+  padding: 0; /* Remove default button padding */
+  border: 1px solid #ccc; /* Optional: subtle border */
+  background: white;
   cursor: pointer;
-  font-size: 1.1rem;
-  color: var(--nav-text);
-  transition: background-color 0.2s ease, box-shadow 0.2s ease;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  padding: 0;
+  overflow: hidden; /* CRITICAL: Cuts off any part of image outside the circle */
+
+  /* Flexbox centers the content perfectly */
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 
+/* 2. The Image styling */
+.nav-user-img {
+  width: 100%; /* Fill the button width */
+  height: 100%; /* Fill the button height */
+  object-fit: cover; /* THE MAGIC: Zooms image to fill circle without stretching */
+  border-radius: 50%; /* Ensures image itself is round */
+  display: block; /* Removes weird bottom spacing */
+}
+
+/* 3. Optional: Hover effect */
 .menu-toggle:hover {
-  background-color: var(--nav-hover-bg);
-}
-
-.menu-toggle:focus {
-  outline: 2px solid var(--primary-color);
-  box-shadow: 0 0 5px var(--primary-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  border-color: #b3b3b3;
 }
 
 /* --- Base Dropdown (Hidden by default) --- */
@@ -170,7 +177,8 @@ body {
   font-size: 0.85rem;
   color: var(--dark-text-secondary);
   white-space: nowrap;
-  overflow: hidden;
+  /* overflow: hidden; */
+  overflow: visible;
   text-overflow: ellipsis;
 }
 

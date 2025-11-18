@@ -5,6 +5,7 @@ const multer = require("multer");
 const ExpressError = require("../utils/ExpressError.js");
 const axios = require("axios");
 const Fuse = require("fuse.js");
+const { cloudinary } = require("../cloudConfig.js");
 
 module.exports.index = async (req, res) => {
   const { category, sort, country } = req.query;
@@ -259,8 +260,12 @@ module.exports.editListing = async (req, res) => {
 
 module.exports.deleteListing = async (req, res) => {
   let { id } = req.params;
-  //   res.send("deleted successfully");
-  await Listing.findByIdAndDelete(id);
+
+  let deletedListing = await Listing.findByIdAndDelete(id);
+
+  if (deletedListing.image && deletedListing.image.filename) {
+    await cloudinary.uploader.destroy(deletedListing.image.filename);
+  }
   req.flash("success", "Listing Deleted!");
   res.redirect("/listings");
 };

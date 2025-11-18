@@ -17,39 +17,38 @@ const initDB = async () => {
   await Listing.deleteMany({});
   initData.data = initData.data.map((obj) => ({
     ...obj,
-    owner: "68ee3d836fd6d07fe3793ba9",
+    owner: "691c9fbef2350426ea998541",
   }));
   await Listing.insertMany(initData.data);
   console.log("Data was initialized ");
 };
 
-// async function updateListings() {
-//   try {
-//     const defaultCoordinates = [77.6245, 12.9279]; // [longitude, latitude]
+async function updateListings() {
+  try {
+    const defaultCoordinates = [77.6245, 12.9279]; // [longitude, latitude]
 
-//     const result = await Listing.updateMany(
-//       { geometry: { $exists: false } },
-//       {
-//         $set: {
-//           geometry: {
-//             type: "Point",
-//             coordinates: defaultCoordinates,
-//           },
-//         },
-//       }
-//     );
+    const result = await Listing.updateMany(
+      { geometry: { $exists: false } },
+      {
+        $set: {
+          geometry: {
+            type: "Point",
+            coordinates: defaultCoordinates,
+          },
+        },
+      }
+    );
 
-//     console.log("Update successful!");
-//     console.log(`${result.modifiedCount} listings were updated.`);
-//   } catch (err) {
-//     console.error("Error updating listings:", err);
-//   }
-// }
-// let updateCategory = async () => {
-//   await Listing.updateMany({}, { $set: { category: "Trending" } });
-// };
+    console.log("Update successful!");
+    console.log(`${result.modifiedCount} listings were updated.`);
+  } catch (err) {
+    console.error("Error updating listings:", err);
+  }
+}
+let updateCategory = async () => {
+  await Listing.updateMany({}, { $set: { category: "Trending" } });
+};
+// initDB();
+updateCategory();
 
-// updateCategory();
-
-initDB();
 // updateListings();

@@ -49,6 +49,18 @@ module.exports.userSchema = Joi.object({
         "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.",
     }),
   username: Joi.string().required(),
+  age: Joi.number().min(1).max(120).allow(null, ""),
+  gender: Joi.string().valid("Male", "Female", "Other").allow(null, ""),
+  phone: Joi.string()
+    .pattern(/^[0-9]{10}$/) // Regex for 0-9, exactly 10 times
+    .allow(null, "") // Allow empty if they don't want to add one
+    .messages({
+      "string.pattern.base": "Phone number must be exactly 10 digits.",
+    }),
+
+  preferences: Joi.array().items(Joi.string()),
+
+  profilePicture: Joi.string().allow(null, ""),
 });
 
 module.exports.searchSchema = Joi.object({
@@ -57,7 +69,7 @@ module.exports.searchSchema = Joi.object({
     .trim() // Removes leading/trailing whitespace
     .max(100) // Prevents super long queries (DoS attack)
     .allow(""), // Allows an empty search (e.g., /search?q=)
-});
+}).unknown(true);
 
 module.exports.searchSuggestionSchema = Joi.object({
   q: Joi.string()

@@ -4,6 +4,7 @@ const {
   listingSchema,
   searchSchema,
   searchSuggestionSchema,
+  multerSizehandler,
 } = require("../schema.js");
 const ExpressError = require("../utils/ExpressError.js");
 const Listing = require("../models/listing.js");
@@ -21,7 +22,6 @@ const { storage } = require("../cloudConfig.js");
 const upload = multer({
   storage,
   limits: {
-    // The value is in bytes. This example sets a 5 MB limit.
     fileSize: 1024 * 1024 * 3,
   },
 });

@@ -1,0 +1,477 @@
+<% layout('/layouts/boilerplate') %>
+
+<style>
+  /* --- GLOBAL & LAYOUT --- */
+  body {
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f7f9fb;
+    color: #333;
+  }
+  .container {
+    width: 90%;
+    max-width: 900px;
+    margin: 15px auto;
+  }
+  .card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  }
+
+  /* --- TOP PROFILE HEADER --- */
+  .profile-header {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #edf0f5;
+  }
+  .profile-img {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #eef1f5;
+  }
+  h2 { margin: 0; font-size: 26px; font-weight: 600; }
+  .email { color: #777; font-size: 14px; margin-top: 4px; }
+
+  /* --- SECTION HEADERS --- */
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 15px;
+  }
+  .section-title {
+    font-weight: 600;
+    font-size: 18px;
+    color: #2c3e50;
+    letter-spacing: -0.5px;
+  }
+
+  /* --- INFO BOXES (View Mode) --- */
+  .info-box, .list-box {
+    padding: 20px 25px;
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #e0e6ed;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    transition: all 0.3s ease;
+  }
+  
+  .info-row {
+    margin: 14px 0;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    color: #444;
+  }
+  .info-row label {
+    width: 100px;
+    font-weight: 600;
+    color: #8898aa;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+
+  /* --- EDIT MODE INPUTS (Glow Effect) --- */
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  select {
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 2px solid #eef1f5;
+    width: 100%; 
+    max-width: 400px;
+    font-size: 15px;
+    background: #fbfcff;
+    color: #333;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+  }
+
+  /* Hover & Focus Effects */
+  input:hover, select:hover {
+    border-color: #cbd5e1;
+    background: #fff;
+  }
+  input:focus, select:focus {
+    border-color: #007bff;
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1);
+    transform: translateY(-1px);
+  }
+
+  /* --- PREFERENCES (Selectable Chips) --- */
+  .pref-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  /* Hide default checkbox */
+  .pref-grid input[type="checkbox"] {
+    display: none;
+  }
+  /* Chip Styling */
+  .pref-label {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #f1f5f9;
+    color: #64748b;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+  }
+  .pref-label:hover {
+    background: #e2e8f0;
+    transform: translateY(-2px);
+  }
+  /* Selected State */
+  .pref-grid input[type="checkbox"]:checked + .pref-label {
+    background: #007bff;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+    transform: translateY(-2px);
+  }
+
+  /* --- BUTTONS --- */
+  .edit-btn {
+    background: #ffffff;
+    color: white;
+    border: 2px solid #007bff;
+    padding: 8px 18px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+  .edit-btn:hover {
+    background: #007bff;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+  }
+
+  .save-btn {
+    margin-top: 25px;
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+    transition: all 0.2s ease;
+  }
+  .save-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+  }
+  
+  /* Verify Link */
+  .Verify { text-decoration: none; color: #d97706; font-weight: 500;}
+  .Verify:hover { text-decoration: underline;}
+
+
+
+  /*delete button */
+  .btn {
+  background-color: #fff5f5; /* Very light red background */
+  color: #e02424;            /* Dark Red Text */
+  border: 1px solid #fbd5d5; /* Subtle red border */
+  
+  padding: 10px 20px;
+  border-radius: 8px;        /* Rounded corners */
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  background-color: #c81e1e; /* Bold Red on Hover */
+  color: #ffffff;            /* White Text */
+  border-color: #c81e1e;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(200, 30, 30, 0.2); /* Red glow */
+}
+/* NEW: Delete Button Styling */
+.delete-form {
+  margin-left: auto; /* This magic property pushes it to the far right */
+  align-self: flex-start; /* Aligns it to the top-right */
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  color: #555; /* Red color */
+  font-size: 18px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  opacity: 0.7; /* Slightly faded usually */
+}
+
+.delete-btn:hover {
+  background-color: #ffe5e5; /* Light red background on hover */
+  opacity: 1;
+  color: #ff4d4d;
+  transform: scale(1.1); /* Slight zoom effect */
+}
+
+
+.delete-profilePic{
+  position:absolute;
+  margin-left: 650px;
+}
+
+/* ----------------------- */
+</style>
+
+<div class="container">
+  <div class="card">
+    
+    <div class="profile-header">
+     
+      <% if(currUser.profilePicture){%>
+        <img class="profile-img" src="<%= currUser.profilePicture %>" alt="User" />
+      <%} else { %>
+        <img class="profile-img" src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png" alt="User" />
+      <% } %>
+      
+      <div>
+        <h2><%= currUser.username %></h2>
+        <p class="email">
+          <% if(currUser.isVerified) {%> 
+            <%= currUser.email%> 
+          <% }else{%>
+            <span class="Email"><%=currUser.email%></span>
+            <a href="/resend-verification-link" class="Verify" data-tooltip="Verify Email">
+               <i class="fa-solid fa-exclamation"></i> (verify mail)
+            </a>
+          <% } %>
+        </p>
+      </div>
+      <% if(currUser.profilePicture) {%>
+      <div class="delete-profilePic">
+        <form 
+    class="delete-form" 
+    method="POST" 
+    action="/updateProfile?_method=PUT" 
+    onsubmit="return confirm('Are you sure you want to remove your profile picture?');"
+>
+    <input type="hidden" name="removePicture" value="true">
+    
+    <button type="submit" class="delete-btn" title="Remove Profile Picture">
+        <i class="fa-regular fa-trash-can"></i>   
+    </button>
+</form>
+      </div>
+      <% } %>
+      
+    </div>
+
+    <form action="/updateProfile?_method=PUT" method="POST"   enctype="multipart/form-data">
+
+      <div class="section-header">
+        <div class="section-title">Basic Info</div>
+        <button id="editBtn" type="button" class="edit-btn" onclick="toggleEdit(event)">
+          Edit
+        </button>
+      </div>
+
+      <div id="infoView" class="info-box">
+        <div class="info-row"><label>Name:</label> <%= currUser.username %></div>
+        <div class="info-row"><label>Age:</label> <%= currUser.age || '__' %></div>
+        <div class="info-row"><label>Gender:</label> <%= currUser.gender || '__' %></div>
+        <div class="info-row"><label>Phone:</label> <%= currUser.phone || '__' %></div>
+      </div>
+
+      <div id="infoEdit" class="info-box" style="display: none">
+        <div class="info-row">
+          <label>Name:</label>
+          <input type="text" name="username" value="<%= currUser.username %>" />
+          
+        </div>
+        
+        <div class="info-row">
+          <label>Age:</label>
+          <input type="number" name="age" value="<%= currUser.age %>" placeholder="Enter age" />
+          
+        </div>
+
+        <div class="info-row">
+          <label>Gender:</label>
+          <select name="gender">
+            <option value="" disabled <%= !currUser.gender ? 'selected' : '' %>>Select Gender</option>
+            <option value="Male" <%= currUser.gender === 'Male' ? 'selected' : '' %>>Male</option>
+            <option value="Female" <%= currUser.gender === 'Female' ? 'selected' : '' %>>Female</option>
+            <option value="Other" <%= currUser.gender === 'Other' ? 'selected' : '' %>>Other</option>
+          </select>
+        </div>
+
+        <div class="info-row">
+          <label>Phone:</label>
+          <input type="text" name="phone" value="<%= currUser.phone || '' %>" />
+         
+        </div>
+
+        <div class="info-row">
+          <label>Profile:</label>
+          <input type="file" name="profilePicture" />
+        </div>
+      </div>
+
+      <div class="section-header">
+        <div class="section-title">Travel Preferences</div>
+      </div>
+
+      <div id="prefView" class="list-box">
+        <% if(currUser.preferences && currUser.preferences.length > 0) { %>
+          <div class="pref-grid">
+            <% for(let pref of currUser.preferences) { %>
+              <span class="pref-label" style="cursor: default; background: #e0e7ff; color: #3730a3;"><%= pref %></span>
+            <% } %>
+          </div>
+        <% } else { %>
+          <p style="color:#777; font-size:14px; margin:0;">No preferences selected.</p>
+        <% } %>
+      </div>
+
+      <div id="prefEdit" class="list-box" style="display: none; border:none; padding:0; box-shadow:none; background: transparent;">
+        <p style="margin-top:0; margin-bottom:15px; font-size:14px; color:#666;">
+          Select everything you love:
+        </p>
+        
+        <div class="pref-grid">
+          <% const userPrefs = currUser.preferences || []; %>
+          
+          <input type="checkbox" id="beach" name="preferences[]" value="Beaches" <%= userPrefs.includes('Beaches') ? 'checked' : '' %>>
+          <label for="beach" class="pref-label">🏖️ Beaches</label>
+
+          <input type="checkbox" id="mountain" name="preferences[]" value="Mountains" <%= userPrefs.includes('Mountains') ? 'checked' : '' %>>
+          <label for="mountain" class="pref-label">⛰️ Mountains</label>
+
+          <input type="checkbox" id="budget" name="preferences[]" value="Low Budget" <%= userPrefs.includes('Low Budget') ? 'checked' : '' %>>
+          <label for="budget" class="pref-label">💰 Low Budget</label>
+
+          <input type="checkbox" id="luxury" name="preferences[]" value="Luxury" <%= userPrefs.includes('Luxury') ? 'checked' : '' %>>
+          <label for="luxury" class="pref-label">💎 Luxury</label>
+           
+          <input type="checkbox" id="solo" name="preferences[]" value="Solo Travel" <%= userPrefs.includes('Solo Travel') ? 'checked' : '' %>>
+          <label for="solo" class="pref-label">🎒 Solo Travel</label>
+
+          <input type="checkbox" id="foodie" name="preferences[]" value="Foodie" <%= userPrefs.includes('Foodie') ? 'checked' : '' %>>
+          <label for="foodie" class="pref-label">🍕 Foodie</label>
+          <input type="checkbox" id="adventure" name="preferences[]" value="Adventure" <%= userPrefs.includes('Adventure') ? 'checked' : '' %>>
+          <label for="adventure" class="pref-label">🧗 Adventure</label>
+
+          <input type="checkbox" id="camping" name="preferences[]" value="Camping" <%= userPrefs.includes('Camping') ? 'checked' : '' %>>
+          <label for="camping" class="pref-label">⛺ Camping</label>
+
+          <input type="checkbox" id="wildlife" name="preferences[]" value="Wildlife" <%= userPrefs.includes('Wildlife') ? 'checked' : '' %>>
+          <label for="wildlife" class="pref-label">🦁 Wildlife</label>
+
+          <input type="checkbox" id="snow" name="preferences[]" value="Snow & Ski" <%= userPrefs.includes('Snow & Ski') ? 'checked' : '' %>>
+          <label for="snow" class="pref-label">❄️ Snow & Ski</label>
+          <input type="checkbox" id="history" name="preferences[]" value="History" <%= userPrefs.includes('History') ? 'checked' : '' %>>
+          <label for="history" class="pref-label">🏛️ History</label>
+
+          <input type="checkbox" id="art" name="preferences[]" value="Art & Culture" <%= userPrefs.includes('Art & Culture') ? 'checked' : '' %>>
+          <label for="art" class="pref-label">🎨 Art & Culture</label>
+
+          <input type="checkbox" id="city" name="preferences[]" value="City Breaks" <%= userPrefs.includes('City Breaks') ? 'checked' : '' %>>
+          <label for="city" class="pref-label">🏙️ City Breaks</label>
+
+          <input type="checkbox" id="nightlife" name="preferences[]" value="Nightlife" <%= userPrefs.includes('Nightlife') ? 'checked' : '' %>>
+          <label for="nightlife" class="pref-label">🎉 Nightlife</label>
+          <input type="checkbox" id="romantic" name="preferences[]" value="Romantic" <%= userPrefs.includes('Romantic') ? 'checked' : '' %>>
+          <label for="romantic" class="pref-label">💖 Romantic</label>
+
+          <input type="checkbox" id="roadtrip" name="preferences[]" value="Road Trips" <%= userPrefs.includes('Road Trips') ? 'checked' : '' %>>
+          <label for="roadtrip" class="pref-label">🚗 Road Trips</label>
+
+          <input type="checkbox" id="spiritual" name="preferences[]" value="Spiritual" <%= userPrefs.includes('Spiritual') ? 'checked' : '' %>>
+          <label for="spiritual" class="pref-label">🕉️ Spiritual</label>
+
+          <input type="checkbox" id="family" name="preferences[]" value="Family" <%= userPrefs.includes('Family') ? 'checked' : '' %>>
+          <label for="family" class="pref-label">👨‍👩‍👧‍👦 Family</label>
+        </div>
+      </div>
+
+      <button type="submit" id="saveBtn" class="save-btn" style="display: none;">Save Changes</button>
+
+    </form>
+
+    <div class="section-header">
+        <form action="/deleteUser?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure want to delete your Account');">
+        <button class="btn">Delete Account</button>
+        </form>
+    </form>
+        
+    </div>
+
+    
+  </div>
+</div>
+
+<script>
+  function toggleEdit(e) {
+    e.preventDefault();
+    
+    const editBtn = document.getElementById("editBtn");
+    const saveBtn = document.getElementById("saveBtn");
+    
+    const infoView = document.getElementById("infoView");
+    const infoEdit = document.getElementById("infoEdit");
+    
+    const prefView = document.getElementById("prefView");
+    const prefEdit = document.getElementById("prefEdit");
+
+    if (infoEdit.style.display === "none") {
+      // Switch to EDIT Mode
+      infoEdit.style.display = "block";
+      infoView.style.display = "none";
+      
+      prefEdit.style.display = "block";
+      prefView.style.display = "none";
+      
+      saveBtn.style.display = "block";
+
+      editBtn.textContent = "Cancel";
+      editBtn.style.background = "#ffffff";
+      editBtn.style.color = "white"; // Red text
+      editBtn.style.borderColor = "#ff4d4d";
+    } else {
+      // Switch back to VIEW Mode
+      infoEdit.style.display = "none";
+      infoView.style.display = "block";
+      
+      prefEdit.style.display = "none";
+      prefView.style.display = "block";
+      
+      saveBtn.style.display = "none";
+
+      editBtn.textContent = "Edit";
+      editBtn.style.background = "#ffffff";
+      editBtn.style.color = "white"; // Blue text
+      editBtn.style.borderColor = "#007bff";
+    }
+  }
+</script>

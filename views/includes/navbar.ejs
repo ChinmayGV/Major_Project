@@ -36,10 +36,10 @@
       </div> -->
       <div class="navbar-nav ms-auto">
         <% const hideOnPaths = ['/login',
-        '/signup','/listings/new','/resend-verification-link']; let shouldShow =
-        true; if (typeof currentPath !== 'undefined') { shouldShow =
-        !hideOnPaths.includes(currentPath) && !currentPath.includes('/edit'); }
-        %> <% if (shouldShow) { %>
+        '/signup','/listings/new','/resend-verification-link','/myProfile']; let
+        shouldShow = true; if (typeof currentPath !== 'undefined') { shouldShow
+        = !hideOnPaths.includes(currentPath) && !currentPath.includes('/edit');
+        } %> <% if (shouldShow) { %>
         <form
           class="d-flex"
           role="search"
@@ -95,12 +95,24 @@
           class="menu-toggle"
           aria-label="Open user menu"
         >
-          <i class="fa-regular fa-user"></i>
+          <% if (currUser && currUser.profilePicture) { %>
+          <img
+            src="<%= currUser.profilePicture %>"
+            alt="User Profile"
+            class="nav-user-img"
+          />
+          <% } else { %>
+          <img
+            src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png"
+            alt="User Profile"
+            class="nav-user-img"
+          />
+          <% } %>
         </button>
 
         <div id="dropdown-menu" class="menu-content chrome-style">
           <div class="menu-header">
-            <a href="/myprofile" class="UserProfile">
+            <a href="/myProfile" class="UserProfile">
               <div class="header-avatar">
                 <% if (currUser.profilePicture) { %>
                 <img
@@ -108,21 +120,35 @@
                   alt="<%= currUser.username || 'User' %>"
                 />
                 <% } else { %>
-                <i class="fa-regular fa-user"></i>
+                <img
+                  src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png"
+                  alt="User Profile"
+                />
                 <% } %>
               </div>
             </a>
 
             <div class="header-info">
               <span class="user-name"><%= currUser.username || 'User' %></span>
-              <span class="user-email"
-                ><%= currUser.email || 'email@example.com' %></span
-              >
+              <span class="user-email">
+                <% if(currUser.isVerified==true) {%> <%= currUser.email%> <%
+                }else{%>
+                <a
+                  href="/resend-verification-link"
+                  class="verify"
+                  data-tooltip="Verify email"
+                >
+                  <span class="Email"><%= currUser.email %></span>
+                  <i class="fa-solid fa-exclamation"></i>
+                </a>
+
+                <% } %>
+              </span>
             </div>
           </div>
 
           <nav class="menu-links">
-            <a href="/likings">My Reviews</a>
+            <a href="/myReviews">My Reviews</a>
             <a href="/MyBookings">Bookings</a>
             <a href="/settings">Settings</a>
           </nav>

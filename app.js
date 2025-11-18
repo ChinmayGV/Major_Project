@@ -20,6 +20,7 @@ const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 const termsRouter = require("./routes/terms&policy.js");
+const optionRouter = require("./routes/options.js");
 
 const dbUrl = process.env.ATLAS_DB_URL;
 const mongourl = "mongodb://127.0.0.1:27017/WanderLusT";
@@ -109,6 +110,7 @@ app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 app.use("/terms", termsRouter);
+app.use("/", optionRouter);
 
 app.all(/.*/, (req, res) => {
   throw new ExpressError(404, "Page Not Found");

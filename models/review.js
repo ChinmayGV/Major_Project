@@ -16,5 +16,9 @@ const revieSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
+  listing: {
+    type: Schema.Types.ObjectId,
+    ref: "Listing", // This MUST match the name inside mongoose.model("Listing", ...)
+  },
 });
 module.exports = mongoose.model("Review", revieSchema);
