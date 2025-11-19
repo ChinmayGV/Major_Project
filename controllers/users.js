@@ -61,7 +61,7 @@ module.exports.signup = async (req, res, next) => {
     // We have removed the req.login() block
 
     // req.flash("success", "click on the link sent to your email");
-    res.redirect("/email"); // Send them to the login page
+    res.render("partials/renderEmail.ejs", { process: "verify" }); // Send them to the login page
   } catch (e) {
     req.flash("error", e.message);
     res.redirect("/signup");
@@ -195,7 +195,7 @@ module.exports.resendEmail = async (req, res, next) => {
       "success",
       `Verification link sent to ${user.email}. Please check your inbox.`
     );
-    res.redirect("/email");
+    res.render("partials/renderEmail.ejs", { process: "reverify" });
   } catch (e) {
     console.error("Error in resend-verification:", e);
     // Pass error to the Express error handler middleware
@@ -248,7 +248,7 @@ module.exports.submitForgotPassForm = async (req, res) => {
       `,
     });
 
-    res.redirect("/email");
+    res.render("partials/renderEmail.ejs", { process: "reset" });
   } catch (error) {
     console.error("Forgot Password Error:", error);
     res.status(500).json({ error: "Server error." });

@@ -214,7 +214,11 @@
       </svg>
     </div>
 
+    <% if (typeof process !== 'undefined' && process === 'reset') { %>
+    <h3 class="txt">Please check your email to reset your password.</h3>
+    <% } else { %>
     <h3 class="txt">Please check your email to verify your account.</h3>
+    <% } %>
     <div
       style="
         display: flex;
@@ -226,9 +230,11 @@
       <form action="https://mail.google.com/">
         <button type="submit" class="btn-primary">Go to Mail</button>
       </form>
+      <% if(process!=='reset' && process!=='reverify'){ %>
       <form action="/login">
         <button type="submit" class="btn-later">I'll do it later</button>
       </form>
+      <% } %>
     </div>
     <p class="txt">If not, cross-check your mail address</p>
   </div>
