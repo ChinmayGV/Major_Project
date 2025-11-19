@@ -65,22 +65,23 @@
     flex-direction: column;
     gap: 4px; /* Tighter vertical rhythm */
     flex: 1;
+    background-color: rgb(246, 241, 241);
   }
 
   .card-title {
     font-size: 1.15rem;
-    font-weight: 700;
+    font-weight: 500;
     margin: 0;
     color: var(--text-dark);
   }
   .location-text {
-    color: var(--muted);
+    color: black;
     font-size: 0.85rem;
     margin: 0;
     /* margin-bottom: 5px; More space before the price line */
   }
   .price-text {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 800;
     color: black; /* Professional Blue */
     margin-top: 6px;
@@ -89,7 +90,7 @@
   .price-text span {
     font-size: 0.8rem;
     font-weight: 400;
-    color: var(--muted);
+    color: black;
   }
 
   /* Grid: 4 on large, 2 on medium, 1 on small */
@@ -122,13 +123,17 @@
     opacity: 0.1;
     font-size: 80px;
   }
+  .heading {
+    margin-left: 10px;
+    opacity: 0.8;
+  }
 </style>
 
 <body>
   <div class="container py-5">
     <% if(listings.length){%>
     <h2
-      class="mb-4"
+      class="mb-4 heading"
       style="color: var(--text-dark); font-weight: 500; letter-spacing: -0.5px"
     >
       My Listings
