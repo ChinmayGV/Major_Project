@@ -1,0 +1,235 @@
+<%- layout("/layouts/boilerplate") %>
+<style>
+  /* body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #dfe7ff, #eef2ff, #ffffff);
+    background-size: 300% 300%;
+    animation: bgFlow 12s ease infinite;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  } */
+
+  .page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+  }
+
+  .verify-container {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+    padding: 40px 45px;
+    border-radius: 14px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    max-width: 480px;
+    width: 90%;
+    backdrop-filter: blur(6px);
+  }
+
+  .icon-wrapper {
+    background: rgba(76, 139, 255, 0.12);
+    width: 90px;
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin: 0 auto 25px;
+    color: #4c8bff;
+    animation: pop 0.6s ease;
+  }
+
+  @keyframes pop {
+    0% {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .verify-container h3.txt {
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #1b1f3b;
+    margin-bottom: 18px;
+  }
+
+  .verify-container p.txt {
+    font-size: 1rem;
+    color: #5f6a7d;
+    margin-top: 25px;
+  }
+
+  .verify-container .btn-primary {
+    font-size: 1.15rem;
+    font-weight: 600;
+    padding: 14px 34px;
+    border-radius: 8px;
+    transition: all 0.25s ease;
+    background: linear-gradient(135deg, #3d7afe, #5590ff);
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  .verify-container .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  }
+  .btn-later {
+    font-size: 1.05rem;
+    font-weight: 600;
+    padding: 14px 26px;
+    border-radius: 8px;
+    background: #e3e7ff;
+    color: #3d4d80;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .btn-later:hover {
+    background: #d6dcff;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  }
+  @keyframes bgFlow {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .verify-container {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    padding: 45px 50px;
+    border-radius: 18px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .icon-wrapper {
+    background: rgba(76, 139, 255, 0.18);
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin: 0 auto 25px;
+    color: #4c8bff;
+    box-shadow: 0 8px 20px rgba(76, 139, 255, 0.25);
+  }
+
+  .verify-container h3.txt {
+    font-size: 1.85rem;
+    font-weight: 700;
+    color: #101935;
+    letter-spacing: 0.5px;
+  }
+
+  .verify-container p.txt {
+    font-size: 1rem;
+    color: #56627a;
+    margin-top: 25px;
+    font-weight: 500;
+  }
+
+  .btn-primary {
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 14px 34px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #3d7afe, #5590ff);
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(61, 122, 254, 0.35);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 22px rgba(61, 122, 254, 0.45);
+  }
+
+  .btn-later {
+    font-size: 1.05rem;
+    font-weight: 600;
+    padding: 14px 26px;
+    border-radius: 10px;
+    background: rgba(100, 120, 180, 0.15);
+    color: #3d4d80;
+    border: 1px solid rgba(100, 120, 180, 0.25);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .btn-later:hover {
+    background: rgba(100, 120, 180, 0.25);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+  }
+</style>
+<div class="page-wrapper">
+  <div class="verify-container">
+    <div class="icon-wrapper">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="64"
+        height="64"
+        fill="currentColor"
+        class="bi bi-envelope-check"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v2.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2H2Z"
+        />
+        <path
+          d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697Z"
+        />
+        <path
+          d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.75.75a.5.5 0 0 0 .707 0l1.5-2.5a.5.5 0 0 0-.172-.686Z"
+        />
+      </svg>
+    </div>
+
+    <h3 class="txt">Please check your email to verify your account.</h3>
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 10px;
+      "
+    >
+      <form action="https://mail.google.com/">
+        <button type="submit" class="btn-primary">Go to Mail</button>
+      </form>
+      <form action="/login">
+        <button type="submit" class="btn-later">I'll do it later</button>
+      </form>
+    </div>
+    <p class="txt">If not, cross-check your mail address</p>
+  </div>
+</div>

@@ -7,6 +7,7 @@ const {
   isLoggedIn,
   isreviewAuthor,
   isVerified,
+  eligibleToReview,
 } = require("../middleware.js");
 const reviewController = require("../controllers/reviews.js");
 //Reviews
@@ -16,6 +17,7 @@ router.post(
   isLoggedIn,
   isVerified,
   validateReview,
+  eligibleToReview,
   reviewController.createReview
 );
 

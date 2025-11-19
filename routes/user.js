@@ -2,7 +2,12 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user.js");
 const passport = require("passport");
-const { saveRedirectUrl, isLoggedIn } = require("../middleware.js");
+const {
+  saveRedirectUrl,
+  isLoggedIn,
+  logoutWhenReverify,
+  checkIfUserLoggedIn,
+} = require("../middleware.js");
 const { validateUser } = require("../middleware.js");
 const userController = require("../controllers/users.js");
 
@@ -13,7 +18,7 @@ router
 
 router
   .route("/login")
-  .get(userController.renderLoginForm)
+  .get(checkIfUserLoggedIn, userController.renderLoginForm)
   .post(
     saveRedirectUrl,
     passport.authenticate("local", {
@@ -26,7 +31,7 @@ router
 
 router.get("/verify-email", userController.verifyEmail);
 router.get("/logout", userController.logout);
-router.get("/signup/email", userController.renderEmailPage);
+router.get("/email", userController.renderEmailPage);
 router.get(
   "/resend-verification-link",
   isLoggedIn,
@@ -37,4 +42,15 @@ router.post(
   isLoggedIn,
   userController.resendEmail
 );
+
+router
+  .route("/forgot-password")
+  .get(userController.renderForgotPasswordPage)
+  .post(userController.submitForgotPassForm);
+
+router
+  .route("/reset-password")
+  .get(userController.renderResetForgotForm)
+  .post(userController.resetPassword);
+
 module.exports = router;

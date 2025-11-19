@@ -8,7 +8,7 @@
         color: #333;
       }
       .container {
-        width: 90%;
+        width: 100%;
         max-width: 900px;
         margin: 30px auto;
       }
@@ -91,6 +91,12 @@
   color: #ff4d4d;
   transform: scale(1.1); /* Slight zoom effect */
 }
+ .noReview {
+    text-align: center;
+    padding-top: 150px;
+    opacity: 0.1;
+    font-size: 75px;
+  }
 
 /* ----------------------- */
     </style>
@@ -100,7 +106,7 @@
 
 
         <% if(reviews.length === 0){ %>
-            <h2>You don't have any reviews Yet</h2>
+           <h1 class="noReview">You don't gave any Reviews</h1>
         <% }else{ %>
 
         <h2>My Reviews</h2>

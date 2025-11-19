@@ -1,6 +1,6 @@
-<%if(success && success.length){%>
+<% if(success && success.length){%>
 <div
-  class="alert alert-success alert-dismissible fade show mt-2 col-6 offset-3"
+  class="alert alert-success alert-dismissible fade show flash-fix"
   role="alert"
 >
   <%= success %>
@@ -11,9 +11,9 @@
     aria-label="Close"
   ></button>
 </div>
-<%}%> <%if(error && error.length){%>
+<%}%> <% if(error && error.length){%>
 <div
-  class="alert alert-danger alert-dismissible fade show mt-2 col-6 offset-3"
+  class="alert alert-danger alert-dismissible fade show flash-fix"
   role="alert"
 >
   <%= error %>

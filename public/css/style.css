@@ -82,7 +82,8 @@ body {
   text-align: center;
   height: 8rem;
   display: flex;
-  background-color: #ebebeb;
+  background-color: #e5e5e5;
+
   flex-wrap: wrap;
   justify-content: center;
   align-items: space-evenly;
@@ -444,3 +445,46 @@ body {
   transform: translateX(-50%) translateY(-5px);
 }
 /* ----------------------------- */
+/* ---------------------------------FLASH PROPERTY------------------- */
+/* Add this CSS to your project */
+/* Add this CSS to your main stylesheet */
+.flash-fix {
+  position: fixed;
+  top: 12px; /* Pushed slightly lower from the edge */
+  left: 50%;
+  transform: translateX(-50%) translateY(0); /* Initial position */
+  z-index: 2000;
+  width: 100%;
+  max-width: 550px; /* Slimmer width for a toast look */
+  /* Add animation and style enhancements */
+  transition: transform 0.5s ease-out;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Clean, modern shadow */
+  border: none; /* Remove default border */
+  padding: 0; /* Remove padding from outer div */
+  opacity: 0.95; /* Slight transparency */
+}
+
+/* Style for success alert */
+.alert-success {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
+}
+
+/* Style for danger/error alert */
+.alert-danger {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+}
+
+/* Ensure the alert content itself is styled correctly */
+.alert {
+  padding: 1rem 1.25rem;
+  margin-bottom: 0; /* Important: remove bottom margin */
+  border-radius: 8px;
+  width: 100%;
+  max-width: 550px;
+}
+/* --------------------DONE------------------------------------ */

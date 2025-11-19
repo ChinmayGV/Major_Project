@@ -298,6 +298,7 @@
 
       <div id="infoView" class="info-box">
         <div class="info-row"><label>Name:</label> <%= currUser.username %></div>
+        <div class="info-row"><label>Email:</label> <%= currUser.email%></div>
         <div class="info-row"><label>Age:</label> <%= currUser.age || '__' %></div>
         <div class="info-row"><label>Gender:</label> <%= currUser.gender || '__' %></div>
         <div class="info-row"><label>Phone:</label> <%= currUser.phone || '__' %></div>
@@ -306,8 +307,12 @@
       <div id="infoEdit" class="info-box" style="display: none">
         <div class="info-row">
           <label>Name:</label>
-          <input type="text" name="username" value="<%= currUser.username %>" />
+          <input   autocomplete="off" type="text" name="username" value="<%= currUser.username %>" />
           
+        </div>
+        <div class="info-row">
+          <label>Email:</label>
+          <input   autocomplete="off" type="text" name="email" value="<%= currUser.email%>" />
         </div>
         
         <div class="info-row">
@@ -328,7 +333,7 @@
 
         <div class="info-row">
           <label>Phone:</label>
-          <input type="text" name="phone" value="<%= currUser.phone || '' %>" />
+          <input  autocomplete="off"  type="text" name="phone" value="<%= currUser.phone || '' %>" />
          
         </div>
 

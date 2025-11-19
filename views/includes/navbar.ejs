@@ -36,10 +36,11 @@
       </div> -->
       <div class="navbar-nav ms-auto">
         <% const hideOnPaths = ['/login',
-        '/signup','/listings/new','/resend-verification-link','/myProfile']; let
-        shouldShow = true; if (typeof currentPath !== 'undefined') { shouldShow
-        = !hideOnPaths.includes(currentPath) && !currentPath.includes('/edit');
-        } %> <% if (shouldShow) { %>
+        '/signup','/listings/new','/resend-verification-link','/myProfile' ,
+        '/email' , '/forgot-password' , '/reset-password']; let shouldShow =
+        true; if (typeof currentPath !== 'undefined') { shouldShow =
+        !hideOnPaths.includes(currentPath) && !currentPath.includes('/edit'); }
+        %> <% if (shouldShow) { %>
         <form
           class="d-flex"
           role="search"
@@ -148,7 +149,9 @@
           </div>
 
           <nav class="menu-links">
-            <a href="/myReviews">My Reviews</a>
+            <a href="/myProfile"> Profile</a>
+            <a href="/myListings">my Listings</a>
+            <a href="/myReviews"> Reviews</a>
             <a href="/MyBookings">Bookings</a>
             <a href="/settings">Settings</a>
           </nav>

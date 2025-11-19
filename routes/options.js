@@ -15,6 +15,7 @@ const upload = multer({
 
 router.get("/myProfile", optionController.renderMyProfilePage);
 router.get("/myReviews", isLoggedIn, optionController.renderMyReviewsPage);
+router.get("/myListings", isLoggedIn, optionController.renderMyListingPage);
 router.put(
   "/updateProfile",
 

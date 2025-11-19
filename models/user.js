@@ -6,6 +6,7 @@ const userSchema = new Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
   },
   isVerified: {
     type: Boolean,
@@ -47,6 +48,9 @@ const userSchema = new Schema({
       type: String,
     },
   ],
+
+  resetToken: { type: String, default: null },
+  resetTokenExpires: { type: Date, default: null },
 });
 
 userSchema.plugin(passportLocalMongoose);

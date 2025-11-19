@@ -117,11 +117,34 @@ module.exports.isVerified = (req, res, next) => {
   }
 
   if (req.isAuthenticated() && !req.user.isVerified) {
-    req.flash("error", "Please verify your email to access this page.");
+    // req.flash("error", "Please verify your email to access this page.");
     return res.redirect("/resend-verification-link"); // Or to a "please verify" page
   }
 
   // Not logged in at all
   req.flash("error", "You must be signed in to do that.");
   res.redirect("/login");
+};
+
+module.exports.eligibleToReview = async (req, res, next) => {
+  let { id } = req.params;
+  let listing = await Listing.findById(id);
+
+  // Mongoose check: Does the listing owner's ID equal the current user's ID?
+  if (listing.owner.equals(req.user._id)) {
+    req.flash("error", "You can't review your own listing!");
+    return res.redirect(`/listings/${id}`);
+  }
+
+  next();
+};
+
+//to redirect when user is logged in and click on i'll do it later
+module.exports.checkIfUserLoggedIn = async (req, res, next) => {
+  if (req.isAuthenticated()) {
+    req.flash("error", "Email verification pending");
+    res.redirect("/listings");
+  } else {
+    next();
+  }
 };

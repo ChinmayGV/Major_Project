@@ -17,30 +17,55 @@ module.exports.renderMyReviewsPage = async (req, res) => {
 
 module.exports.updateProfile = async (req, res, next) => {
   try {
-    // 1. Get the User ID (from the logged-in session)
     const userId = req.user._id;
-    let { username, age, gender, phone, preferences, removePicture } = req.body;
+    let { username, age, gender, phone, preferences, removePicture, email } =
+      req.body;
 
     const userToUpdate = await User.findById(userId);
 
-    //check if username exist in DB
-    if (username !== req.user.username) {
-      // Check if someone else already has it
+    // =========================================================================
+    // 1. UNIQUE USERNAME CHECK
+    // =========================================================================
+    if (username !== userToUpdate.username) {
       const existingUser = await User.findOne({ username: username });
-
       if (existingUser) {
         req.flash("error", "That username is already taken.");
         return res.redirect("/myProfile");
       }
     }
 
+    // =========================================================================
+    // 2. UNIQUE EMAIL CHECK & VERIFICATION RESET (NEW LOGIC)
+    // =========================================================================
+    let emailChanged = false;
+    if (email !== userToUpdate.email) {
+      // Check if someone else already uses the new email
+      const existingUserWithNewEmail = await User.findOne({ email: email });
+
+      // If a user exists AND that user is NOT the currently logged-in user
+      if (
+        existingUserWithNewEmail &&
+        !existingUserWithNewEmail._id.equals(userId)
+      ) {
+        req.flash(
+          "error",
+          "That email address is already registered by another user."
+        );
+        return res.redirect("/myProfile");
+      }
+      // If the email is new and unique, mark that the email has changed
+      emailChanged = true;
+    }
+
+    // =========================================================================
+    // 3. CONSTRUCT UPDATE DATA
+    // =========================================================================
     let updateData = {
       username: username,
+      email: email, // <-- Add email here
       age: age,
       gender: gender,
       phone: phone,
-      // Ensure preferences is always an array.
-      // If user sends 1 item, it might be a string, so we wrap it.
       preferences: preferences
         ? Array.isArray(preferences)
           ? preferences
@@ -48,9 +73,22 @@ module.exports.updateProfile = async (req, res, next) => {
         : [],
     };
 
+    // If the email was changed, we must reset the verification status
+    if (emailChanged) {
+      updateData.isVerified = false;
+      updateData.emailVerificationToken = null; // Clear old token if any
+      updateData.emailVerificationExpires = null;
+    }
+
+    // =========================================================================
+    // 4. PICTURE HANDLING (Original Logic)
+    // =========================================================================
+    // ... (Keep the rest of your original logic for removePicture and req.file)
+
     // profile picture deletion handling ---//
     if (removePicture === "true") {
       if (userToUpdate.profilePictureId) {
+        // Assuming 'cloudinary' is defined and imported elsewhere
         await cloudinary.uploader.destroy(userToUpdate.profilePictureId);
       }
 
@@ -59,9 +97,14 @@ module.exports.updateProfile = async (req, res, next) => {
     }
     // CASE B: User uploaded a NEW photo
     else if (req.file) {
+      // Assuming req.file is from Multer/Cloudinary setup
       updateData.profilePicture = req.file.path; // Save the new Cloudinary URL
       updateData.profilePictureId = req.file.filename;
     }
+
+    // =========================================================================
+    // 5. EXECUTE UPDATE & RE-LOGIN
+    // =========================================================================
     const updatedUser = await User.findByIdAndUpdate(userId, updateData, {
       new: true,
       runValidators: true,
@@ -72,12 +115,19 @@ module.exports.updateProfile = async (req, res, next) => {
         console.log(err);
         return next(err);
       }
-      req.flash("success", "Profile updated successfully!");
+
+      let successMessage = "Profile updated successfully!";
+      if (emailChanged) {
+        successMessage += "Verify Email ";
+      }
+
+      req.flash("success", successMessage);
       res.redirect("/myProfile");
     });
   } catch (e) {
     console.log(e);
-    req.flash("error", "Please enter valid Details  ");
+    // Handle Mongoose validation errors or unexpected errors
+    req.flash("error", "An error occurred. Please check details or try again.");
     res.redirect("/myProfile");
   }
 };
@@ -115,5 +165,17 @@ module.exports.deleteUser = async (req, res, next) => {
     req.flash("error", "Error deleting account and associated data.");
 
     res.redirect("/myProfile");
+  }
+};
+
+module.exports.renderMyListingPage = async (req, res) => {
+  try {
+    let listings = await Listing.find({ owner: req.user._id });
+
+    res.render("options/mylistings.ejs", { listings });
+  } catch (err) {
+    console.error("Error fetching user listings:", err);
+    req.flash("error", "Could not load your listings.");
+    res.redirect("/");
   }
 };

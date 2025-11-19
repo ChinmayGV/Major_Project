@@ -45,8 +45,7 @@
           if (submitBtn) {
             submitBtn.disabled = true;
             // Optional: Add a spinner so they know it's working
-            submitBtn.innerHTML =
-              'Please wait...<span class="spinner-border spinner-border-sm"></span>';
+            submitBtn.innerHTML = `${submitBtn.innerText}<span class="spinner-border spinner-border-sm"></span>`;
           }
         }
 

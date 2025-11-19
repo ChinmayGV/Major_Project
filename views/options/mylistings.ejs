@@ -1,0 +1,168 @@
+<%- layout('/layouts/boilerplate') %>
+
+<style>
+  :root {
+    /* Pure White Background */
+    --bg: #f7f9fb;
+    --card-bg: #ffffff;
+    --muted: #7f8fa6; /* Softer, slightly bluish gray */
+
+    /* Subtle base shadow */
+    --shadow-base: 0 4px 10px rgba(0, 0, 0, 0.03);
+
+    /* Stronger hover shadow */
+    --shadow-hover: 0 12px 25px rgba(0, 0, 0, 0.12);
+    --accent-color: #007bff; /* Clean, professional blue */
+    --text-dark: #2c3e50; /* Deep blue-gray for text */
+  }
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    background: var(--bg); /* Pure White */
+  }
+
+  a.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .listing-card {
+    border-radius: 12px; /* Slightly smaller radius for crispness */
+    overflow: hidden;
+    background: var(--card-bg);
+    border: 1px solid #f0f0f0; /* Thin, light border for separation */
+    box-shadow: var(--shadow-base); /* Very subtle initial lift */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .listing-card:hover {
+    transform: translateY(-4px); /* Gentle lift */
+    box-shadow: var(--shadow-hover); /* Noticeable hover shadow */
+    border-color: #d1e3ff; /* Subtle blue border hint on hover */
+  }
+
+  .listing-img {
+    height: 180px;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+    flex-shrink: 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .listing-card:hover .listing-img {
+    transform: scale(1.03); /* Smoother zoom */
+  }
+
+  .card-body {
+    padding: 18px; /* Balanced padding */
+    display: flex;
+    flex-direction: column;
+    gap: 4px; /* Tighter vertical rhythm */
+    flex: 1;
+  }
+
+  .card-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text-dark);
+  }
+  .location-text {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin: 0;
+    /* margin-bottom: 5px; More space before the price line */
+  }
+  .price-text {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: black; /* Professional Blue */
+    margin-top: 6px;
+    opacity: 0.7;
+  }
+  .price-text span {
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--muted);
+  }
+
+  /* Grid: 4 on large, 2 on medium, 1 on small */
+  #listing-box {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px; /* Increased gap between cards */
+    width: 100%;
+  }
+
+  @media (max-width: 992px) {
+    #listing-box {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 576px) {
+    #listing-box {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+  .card-link:focus {
+    outline: none;
+  }
+
+  .nolistings {
+    text-align: center;
+    padding-top: 175px;
+    opacity: 0.1;
+    font-size: 80px;
+  }
+</style>
+
+<body>
+  <div class="container py-5">
+    <% if(listings.length){%>
+    <h2
+      class="mb-4"
+      style="color: var(--text-dark); font-weight: 500; letter-spacing: -0.5px"
+    >
+      My Listings
+    </h2>
+
+    <div id="listing-box">
+      <% for(let listing of listings) {%>
+      <a href="/listings/<%= listing._id %>" class="card-link">
+        <div class="card listing-card">
+          <img
+            src="<%= listing.image.url %>"
+            class="listing-img"
+            alt="<%= listing.image.filename %>"
+          />
+          <div class="card-body">
+            <div>
+              <h5 class="card-title"><%= listing.title %></h5>
+              <p class="location-text"><%= listing.location %></p>
+            </div>
+            <div>
+              <div class="price-text">
+                &#8377;<%= listing.price.toLocaleString("en-IN") %>
+                <span>/ night</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <% } %>
+    </div>
+    <%}else{ %>
+
+    <h2 class="nolistings">You don't have any listings</h2>
+
+    <% } %>
+  </div>
+</body>
