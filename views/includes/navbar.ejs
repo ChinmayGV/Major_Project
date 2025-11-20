@@ -14,12 +14,15 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav ms-auto">
-        <% const hideOnPaths = ['/login',
-        '/signup','/listings/new','/resend-verification-link','/myProfile' ,
-        '/email' , '/forgot-password' , '/reset-password']; let shouldShow =
-        true; if (typeof currentPath !== 'undefined') { shouldShow =
-        !hideOnPaths.includes(currentPath) && !currentPath.includes('/edit'); }
-        %> <% if (shouldShow) { %>
+        <% const hideOnPaths = [ '/login', '/signup', '/listings/new',
+        '/resend-verification-link', '/myProfile', '/email', '/forgot-password',
+        '/reset-password', '/myListings', '/myReviews' ]; let shouldShow = true;
+        if (typeof currentPath !== 'undefined') { const isExactHide =
+        hideOnPaths.includes(currentPath); const isEditPage =
+        currentPath.includes('/edit'); const isListingShowPage =
+        /^\/listings\/[a-zA-Z0-9]+$/.test(currentPath) && !['search',
+        'new'].includes(currentPath.split('/')[2]); shouldShow = !isExactHide &&
+        !isEditPage && !isListingShowPage; } %> <% if (shouldShow) { %>
         <form
           class="d-flex"
           role="search"
@@ -42,19 +45,13 @@
         <% } %>
       </div>
       <div class="navbar-nav ms-auto">
-        <!-- <div class="mode-div">
-          <span class="mode-btn">
-            <input
-              type="checkbox"
-              id="dark-mode-toggle"
-              class="visually-hidden"
-            />
-            <label for="dark-mode-toggle" class="toggle-button">
-              <div class="icon"></div>
-            </label>
-          </span>
-          <p>mode</p>
-        </div> -->
+        <div class="hover-wrapper">
+          <div class="hover-text" id="hoverText">Light Mode</div>
+
+          <button id="togglePreviewBtn" class="custom-toggle-btn sun-mode">
+            <i class="fa-solid fa-sun"></i>
+          </button>
+        </div>
 
         <span id="addlisting">
           <a class="nav-link" href="/listings/new">Add new Listing</a>

@@ -1,0 +1,268 @@
+/* =======================JUST BUTTON DESIGN ============================== */
+
+.custom-toggle-btn {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: none;
+  background: yellow;
+  /* background-color: red; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, background 0.3s ease;
+  font-size: 1.4rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.custom-toggle-btn:hover {
+  transform: scale(1.04);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+.custom-toggle-btn i {
+  transition: color 0.3s ease;
+  font-size: 17px;
+}
+
+/* Moon mode (dark button) */
+.custom-toggle-btn.moon-mode {
+  background: black !important;
+  color: white !important;
+  /* opacity: 0.7 !important; */
+}
+.custom-toggle-btn.moon-mode i {
+  color: white !important;
+  opacity: 1;
+}
+
+/* Sun mode (light button) */
+.custom-toggle-btn.sun-mode {
+  /* background: linear-gradient(135deg, #f0f0f0, #dcdcdc) !important; */
+  background-color: black !important;
+  color: white !important;
+}
+.custom-toggle-btn.sun-mode i {
+  color: white !important;
+  opacity: 0.7 !important;
+}
+
+/* Hover floating text */
+.hover-wrapper {
+  position: relative;
+  display: inline-block;
+  padding: 10px;
+  padding-top: 12px;
+  padding-right: 14px;
+}
+
+.hover-text {
+  position: absolute;
+  /* top: -40px; */
+  bottom: -5px;
+  left: -50px;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.75);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.hover-wrapper:hover .hover-text {
+  opacity: 1;
+  transform: translate(-50%, -5px);
+}
+
+.toggle-anim {
+  transform: scale(1.1) rotate(12deg);
+  transition: transform 0.4s ease;
+}
+
+/* ========================================END====================================== */
+
+/* ======================================here dark & light mode design ============================= */
+/* .dark-theme body {
+  background-color: #0d0d0f;
+} */
+.light-theme body {
+  background-color: white;
+}
+/* .dark-theme navbar {
+  background-color: #1a1b1e;
+} */
+
+/* ================= DARK MODE ================= */
+
+/* BODY */
+.dark-theme body {
+  background-color: #0d0d0f !important;
+  color: #e6e6e6 !important;
+}
+
+/* NAVBAR */
+.dark-theme .navbar,
+.dark-theme nav {
+  background-color: #1a1b1e !important;
+  border-bottom: 0.7px solid #2c2d31 !important;
+}
+
+/* .dark-theme .navbar a,
+.dark-theme .navbar-brand,
+.dark-theme .nav-link {
+  color: #e6e6e6 !important;
+} */
+
+.dark-theme .navbar-nav #addlisting:hover {
+  box-shadow: 0 6px 16px rgba(256, 256, 156, 0.1) !important;
+}
+
+.dark-theme .navbar-nav #addlisting {
+  /* background-color: #4d4d4f !important;
+   */
+  background-color: #000 !important;
+}
+
+.dark-theme .nav-link {
+  color: white !important;
+  opacity: 0.7;
+}
+.dark-theme .nav-link:hover {
+  opacity: 0.9;
+}
+
+.dark-theme .menu-toggle {
+  background-color: black !important;
+  opacity: 0.8;
+  border: none !important;
+  color: white !important;
+}
+
+.dark-theme .menu-header {
+  background-color: #9d9da0 !important;
+  border-radius: 10px !important;
+  margin-bottom: 0 !important;
+}
+
+.dark-theme #dropdown-menu {
+  padding: 0 !important;
+}
+
+.dark-theme a .UserProfile:hover {
+  color: inherit !important;
+  background: inherit !important;
+  text-decoration: none !important;
+}
+
+.dark-theme .menu-divider {
+  background-color: #1a1b1e !important;
+  color: #1a1b1e !important;
+}
+.dark-theme #dropdown-menu {
+  background-color: green !important  ;
+}
+
+.dark-theme .menu-toggle:hover {
+  box-shadow: 0 6px 16px rgba(256, 256, 156, 0.1) !important;
+}
+
+.dark-theme #dropdown-menu {
+  background-color: #2c2d31 !important;
+  border: none !important;
+}
+
+.dark-theme #dropdown-menu a {
+  color: white;
+}
+.dark-theme #dropdown-menu a:hover {
+  color: white !important;
+  opacity: 0.9;
+  background-color: #414145 !important  ;
+}
+
+.dark-theme .menu-divider {
+  display: none !important;
+}
+
+.dark-theme .menu-links a:hover {
+  color: red !important;
+}
+/* FOOTER */
+.dark-theme footer {
+  color: #e6e6e6 !important;
+  border-top: 0.2px solid #2c2d31 !important;
+}
+
+.dark-theme footer .f-info {
+  background-color: #131417 !important;
+}
+
+.dark-theme footer .f-info .f-info-socials a i {
+  color: #e6e6e6 !important;
+  opacity: 0.7;
+}
+.dark-theme footer .f-info .f-info-socials a i:hover {
+  opacity: 0.9;
+}
+
+.dark-theme footer .f-info .f-info-links a {
+  color: #e6e6e6;
+  text-decoration: none;
+  opacity: 0.7;
+}
+.dark-theme footer .f-info .f-info-links a:hover {
+  opacity: 0.9;
+}
+
+.dark-theme .dropdown ul {
+  background-color: grey !important;
+}
+
+/* CARDS / MENUS / DROPDOWNS */
+/* .dark-theme .card,
+.dark-theme .dropdown-menu,
+.dark-theme .accordion-body {
+  background-color: #1a1b1e !important;
+  border: 1px solid #2c2d31 !important;
+  color: #e6e6e6 !important;
+} */
+
+.dark-theme .card-text {
+  color: white !important;
+  opacity: 0.8;
+}
+
+.dark-theme .filter a {
+  color: white !important;
+  opacity: 0.8;
+}
+
+/* FORMS */
+.dark-theme input,
+.dark-theme select,
+.dark-theme textarea {
+  background-color: #1a1b1e !important;
+  color: #e6e6e6 !important;
+  border: 1px solid #2c2d31 !important;
+}
+
+.dark-theme input::placeholder,
+.dark-theme textarea::placeholder {
+  color: #9a9aa0 !important;
+}
+
+/* BUTTONS */
+.dark-theme .btn-dark {
+  background-color: #000 !important;
+  border-color: #2c2d31 !important;
+}
+
+/* BORDER STYLES */
+.dark-theme hr,
+.dark-theme .border {
+  border-color: #2c2d31 !important;
+}

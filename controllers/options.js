@@ -38,11 +38,16 @@ module.exports.updateProfile = async (req, res, next) => {
     // 2. UNIQUE EMAIL CHECK & VERIFICATION RESET (NEW LOGIC)
     // =========================================================================
     let emailChanged = false;
-    if (email !== userToUpdate.email) {
-      // Check if someone else already uses the new email
-      const existingUserWithNewEmail = await User.findOne({ email: email });
 
-      // If a user exists AND that user is NOT the currently logged-in user
+    if (email !== undefined && email.trim() === "") {
+      req.flash("error", "Email can't be empty");
+      return res.redirect("/myProfile");
+    }
+
+    if (email && email.trim() !== "" && email !== userToUpdate.email) {
+      // Check if someone else already uses the new email
+      const existingUserWithNewEmail = await User.findOne({ email });
+
       if (
         existingUserWithNewEmail &&
         !existingUserWithNewEmail._id.equals(userId)
@@ -53,7 +58,7 @@ module.exports.updateProfile = async (req, res, next) => {
         );
         return res.redirect("/myProfile");
       }
-      // If the email is new and unique, mark that the email has changed
+
       emailChanged = true;
     }
 

@@ -9,6 +9,7 @@
       novalidate
       class="needs-validation"
       enctype="multipart/form-data"
+      id="listingForm"
     >
       <div class="mb-3">
         <label for="title" class="form-label">Title</label>
@@ -41,7 +42,7 @@
           <label for="image" class="form-label">Upload new Image</label>
           <input type="file" name="image" class="form-control" />
         </div>
-        <div class="mb-3 col-12 col-md-6">
+        <!-- <div class="mb-3 col-12 col-md-6">
           <label for="category" class="form-label">Category</label>
           <select class="form-select" id="category" name="category">
             <option selected value="<%= listing.category %>">
@@ -59,6 +60,55 @@
             <option value="Domes">Domes</option>
             <option value="Boats">Boats</option>
           </select>
+        </div> -->
+
+        <div class="mb-3 col-12 col-md-6">
+          <label class="form-label fw-bold">Categories</label>
+
+          <div class="dropdown w-100">
+            <button
+              class="btn btn-light w-100 d-flex justify-content-between align-items-center shadow-sm"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              style="border: 1px solid #ddd; border-radius: 12px"
+            >
+              <span id="dropdown-text">⬇️ Select Categories</span>
+              <span>▾</span>
+            </button>
+
+            <ul
+              class="dropdown-menu p-3 w-100 shadow"
+              style="max-height: 260px; overflow-y: auto; border-radius: 12px"
+            >
+              <% const allCategories = [ "Trending", "Rooms", "Mountains",
+              "Iconic Cities", "Castles", "Pools", "Camping", "Farms", "Arctic",
+              "Boats", "Domes", "Beaches", "Luxury", "Wildlife", "Adventure" ];
+              %> <% const categoryIcons = { "Trending": "🔥", "Rooms": "🛏️",
+              "Mountains": "⛰️", "Iconic Cities": "🌆", "Castles": "🏰",
+              "Pools": "🏊", "Camping": "🏕️", "Farms": "🌾", "Arctic": "❄️",
+              "Boats": "⛵", "Domes": "🛖", "Beaches": "🏖️", "Luxury": "💎",
+              "Wildlife": "🦁", "Adventure": "🎒" }; %> <%
+              allCategories.forEach(cat => { %>
+              <li>
+                <label class="dropdown-item">
+                  <input type="checkbox" value="<%= cat %>" class="me-2
+                  category-check" <%= listing.category.includes(cat) ? "checked"
+                  : "" %> /> <%= categoryIcons[cat] %> <%= cat %>
+                </label>
+              </li>
+              <% }) %>
+            </ul>
+          </div>
+
+          <!-- Hidden dynamic array inputs go here -->
+          <div id="category-container"></div>
+
+          <!-- Dummy validator -->
+          <input type="text" id="category-validator" class="d-none" required />
+          <div class="invalid-feedback">
+            Please select at least one category.
+          </div>
         </div>
       </div>
       <div class="row">
@@ -121,5 +171,59 @@
     </form>
   </div>
 </div>
-<script src="/js/flag.js"></script>
-<!-- <script src="/js/script.js"></script> -->
+<script>
+  const checks = document.querySelectorAll(".category-check");
+  const categoryContainer = document.getElementById("category-container");
+  const validatorInput = document.getElementById("category-validator");
+  const text = document.getElementById("dropdown-text");
+  const form = document.getElementById("listingForm");
+
+  // Create hidden inputs for real array submission
+  function updateHiddenInputs() {
+    // Clear old hidden inputs
+    categoryContainer.innerHTML = "";
+
+    const selected = Array.from(checks)
+      .filter((c) => c.checked)
+      .map((c) => c.value);
+
+    // Create new hidden inputs: category[]=value
+    selected.forEach((val) => {
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = "category[]";
+      input.value = val;
+      categoryContainer.appendChild(input);
+    });
+
+    // Update dropdown text
+    text.textContent = selected.length
+      ? selected.join(", ")
+      : "⬇️ Select Categories";
+
+    // Update bootstrap validator
+    validatorInput.value = selected.length > 0 ? "ok" : "";
+  }
+
+  // Run on page load (edit mode)
+  updateHiddenInputs();
+
+  // Update on checkbox click
+  checks.forEach((ch) => {
+    ch.addEventListener("change", updateHiddenInputs);
+  });
+
+  // Form validation
+  form.addEventListener("submit", (event) => {
+    const selectedCount = Array.from(checks).filter((c) => c.checked).length;
+
+    validatorInput.value = selectedCount > 0 ? "ok" : "";
+
+    if (!form.checkValidity() || selectedCount === 0) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    form.classList.add("was-validated");
+  });
+</script>

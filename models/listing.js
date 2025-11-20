@@ -22,7 +22,7 @@ const listingSchema = new Schema({
     type: Number,
   },
   category: {
-    type: String,
+    type: [String],
     enum: [
       "Trending",
       "Rooms",
@@ -35,8 +35,11 @@ const listingSchema = new Schema({
       "Arctic",
       "Boats",
       "Domes",
+      "Beaches",
+      "Luxury",
+      "Wildlife",
+      "Adventure",
     ],
-    default: "Rooms",
   },
   location: {
     type: String,

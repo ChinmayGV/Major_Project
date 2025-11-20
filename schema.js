@@ -11,21 +11,27 @@ module.exports.listingSchema = Joi.object({
     type: Joi.string().valid("Point"),
     coordinates: Joi.array().items(Joi.number()).required().length(2),
   }),
-  category: Joi.string()
-    .required()
-    .valid(
-      "Trending",
-      "Rooms",
-      "Mountains",
-      "Iconic Cities",
-      "Castles",
-      "Pools",
-      "Camping",
-      "Farms",
-      "Arctic",
-      "Domes",
-      "Boats"
-    ),
+  category: Joi.array()
+    .items(
+      Joi.string().valid(
+        "Trending",
+        "Rooms",
+        "Mountains",
+        "Iconic Cities",
+        "Castles",
+        "Pools",
+        "Camping",
+        "Farms",
+        "Arctic",
+        "Boats",
+        "Domes",
+        "Beaches",
+        "Luxury",
+        "Wildlife",
+        "Adventure"
+      )
+    )
+    .required(),
 });
 
 module.exports.reviewSchema = Joi.object({

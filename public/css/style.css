@@ -4,6 +4,9 @@ body {
   flex-direction: column;
   min-height: 100vh;
 }
+/* .dark-theme body {
+  background-color: #0f0f10;
+} */
 .BRAND::selection {
   background-color: #fe424d !important;
   color: white !important;
@@ -19,6 +22,12 @@ body {
   margin-top: 10px;
   margin-right: 10px;
   border-radius: 50px;
+  background-color: rgb(247, 247, 247, 0.9);
+  /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); */
+}
+#addlisting:hover {
+  /* opacity: 1; */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
 }
 
 @media (min-width: 770px) {

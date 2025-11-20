@@ -1,5 +1,6 @@
 const countryList = require("../utils/countries.js");
 const Listing = require("../models/listing.js");
+const User = require("../models/user.js");
 const countryMap = require("../init/countryCode.js");
 const multer = require("multer");
 const ExpressError = require("../utils/ExpressError.js");
@@ -7,69 +8,170 @@ const axios = require("axios");
 const Fuse = require("fuse.js");
 const { cloudinary } = require("../cloudConfig.js");
 
-module.exports.index = async (req, res) => {
-  const { category, sort, country } = req.query;
-
-  let filter = {};
-  if (category) {
-    filter.category = category;
-  }
-
-  let selectedCountries = [];
-  if (!country) {
-    selectedCountries = [];
-  } else if (typeof country === "string") {
-    selectedCountries = [country];
-  } else {
-    selectedCountries = country;
-  }
-
-  if (selectedCountries.length > 0) {
-    const regexCountries = selectedCountries.map((c) => new RegExp(c, "i"));
-    // Add it to the *same* filter object
-    filter.country = { $in: regexCountries };
-  }
-
-  // 3. Build the sort object
-  let sortOption = {};
-  if (sort === "price_asc") sortOption = { price: 1 };
-  else if (sort === "price_desc") sortOption = { price: -1 };
-  const allListings = await Listing.find(filter).sort(sortOption);
-  if (allListings.length === 0) {
-    // Check if any filters were applied at all
-    if (category || selectedCountries.length > 0) {
-      req.flash("error", "No listings found matching your current filters.");
-      res.redirect("/listings");
-      return;
-    }
-  }
-  // 6. Render the page with ALL data for the EJS files
-  res.render("./listings/index.ejs", {
-    allListings,
-    currentCategory: category, // Your original variable
-    allCountries: countryList, // For the filter partial
-    selectedCountries, // For the filter partial
-    selectedSort: sort || "", // For the filter partial
-  });
-};
-
 // module.exports.index = async (req, res) => {
-//   const { category } = req.query;
+//   const { category, sort, country } = req.query;
+
 //   let filter = {};
 //   if (category) {
 //     filter.category = category;
 //   }
-//   const allListings = await Listing.find(filter);
-//   if (allListings.length === 0) {
-//     req.flash("error", `Currently no place under ${category} section`);
-//     res.redirect("/listings");
-//     return;
+
+//   let selectedCountries = [];
+//   if (!country) {
+//     selectedCountries = [];
+//   } else if (typeof country === "string") {
+//     selectedCountries = [country];
+//   } else {
+//     selectedCountries = country;
 //   }
+
+//   if (selectedCountries.length > 0) {
+//     const regexCountries = selectedCountries.map((c) => new RegExp(c, "i"));
+//     // Add it to the *same* filter object
+//     filter.country = { $in: regexCountries };
+//   }
+
+//   // 3. Build the sort object
+//   let sortOption = {};
+//   if (sort === "price_asc") sortOption = { price: 1 };
+//   else if (sort === "price_desc") sortOption = { price: -1 };
+//   const allListings = await Listing.find(filter).sort(sortOption);
+//   if (allListings.length === 0) {
+//     // Check if any filters were applied at all
+//     if (category || selectedCountries.length > 0) {
+//       req.flash("error", "No listings found matching your current filters.");
+//       res.redirect("/listings");
+//       return;
+//     }
+//   }
+//   // 6. Render the page with ALL data for the EJS files
 //   res.render("./listings/index.ejs", {
 //     allListings,
-//     currentCategory: category,
+//     currentCategory: category, // Your original variable
+//     allCountries: countryList, // For the filter partial
+//     selectedCountries, // For the filter partial
+//     selectedSort: sort || "", // For the filter partial
 //   });
 // };
+module.exports.index = async (req, res) => {
+  const { category, sort, country } = req.query;
+
+  // 1. Build filters
+  let filter = {};
+
+  // CATEGORY FILTER (supports single or multiple)
+  let selectedCategories = [];
+
+  if (!category) {
+    selectedCategories = [];
+  } else if (typeof category === "string") {
+    selectedCategories = [category];
+  } else {
+    selectedCategories = category;
+  }
+
+  if (selectedCategories.length > 0) {
+    filter.category = { $in: selectedCategories };
+  }
+
+  // COUNTRY FILTER
+  let selectedCountries = [];
+  if (!country) selectedCountries = [];
+  else if (typeof country === "string") selectedCountries = [country];
+  else selectedCountries = country;
+
+  if (selectedCountries.length > 0) {
+    const regexCountries = selectedCountries.map((c) => new RegExp(c, "i"));
+    filter.country = { $in: regexCountries };
+  }
+
+  // 2. Sorting
+  let priceSort = null;
+  if (sort === "price_asc") priceSort = { price: 1 };
+  else if (sort === "price_desc") priceSort = { price: -1 };
+
+  // ⭐ Detect filter usage
+  const filtersApplied =
+    selectedCategories.length > 0 || sort || selectedCountries.length > 0;
+
+  // 3. User NOT logged in → random
+  if (!req.user) {
+    let allListings = await Listing.find(filter);
+    allListings = allListings.sort(() => Math.random() - 0.5);
+
+    return res.render("./listings/index.ejs", {
+      allListings,
+      currentCategory: selectedCategories,
+
+      allCountries: countryList,
+      selectedCountries,
+      selectedSort: sort || "",
+    });
+  }
+
+  // 4. Logged in user
+  const user = await User.findById(req.user._id);
+  const preferences = user.preferences || [];
+
+  // ⭐ If filters applied → ignore preferences
+  if (filtersApplied) {
+    let allListings = await Listing.find(filter).sort(priceSort);
+
+    if (allListings.length === 0) {
+      req.flash("error", "No listing found for your filter");
+      return res.redirect("/listings");
+    }
+
+    return res.render("./listings/index.ejs", {
+      allListings,
+      currentCategory: selectedCategories,
+
+      allCountries: countryList,
+      selectedCountries,
+      selectedSort: sort || "",
+    });
+  }
+
+  // ⭐ No filters AND user has preferences → preference sorting
+  if (preferences.length > 0) {
+    const pipeline = [
+      { $match: filter },
+      {
+        $addFields: {
+          matchScore: {
+            $size: { $setIntersection: ["$category", preferences] },
+          },
+        },
+      },
+      { $sort: { matchScore: -1 } },
+    ];
+
+    let allListings = await Listing.aggregate(pipeline);
+    allListings.forEach((l) => delete l.matchScore);
+
+    return res.render("./listings/index.ejs", {
+      allListings,
+      currentCategory: selectedCategories,
+
+      allCountries: countryList,
+      selectedCountries,
+      selectedSort: sort || "",
+    });
+  }
+
+  // ⭐ No preferences → normal listing
+  let allListings = await Listing.find(filter).sort(priceSort);
+
+  res.render("./listings/index.ejs", {
+    allListings,
+    currentCategory: selectedCategories,
+
+    allCountries: countryList,
+    selectedCountries,
+    selectedSort: sort || "",
+  });
+};
+
 module.exports.search = async (req, res) => {
   try {
     // 1. FIX: Get 'search' from req.query, not 'q'
@@ -105,34 +207,7 @@ module.exports.search = async (req, res) => {
     // Handle errors
   }
 };
-module.exports.suggestion = async (req, res) => {
-  try {
-    const { q } = req.query;
 
-    // If the query is empty, send no suggestions
-    if (!q) {
-      return res.json([]);
-    }
-
-    // Create a case-insensitive regex to find titles
-    // that *start with* the query string (the '^' symbol).
-    // This is fast and what you want for autocomplete.
-    const searchRegex = new RegExp("^" + q, "i");
-
-    // Find matching listings
-    const suggestions = await Listing.find({ title: { $regex: searchRegex } })
-      .select("title") // IMPORTANT: Only get the 'title' field
-      .limit(10); // IMPORTANT: Only send a few suggestions
-
-    // Map the results to a simple array of strings
-    const titles = suggestions.map((listing) => listing.title);
-
-    res.json(titles);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
-  }
-};
 module.exports.renderNewForm = (req, res) => {
   res.render("listings/new.ejs");
 };
@@ -209,9 +284,9 @@ module.exports.renderEditForm = async (req, res) => {
 
 module.exports.editListing = async (req, res) => {
   let { id } = req.params;
+
   const newListingData = req.body;
   const countryName = countryMap[newListingData.country];
-
   const locationString = req.body.location;
   const geocodeUrl = `https://api.opencagedata.com/geocode/v1/json`;
   const params = {
@@ -233,7 +308,7 @@ module.exports.editListing = async (req, res) => {
     },
     { runValidators: true }
   );
-  console.log(result);
+  // console.log(result);
   if (req.file) {
     let url = req.file.path;
     let filename = req.file.filename;

@@ -169,7 +169,7 @@ module.exports.resendEmail = async (req, res, next) => {
     // 3. Generate new token and expiry
     const verificationToken = crypto.randomBytes(32).toString("hex");
     user.emailVerificationToken = verificationToken;
-    user.emailVerificationTokenExpires = Date.now() + 3600000; // 1 hour expiry
+    user.emailVerificationExpires = Date.now() + 3600000; // 1 hour expiry
 
     await user.save();
 

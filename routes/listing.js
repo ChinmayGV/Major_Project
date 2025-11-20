@@ -42,11 +42,7 @@ router.get(
   validateSearch(searchSchema, "query"),
   listingController.search
 );
-router.get(
-  "/suggestions",
-  validateSearch(searchSuggestionSchema, "query"),
-  listingController.suggestion
-);
+
 //New Route
 router.get("/new", isLoggedIn, isVerified, listingController.renderNewForm);
 
