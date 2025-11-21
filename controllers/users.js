@@ -1,6 +1,5 @@
 const User = require("../models/user.js");
 const crypto = require("crypto");
-// const nodemailer = require("nodemailer");
 const transporter = require("../config/nodemail.js");
 const bcrypt = require("bcrypt");
 

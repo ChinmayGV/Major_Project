@@ -136,6 +136,60 @@ body {
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.5);
 }
 
+/* ==================Profile email verify tooltip======================*/
+.verify {
+  color: darkgoldenrod;
+  position: relative;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  z-index: 1;
+}
+
+.verify:hover {
+  z-index: 9999;
+}
+
+.verify::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 125%;
+  left: 75%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.verify::after {
+  content: "";
+  position: absolute;
+  bottom: 115%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: #ffffff transparent transparent transparent;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.verify:hover::before,
+.verify:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-5px);
+}
+
 /* =========================DarkMOde button ======================= */
 .custom-toggle-btn {
   width: 35px;

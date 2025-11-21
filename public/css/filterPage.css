@@ -163,12 +163,6 @@
   color: #d0d0d0;
 }
 
-/* Active category */
-.dark-theme #filters .filter a.active {
-  color: #ff4d4d !important; /* bright red in dark mode */
-  opacity: 1 !important;
-}
-
 /* Icons */
 .dark-theme #filter-component-wrapper .filter i {
   color: #e1e1e1;

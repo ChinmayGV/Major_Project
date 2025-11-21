@@ -141,7 +141,7 @@ module.exports.eligibleToReview = async (req, res, next) => {
 
 //to redirect when user is logged in and click on i'll do it later
 module.exports.checkIfUserLoggedIn = async (req, res, next) => {
-  if (req.isAuthenticated()) {
+  if (!req.user.isVerified) {
     req.flash("error", "Email verification pending");
     res.redirect("/listings");
   } else {

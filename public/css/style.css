@@ -5,11 +5,6 @@ body {
   min-height: 100vh;
 }
 
-.dark-theme body {
-  background-color: #0f0f0f;
-  color: #e6e6e6;
-}
-
 .container {
   flex: 1;
 }
@@ -45,92 +40,22 @@ body {
   margin: 3px !important;
 }
 
-/* Profile email verify tooltip */
-.verify {
-  color: darkgoldenrod;
-  position: relative;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  z-index: 1;
+/* ==============Dark Mode ========================== */
+
+.dark-theme body {
+  background-color: #0f0f0f;
+  color: #e6e6e6;
 }
 
-.verify:hover {
-  z-index: 9999;
+.dark-theme .add-btn,
+.edit-btn {
+  background-color: #fe424d !important;
+  border: none !important;
 }
 
-.verify::before {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: 125%;
-  left: 75%;
-  transform: translateX(-50%);
-  background-color: #fff;
-  color: #333;
-  border: 1px solid #e0e0e0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 12px;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-}
-
-.verify::after {
-  content: "";
-  position: absolute;
-  bottom: 115%;
-  left: 50%;
-  transform: translateX(-50%);
-  border-width: 6px;
-  border-style: solid;
-  border-color: #ffffff transparent transparent transparent;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-}
-
-.verify:hover::before,
-.verify:hover::after {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(-5px);
-}
-
-/* Flash message toast */
-.flash-fix {
-  position: fixed;
-  top: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2000;
-  width: 100%;
-  max-width: 550px;
-  transition: transform 0.5s ease-out;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  padding: 0;
-  opacity: 0.95;
-}
-
-.alert-success {
-  background-color: #d4edda;
-  border-color: #c3e6cb;
-  color: #155724;
-}
-
-.alert-danger {
-  background-color: #f8d7da;
-  border-color: #f5c6cb;
-  color: #721c24;
-}
-
-.alert {
-  padding: 1rem 1.25rem;
-  margin-bottom: 0;
-  border-radius: 8px;
-  width: 100%;
-  max-width: 550px;
+/* All buttons hover */
+.dark-theme .allbtn:hover {
+  background-color: #fe424d !important;
+  color: white !important;
+  border: 1px solid #fe424d !important;
 }

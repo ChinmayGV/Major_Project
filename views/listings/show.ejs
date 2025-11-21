@@ -45,7 +45,7 @@
 <% } %>
 <div class="col-6 offset-3 mb-3">
   <hr />
-  <% if(currUser && !(currUser._id.equals(listing.owner._id))){ %>
+  <% if(currUser && !(currUser._id.equals(listing.owner._id)) ){ %>
   <h4 class="ps-2" id="rvw">Share your view with Review</h4>
   <form
     action="/listings/<%= listing._id %>/reviews"

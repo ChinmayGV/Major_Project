@@ -76,6 +76,7 @@ app.use((req, res, next) => {
 
 app.get("/", (req, res) => {
   res.redirect("/listings");
+  // return res.render("/listings/demo.ejs");
 });
 
 app.use(session(sessionOptions));
@@ -83,7 +84,24 @@ app.use(flash());
 
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
+// passport.use(new LocalStrategy(User.authenticate())); // this don't tells specific name or password incorrect
+passport.use(
+  new LocalStrategy(async (username, password, done) => {
+    const user = await User.findOne({ username });
+
+    if (!user) {
+      return done(null, false, { message: "Incorrect username" });
+    }
+
+    const isValid = await user.verifyPassword(password);
+
+    if (!isValid) {
+      return done(null, false, { message: "Incorrect password" });
+    }
+
+    return done(null, user);
+  })
+);
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());

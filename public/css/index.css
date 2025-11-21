@@ -3,6 +3,7 @@
 /* ------------------------------------ */
 
 /* Listing Cards */
+
 .listing-card {
   border: none !important;
   margin-bottom: 2rem;
@@ -41,3 +42,5 @@
   color: #333;
   font-size: 0.9rem;
 }
+
+/* ================Dark Mode ====================== */
