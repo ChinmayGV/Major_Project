@@ -1,102 +1,112 @@
 <% layout('/layouts/boilerplate') %>
-
+<link rel="stylesheet" href="/css/filterPage.css" />
 <div id="filter-component-wrapper">
   <div class="outer">
     <div id="filters">
       <div class="filter">
         <a
           href="/listings?category=Trending"
-          class="<%= (typeof currentCategory!== 'undefined' && currentCategory === 'Trending') ? 'active' : '' %>"
+          class="<%= currentCategory.length === 1 && currentCategory.includes('Trending') ? 'active' : '' %>"
         >
           <i class="fa-solid fa-fire"></i>
           <span>Trending</span>
         </a>
       </div>
+
       <div class="filter">
         <a
           href="/listings?category=Rooms"
-          class="<%= (typeof currentCategory !== 'undefined' && currentCategory === 'Rooms') ? 'active' : '' %>"
+          class="<%= currentCategory.length === 1 && currentCategory.includes('Rooms') ? 'active' : '' %>"
         >
           <i class="fa-solid fa-bed"></i>
           <span>Rooms</span>
         </a>
       </div>
+
       <div class="filter">
         <a
           href="/listings?category=Iconic Cities"
-          class="<%= (typeof currentCategory !== 'undefined' && currentCategory === 'Iconic Cities') ? 'active' : '' %>"
+          class="<%= currentCategory.length === 1 && currentCategory.includes('Iconic Cities') ? 'active' : '' %>"
         >
           <i class="fa-solid fa-mountain-city"></i>
           <span>Iconic Cities</span>
         </a>
       </div>
+
       <div class="filter">
         <a
           href="/listings?category=Mountains"
-          class="<%= (typeof currentCategory !== 'undefined' && currentCategory === 'Mountains') ? 'active' : '' %>"
+          class="<%= currentCategory.length === 1 && currentCategory.includes('Mountains') ? 'active' : '' %>"
         >
           <i class="fa-solid fa-mountain"></i>
           <span>Mountains</span>
         </a>
       </div>
+
       <div class="filter">
         <a
           href="/listings?category=Castles"
-          class="<%= (typeof currentCategory !== 'undefined' && currentCategory === 'Castles') ? 'active' : '' %>"
+          class="<%= currentCategory.length === 1 && currentCategory.includes('Castles') ? 'active' : '' %>"
         >
           <i class="fa-solid fa-house-chimney"></i>
           <span>Castles</span>
         </a>
       </div>
+
       <div class="filter">
         <a
           href="/listings?category=Pools"
-          class="<%= (typeof currentCategory !== 'undefined' && currentCategory === 'Pools') ? 'active' : '' %>"
+          class="<%= currentCategory.length === 1 && currentCategory.includes('Pools') ? 'active' : '' %>"
         >
           <i class="fa-solid fa-person-swimming"></i>
           <span>Pools</span>
         </a>
       </div>
+
       <div class="filter">
         <a
           href="/listings?category=Camping"
-          class="<%= (typeof currentCategory !== 'undefined' && currentCategory === 'Camping') ? 'active' : '' %>"
+          class="<%= currentCategory.length === 1 && currentCategory.includes('Camping') ? 'active' : '' %>"
         >
           <i class="fa-solid fa-campground"></i>
           <span>Camping</span>
         </a>
       </div>
+
       <div class="filter">
         <a
           href="/listings?category=Farms"
-          class="<%= (typeof currentCategory !== 'undefined' && currentCategory === 'Farms') ? 'active' : '' %>"
+          class="<%= currentCategory.length === 1 && currentCategory.includes('Farms') ? 'active' : '' %>"
         >
           <i class="fa-solid fa-tractor"></i>
           <span>Farms</span>
         </a>
       </div>
+
       <div class="filter">
         <a
           href="/listings?category=Arctic"
-          class="<%= (typeof currentCategory !== 'undefined' && currentCategory === 'Arctic') ? 'active' : '' %>"
+          class="<%= currentCategory.length === 1 && currentCategory.includes('Arctic') ? 'active' : '' %>"
         >
           <i class="fa-solid fa-snowflake"></i>
           <span>Arctic</span>
         </a>
       </div>
+
       <div class="filter">
         <a
           href="/listings?category=Domes"
-          class="<%= (typeof currentCategory !== 'undefined' && currentCategory === 'Domes') ? 'active' : '' %>"
+          class="<%= currentCategory.length === 1 && currentCategory.includes('Domes') ? 'active' : '' %>"
         >
           <i class="fa-solid fa-igloo"></i>
           <span>Domes</span>
         </a>
       </div>
+
       <div class="filter">
         <a
           href="/listings?category=Boats"
-          class="<%= (typeof currentCategory !== 'undefined' && currentCategory === 'Boats') ? 'active' : '' %>"
+          class="<%= currentCategory.length === 1 && currentCategory.includes('Boats') ? 'active' : '' %>"
         >
           <i class="fa-solid fa-sailboat"></i>
           <span>Boats</span>

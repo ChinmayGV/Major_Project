@@ -114,8 +114,8 @@
 }
 
 #filters .filter a.active {
-  color: red;
-  opacity: 0.9;
+  color: red !important;
+  opacity: 0.9 !important;
 }
 
 .btn-outline-light {
@@ -128,4 +128,102 @@
 .btn-outline-light:hover {
   color: #6c757d;
   opacity: 1;
+}
+
+/* ================================
+   DARK THEME FOR FILTER BAR
+   Works when <body class="dark-theme">
+================================= */
+
+.dark-theme #filter-component-wrapper {
+  background: #0f0f0f;
+}
+
+/* Outer container */
+.dark-theme #filter-component-wrapper .outer {
+  background: transparent;
+}
+
+/* Filter items */
+.dark-theme #filter-component-wrapper .filter {
+  color: #b5b5b5; /* muted light gray */
+  opacity: 0.8;
+}
+
+.dark-theme #filter-component-wrapper .filter:hover {
+  opacity: 1;
+}
+
+/* Filter links */
+.dark-theme .filter a {
+  color: #cfcfcf;
+}
+
+.dark-theme .filter a span {
+  color: #d0d0d0;
+}
+
+/* Active category */
+.dark-theme #filters .filter a.active {
+  color: #ff4d4d !important; /* bright red in dark mode */
+  opacity: 1 !important;
+}
+
+/* Icons */
+.dark-theme #filter-component-wrapper .filter i {
+  color: #e1e1e1;
+}
+
+/* Tax switch */
+.dark-theme #filter-component-wrapper .tax-switch {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  color: #e5e5e5;
+}
+
+.dark-theme #filter-component-wrapper .tax-switch .form-check-label {
+  color: #e5e5e5;
+}
+
+/* Bootstrap switch dark fix */
+.dark-theme .form-check-input[type="checkbox"] {
+  background-color: #222;
+  border-color: #555;
+}
+
+.dark-theme .form-check-input:checked {
+  background-color: #ff4d4d !important;
+  border-color: #ff4d4d !important;
+}
+
+/* Filter button (Offcanvas) */
+.dark-theme .btn-outline-light {
+  background: #1c1c1c;
+  border-color: #333;
+  color: #dcdcdc;
+}
+
+.dark-theme .btn-outline-light:hover {
+  background: #2a2a2a;
+  color: #fff;
+}
+
+/* Offcanvas dark */
+.dark-theme .offcanvas {
+  background-color: #111 !important;
+  color: #fff !important;
+  border-left: 1px solid #333;
+}
+
+.dark-theme .offcanvas-title {
+  color: #fff;
+}
+
+.dark-theme .btn-close {
+  filter: invert(1);
+}
+
+.dark-theme #filters .filter a.active {
+  color: red !important;
+  opacity: 0.9 !important;
 }

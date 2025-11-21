@@ -4,322 +4,39 @@ body {
   flex-direction: column;
   min-height: 100vh;
 }
-/* .dark-theme body {
-  background-color: #0f0f10;
-} */
-.BRAND::selection {
-  background-color: #fe424d !important;
-  color: white !important;
-}
-#brand {
-  font-family: "Playwrite DE SAS", cursive;
-  color: #fe424d;
-}
-#addlisting {
-  height: 40px;
-  width: 135px;
-  /* padding-top: 10px !important ; */
-  margin-top: 10px;
-  margin-right: 10px;
-  border-radius: 50px;
-  background-color: rgb(247, 247, 247, 0.9);
-  /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); */
-}
-#addlisting:hover {
-  /* opacity: 1; */
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+
+.dark-theme body {
+  background-color: #0f0f0f;
+  color: #e6e6e6;
 }
 
-@media (min-width: 770px) {
-  #addlisting:hover {
-    background-color: #f7f7f7;
-  }
-}
-
-.navbar-brand {
-  margin-right: 0 !important;
-}
 .container {
   flex: 1;
 }
-.navbar {
-  height: 5rem !important;
-  background-color: white !important;
-}
-#menu-button {
-  margin-top: 10px;
-}
-.fa-compass {
-  color: #fe424d;
-  font-size: 1.7rem;
-}
-.nav-link {
-  color: #222222 !important;
-  padding-left: 20px !important;
-  font-size: 13px !important  ;
-  font-weight: 600 !important;
-}
-.f-info-links a {
-  text-decoration: none;
-  color: #222222;
-}
 
-.f-info-links a:hover {
-  text-decoration: underline;
-}
-
-.f-info-links,
-.f-info-socials,
-.f-info-brand {
-  width: 100%;
-  vertical-align: middle;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.f-info-socials i {
-  margin-right: 0.8rem;
-  font-size: 1.2rem;
-  color: #333;
-}
-.f-info-socials a i:hover {
-  font-size: 1.3rem;
-}
-
-.f-info {
-  /* padding-top: 0.5rem; */
-  text-align: center;
-  height: 8rem;
-  display: flex;
-  background-color: #f0f0f0;
-
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: space-evenly;
-}
-
-.listing-card {
-  border: none !important;
-  margin-bottom: 2rem;
-  border-radius: 2rem !important;
-  background-color: transparent !important;
-}
-.card-img-top {
-  border-radius: 2rem !important;
-  width: 100% !important;
-  object-fit: cover !important;
-  padding-left: 10px !important;
-  padding-right: 10px !important ;
-  padding-top: 10px !important ;
-}
-
-.card-body {
-  padding: 5px !important;
-  padding-left: 10px !important;
-}
-
-.card-text {
-  font-weight: 300 !important;
-}
-.listing-link {
-  text-decoration: none !important;
-}
-
-/* Card Effect */
-/* .card-img-overlay {
-  opacity: ;
-  text-align: center;
-} */
-.card-img-overlay:hover {
-  opacity: 0.1;
-  background-color: lightblue;
-  border-radius: 1rem !important;
-}
-.add-btn {
-  background-color: #fe424d !important;
-  border: none !important;
-}
-
-/* edit page */
+/* Buttons */
+.add-btn,
 .edit-btn {
   background-color: #fe424d !important;
   border: none !important;
 }
 
-/* Show page */
-.show-img {
-  height: 30vh;
-}
-
-.btns {
-  display: flex;
-}
-
-.show-card {
-  padding-left: 0;
-  padding-right: 0;
-}
-
-/* Experiment */
-/* .select2-container {
-  width: 330px !important;
-} */
-/* .select2-selection__rendered {
-  line-height: 38px !important;
-} */
-.select2-selection {
-  height: 38px !important;
-}
-.flag-icon {
-  width: 20px;
-  margin-right: 10px;
-  vertical-align: middle;
-}
-
-.review-border {
-  /* border: 1px solid #dee2e6 !important; */
-  padding: 10px !important;
-}
-.date {
-  font-size: 10px !important;
-  /* padding: 5px !important; */
-}
-
-.review-body {
-  display: flex !important;
-  justify-content: space-between !important;
-}
-.golden-star {
-  color: gold !important;
-}
-
-.rating-brdr {
-  font-weight: 100 !important;
-}
-.rating-comment {
-  font-weight: 400 !important;
-  font-size: small;
-}
-.review-breaker {
-  height: 0.2rem !important;
-  /* color: #dee2e6; */
-}
-.rvw-del-btn {
-  height: 20px !important;
-  width: 50px !important;
-  font-size: 10px !important;
-  padding: 2px !important;
-}
-.rvw-del-btn:hover {
-  background-color: #fe424d !important;
-  color: white !important;
-  border: none !important;
-}
-.review-box {
-  border: none !important;
-  padding: 5px !important;
-}
-/* adding max height to review box with adding scroll bar function */
-.review-list {
-  margin-bottom: 2rem;
-  max-height: 420px !important; /* Set the maximum height */
-  overflow-y: auto !important;
-}
-
-/* Style the scrollbar for WebKit browsers */
-.review-list::-webkit-scrollbar {
-  width: 2px !important; /* Width of the scrollbar */
-}
-
-.review-list::-webkit-scrollbar-track {
-  background: #f1f1f1 !important; /* Color of the tracking area */
-}
-
-.review-list::-webkit-scrollbar-thumb {
-  background: #888 !important; /* Color of the scroll thumb */
-  border-radius: 4px !important; /* Round the corners of the thumb */
-}
-
-.review-list::-webkit-scrollbar-thumb:hover {
-  background: #555 !important; /* Color of the thumb on hover */
-}
-
+/* All buttons hover */
 .allbtn:hover {
   background-color: #fe424d !important;
   color: white !important;
   border: 1px solid #fe424d !important;
 }
 
-/* //------------------password eye checking ----------------//  */
-.password-container {
-  position: relative !important;
-}
-
-#togglePassword {
-  position: absolute !important;
-  top: 43px !important; /* Adjust this value up or down to vertically center the icon */
-  right: 13px !important;
-  cursor: pointer !important;
-  color: #6c757d !important;
-  font-size: 15px !important;
-}
-
-.login-box {
-  display: flex;
-  justify-content: space-between;
-}
-
-.was-validated .form-control:valid {
-  background-image: none !important;
-}
-.was-validated #password:invalid {
-  background-image: none !important;
-}
-
-/* //------------------hamburger menu for sign/login ------------//  */
-
-/* //---------------------------------------------------------//  */
-
-/*
-  This media query targets screens smaller than Bootstrap's "md" breakpoint (768px).
-  This is where your navbar collapses.
-*/
-@media (max-width: 767.98px) {
-  .navbar-collapse {
-    /* Make the menu an overlay */
-    position: absolute !important;
-    top: 65px !important; /* Position it below the navbar */
-    left: 45% !important; /* Give it some space from the edges */
-    right: 5% !important;
-    width: 50% !important; /* Control the width */
-
-    /* Add the styling you want */
-    background-color: white !important;
-    border-radius: 12px !important;
-    padding: 1rem !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
-    border: 1px solid #eee !important;
-    z-index: 1000 !important; /* Ensure it's on top of other content */
-  }
-
-  /* Optional: Add some spacing to the links inside the menu */
-  .navbar-collapse .navbar-nav .nav-link {
-    padding: 0.75rem 0 !important;
-  }
-}
-
-.login-signup::selection {
-  background-color: #fe424d !important;
-  color: white !important;
-}
-
+/* Review user icon */
 .rvw-user {
   font-size: 13px !important;
-  padding-left: 4.5px !important  ;
+  padding-left: 4.5px !important;
   padding-top: 1px !important;
-  padding-bottom: 3px !important  ;
+  padding-bottom: 3px !important;
   margin-right: 4px !important;
 }
+
 #rvw-user {
   height: 10px !important;
   width: 10px !important;
@@ -328,172 +45,92 @@ body {
   margin: 3px !important;
 }
 
-#have-acnt {
-  font-size: 13px;
-  padding: auto !important;
-}
-
-.terms {
-  font-size: 13px !important;
-}
-
-#lcn {
-  font-weight: 100;
-}
-#rvw {
-  font-weight: 200;
-}
-#title {
-  font-weight: 300;
-}
-#map {
-  height: 300px;
-  width: 75%;
-  border-radius: 10px;
-  margin-top: 10px;
-  z-index: 10000;
-  /* border: 1px solid black; */
-}
-
-.mode-div {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-  padding-right: 10px !important;
-}
-
-.mode-div p {
-  color: black !important;
-  font-size: small !important;
-  padding: 0;
-}
-
-/* for prfile box email  */
+/* Profile email verify tooltip */
 .verify {
   color: darkgoldenrod;
-  text-decoration: none;
-}
-.Email {
-  color: #555555;
-}
-/* 1. The Container */
-.verify {
   position: relative;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  z-index: 1; /* Base z-index */
+  z-index: 1;
 }
 
-/* Lift on hover so it sits on top of other text */
 .verify:hover {
   z-index: 9999;
 }
 
-/* 2. The Tooltip Body (Light Mode) */
 .verify::before {
   content: attr(data-tooltip);
   position: absolute;
-  bottom: 125%; /* Moved up slightly */
+  bottom: 125%;
   left: 75%;
   transform: translateX(-50%);
-
-  /* --- Light Mode Styling --- */
-  background-color: #ffffff; /* White background */
-  color: #333333; /* Dark Grey text */
-  border: 1px solid #e0e0e0; /* Very subtle border */
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); /* Soft shadow to make it pop */
-  font-weight: 500; /* Slightly bolder text looks better in light mode */
-  /* ------------------------ */
-
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   padding: 6px 12px;
   border-radius: 6px;
   font-size: 12px;
-  white-space: nowrap;
-  font-family: sans-serif;
-
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease;
-  pointer-events: none;
 }
 
-/* 3. The Triangle Arrow (Light Mode) */
 .verify::after {
   content: "";
   position: absolute;
-  bottom: 115%; /* Adjust to touch the bottom of bubble */
+  bottom: 115%;
   left: 50%;
   transform: translateX(-50%);
-
   border-width: 6px;
   border-style: solid;
-
-  /* --- Light Mode Arrow --- */
-  /* Only the top border is white (pointing down), others transparent */
   border-color: #ffffff transparent transparent transparent;
-  /* ------------------------ */
-
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease;
 }
 
-/* 4. Reveal on Hover (Slide up effect) */
-.verify:hover::before {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(-5px);
-}
+.verify:hover::before,
 .verify:hover::after {
   opacity: 1;
   visibility: visible;
   transform: translateX(-50%) translateY(-5px);
 }
-/* ----------------------------- */
-/* ---------------------------------FLASH PROPERTY------------------- */
-/* Add this CSS to your project */
-/* Add this CSS to your main stylesheet */
+
+/* Flash message toast */
 .flash-fix {
   position: fixed;
-  top: 12px; /* Pushed slightly lower from the edge */
+  top: 12px;
   left: 50%;
-  transform: translateX(-50%) translateY(0); /* Initial position */
+  transform: translateX(-50%);
   z-index: 2000;
   width: 100%;
-  max-width: 550px; /* Slimmer width for a toast look */
-  /* Add animation and style enhancements */
+  max-width: 550px;
   transition: transform 0.5s ease-out;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Clean, modern shadow */
-  border: none; /* Remove default border */
-  padding: 0; /* Remove padding from outer div */
-  opacity: 0.95; /* Slight transparency */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 0;
+  opacity: 0.95;
 }
 
-/* Style for success alert */
 .alert-success {
   background-color: #d4edda;
   border-color: #c3e6cb;
   color: #155724;
 }
 
-/* Style for danger/error alert */
 .alert-danger {
   background-color: #f8d7da;
   border-color: #f5c6cb;
   color: #721c24;
 }
 
-/* Ensure the alert content itself is styled correctly */
 .alert {
   padding: 1rem 1.25rem;
-  margin-bottom: 0; /* Important: remove bottom margin */
+  margin-bottom: 0;
   border-radius: 8px;
   width: 100%;
   max-width: 550px;
 }
-/* --------------------DONE------------------------------------ */

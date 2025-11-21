@@ -1,0 +1,72 @@
+/* ------------------------------------ */
+/*               FOOTER                 */
+/* ------------------------------------ */
+
+.f-info-links a {
+  text-decoration: none;
+  color: #222222;
+}
+
+.f-info-links a:hover {
+  text-decoration: underline;
+}
+
+.f-info-links,
+.f-info-socials,
+.f-info-brand {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.f-info-socials i {
+  margin-right: 0.8rem;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.f-info-socials a i:hover {
+  font-size: 1.3rem;
+}
+
+.f-info {
+  text-align: center;
+  height: 8rem;
+  display: flex;
+  background-color: #f0f0f0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ==================================DARK MODE========================== */
+/* FOOTER */
+.dark-theme footer {
+  color: #e6e6e6 !important;
+  border-top: 0.2px solid #2c2d31 !important;
+}
+
+.dark-theme footer .f-info {
+  background-color: #131417 !important;
+}
+
+.dark-theme footer .f-info .f-info-socials a i {
+  color: #e6e6e6 !important;
+  opacity: 0.7;
+}
+.dark-theme footer .f-info .f-info-socials a i:hover {
+  opacity: 0.9;
+}
+
+.dark-theme footer .f-info .f-info-links a {
+  color: #e6e6e6;
+  text-decoration: none;
+  opacity: 0.7;
+}
+.dark-theme footer .f-info .f-info-links a:hover {
+  opacity: 0.9;
+}
+
+.dark-theme .dropdown ul {
+  background-color: grey !important;
+}

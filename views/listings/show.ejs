@@ -43,8 +43,6 @@
   </form>
 </div>
 <% } %>
-
- 
 <div class="col-6 offset-3 mb-3">
   <hr />
   <% if(currUser && !(currUser._id.equals(listing.owner._id))){ %>
@@ -138,6 +136,8 @@
   </div>
   <% } %> 
   </div>
+
+
   <div class="col-8 offset-3 mb-3">
     <h4  id="lcn">Where you'll be<i class="fa-solid fa-location-dot"></i></h4>
     <div id="map"></div>

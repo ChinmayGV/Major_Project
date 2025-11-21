@@ -1,0 +1,93 @@
+body {
+  font-family: "Poppins", sans-serif;
+  background: #f7f9fc;
+}
+.card {
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+}
+.form-control:focus {
+  box-shadow: none;
+  border-color: #2196f3;
+}
+.btn-primary {
+  background: linear-gradient(135deg, #1e88e5, #1565c0);
+  border: none;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.btn-primary:hover {
+  background: linear-gradient(135deg, #1565c0, #0d47a1);
+}
+
+/* ===========================
+      DARK THEME STYLING
+   =========================== */
+
+.dark-theme {
+  background: #0d1117 !important; /* Deep dark background */
+  color: #e6edf3 !important; /* Light text */
+}
+
+/* Card Style */
+.dark-theme .card {
+  background: #161b22 !important; /* GitHub-dark card */
+  border: 1px solid #30363d !important;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Input Fields */
+.dark-theme .form-control {
+  background: #0d1117 !important;
+  border: 1px solid #30363d !important;
+  color: #e6edf3 !important;
+}
+
+.dark-theme .form-control::placeholder {
+  color: #8b949e !important;
+}
+
+.dark-theme .form-control:focus {
+  background: #161b22 !important;
+  border-color: #1e90ff !important;
+  color: #fff !important;
+  box-shadow: none !important;
+}
+
+/* Primary Button */
+.dark-theme .btn-primary {
+  background: linear-gradient(135deg, #1e90ff, #005fcc) !important;
+  color: white !important;
+}
+
+.dark-theme .btn-primary:hover {
+  background: linear-gradient(135deg, #005fcc, #0044aa) !important;
+}
+
+/* Labels */
+.dark-theme label {
+  color: #e6edf3 !important;
+}
+
+.dark-theme .text-center {
+  color: #e6edf3 !important;
+}
+
+/* Form Titles, Headings */
+.dark-theme .card-title,
+.dark-theme h1,
+.dark-theme h2,
+.dark-theme h3 {
+  color: #e6edf3 !important;
+}
+
+.center-box {
+  min-height: calc(100vh - 208px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}

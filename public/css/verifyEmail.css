@@ -1,0 +1,143 @@
+/* 1. THE WRAPPER FIX */
+.page-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: calc(100vh - 208px);
+}
+
+.verify-box {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  padding: 32px 30px;
+  border-radius: 14px;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+/* 2. SCOPING FIX: 
+     Notice I added ".verify-box" before every selector below.
+     This ensures these styles ONLY apply to this box, 
+     and will NOT mess up your Navbar or Footer. 
+  */
+
+.verify-box .verify-icon {
+  font-size: 42px;
+  background: #eef2ff;
+  width: 68px;
+  height: 68px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #5166ff;
+}
+
+.verify-box h2 {
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #222;
+  /* Reset font size just in case */
+  font-size: 1.75rem;
+}
+
+.verify-box p.subtext {
+  color: #707070;
+  font-size: 0.93rem;
+  margin-bottom: 22px;
+}
+
+/* Scoped Input styling */
+.verify-box input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1.6px solid #d8def3;
+  font-size: 1rem;
+  transition: 0.22s;
+}
+
+.verify-box input:focus {
+  border-color: #5a73ff;
+  box-shadow: 0 0 5px rgba(90, 115, 255, 0.35);
+  outline: none;
+}
+
+/* Scoped Button styling */
+.verify-box .btn-verify {
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px;
+  background: #5a73ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.05rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.25s;
+  display: inline-block; /* Bootstrap fix */
+}
+
+.verify-box .btn-verify:hover {
+  background: #4d63e6;
+  color: white;
+}
+
+/* -------------------------------------- */
+/*     DARK MODE — Verify Email Page      */
+/* -------------------------------------- */
+
+.dark-theme .page-wrapper {
+  background: #0d1117;
+}
+
+.dark-theme .verify-box {
+  background: #161b22; /* GitHub-like dark card */
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
+}
+
+.dark-theme .verify-box .verify-icon {
+  background: rgba(56, 139, 253, 0.15);
+  color: #58a6ff; /* Soft blue icon */
+}
+
+.dark-theme .verify-box h2 {
+  color: #e6edf3; /* Light text */
+}
+
+.dark-theme .verify-box p.subtext {
+  color: #9ba7b4; /* Muted gray */
+}
+
+/* Input Dark Mode */
+.dark-theme .verify-box input {
+  background: #0d1117;
+  border: 1.5px solid #30363d;
+  color: #c9d1d9;
+}
+
+.dark-theme .verify-box input::placeholder {
+  color: #6e7681;
+}
+
+.dark-theme .verify-box input:focus {
+  border-color: #58a6ff;
+  box-shadow: 0 0 5px rgba(88, 166, 255, 0.4);
+}
+
+/* Button Dark Mode */
+.dark-theme .verify-box .btn-verify {
+  background: linear-gradient(135deg, #2387ff, #1f6feb);
+  color: white;
+  box-shadow: 0 4px 12px rgba(35, 135, 255, 0.25);
+}
+
+.dark-theme .verify-box .btn-verify:hover {
+  background: linear-gradient(135deg, #1f6feb, #1158c7);
+  box-shadow: 0 6px 16px rgba(35, 135, 255, 0.35);
+}

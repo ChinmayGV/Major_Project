@@ -90,14 +90,19 @@ module.exports.index = async (req, res) => {
   if (sort === "price_asc") priceSort = { price: 1 };
   else if (sort === "price_desc") priceSort = { price: -1 };
 
-  // ⭐ Detect filter usage
+  // Detect filter usage
   const filtersApplied =
     selectedCategories.length > 0 || sort || selectedCountries.length > 0;
 
   // 3. User NOT logged in → random
   if (!req.user) {
-    let allListings = await Listing.find(filter);
-    allListings = allListings.sort(() => Math.random() - 0.5);
+    let allListings = await Listing.find(filter).sort(priceSort);
+    // allListings = allListings.sort(() => Math.random() - 0.5);
+
+    if (allListings.length === 0) {
+      req.flash("error", "No listing found for your filter");
+      return res.redirect("/listings");
+    }
 
     return res.render("./listings/index.ejs", {
       allListings,
@@ -110,10 +115,11 @@ module.exports.index = async (req, res) => {
   }
 
   // 4. Logged in user
+
   const user = await User.findById(req.user._id);
   const preferences = user.preferences || [];
 
-  // ⭐ If filters applied → ignore preferences
+  //  If filters applied → ignore preferences
   if (filtersApplied) {
     let allListings = await Listing.find(filter).sort(priceSort);
 
@@ -132,7 +138,7 @@ module.exports.index = async (req, res) => {
     });
   }
 
-  // ⭐ No filters AND user has preferences → preference sorting
+  //  No filters AND user has preferences → preference sorting
   if (preferences.length > 0) {
     const pipeline = [
       { $match: filter },
@@ -159,7 +165,7 @@ module.exports.index = async (req, res) => {
     });
   }
 
-  // ⭐ No preferences → normal listing
+  //  No preferences → normal listing
   let allListings = await Listing.find(filter).sort(priceSort);
 
   res.render("./listings/index.ejs", {
@@ -174,11 +180,9 @@ module.exports.index = async (req, res) => {
 
 module.exports.search = async (req, res) => {
   try {
-    // 1. FIX: Get 'search' from req.query, not 'q'
     const query = req.query.q;
     if (!query) {
-      res.redirect("/listings");
-      return;
+      return res.redirect("/listings");
     }
 
     const allListings = await Listing.find({});
@@ -192,19 +196,21 @@ module.exports.search = async (req, res) => {
     const fuse = new Fuse(allListings, options);
     const results = fuse.search(query);
     const searchResults = results.map((result) => result.item);
+
     if (searchResults.length === 0) {
       req.flash("error", "No listings found matching that search.");
-      res.redirect("/listings");
-      return;
+      return res.redirect("/listings");
     }
 
     res.render("listings/index.ejs", {
-      allListings: searchResults, // This should be 'allListings' if using index.ejs
+      allListings: searchResults,
       query: query,
+      currentCategory: [], // 🔥 REQUIRED
+      selectedCountries: [], // optional but safe
+      selectedSort: "", // optional but safe
     });
   } catch (err) {
     console.error(err);
-    // Handle errors
   }
 };
 

@@ -1,0 +1,190 @@
+/* ========================================================= */
+/*                     LIGHT MODE (DEFAULT)                  */
+/* ========================================================= */
+
+body {
+  background: #f7f9fb;
+  color: #333;
+  font-family: "Inter", sans-serif;
+}
+
+/* Page container */
+.row.mt-2 .col-8 {
+  background: #fff;
+  padding: 30px;
+  border-radius: 18px;
+  box-shadow: 0 5px 22px rgba(0, 0, 0, 0.05);
+}
+
+/* Heading */
+.row.mt-2 h3 {
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+/* Labels */
+.form-label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #2c3e50;
+}
+
+/* Inputs */
+.form-control,
+.form-select {
+  border: 2px solid #e0e6ed;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #ffffff;
+  transition: 0.2s ease;
+}
+
+.form-control:hover,
+.form-select:hover {
+  border-color: #cbd5e1;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.15);
+  background: #fff;
+}
+
+/* Dropdown button */
+.dropdown .btn-light {
+  background: #fff;
+  border: 2px solid #e0e6ed !important;
+  border-radius: 12px !important;
+  padding: 10px 14px;
+  font-weight: 500;
+  color: #333;
+  transition: 0.2s;
+}
+
+.dropdown .btn-light:hover {
+  background: #f5faff;
+  border-color: #007bff !important;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+  border-radius: 14px !important;
+  background: #fff;
+  border: 1px solid #e0e6ed;
+}
+
+/* Checkbox items */
+.dropdown-item {
+  font-weight: 500;
+  color: #333;
+}
+
+/* Submit button */
+.allbtn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.allbtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* ========================================================= */
+/*                        DARK MODE                          */
+/* ========================================================= */
+
+.dark-theme {
+  background: #0f0f0f !important;
+  color: #e5e5e5;
+}
+
+/* Card/container */
+.dark-theme .row.mt-2 .col-8 {
+  background: #181818;
+  border-radius: 18px;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.5);
+}
+
+/* Heading */
+.dark-theme .row.mt-2 h3 {
+  color: #ffffff;
+}
+
+/* Labels */
+.dark-theme .form-label {
+  color: #dadada;
+}
+
+/* Inputs */
+.dark-theme .form-control,
+.dark-theme .form-select {
+  background: #141414;
+  border: 2px solid #2d2d2d;
+  color: #e4e4e4;
+}
+
+.dark-theme .form-control:hover,
+.dark-theme .form-select:hover {
+  border-color: #3a3a3a;
+}
+
+.dark-theme .form-control:focus,
+.dark-theme .form-select:focus {
+  background: #1c1c1c;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.25);
+}
+
+/* DROPDOWN BUTTON */
+.dark-theme .dropdown .btn-light {
+  background: #1a1a1a !important;
+  border: 2px solid #2d2d2d !important;
+  color: #e0e0e0 !important;
+}
+
+.dark-theme .dropdown .btn-light:hover {
+  background: #252525 !important;
+  border-color: #3b82f6 !important;
+}
+
+/* Dropdown menu */
+.dark-theme .dropdown-menu {
+  background: #1e1e1e;
+  border: 1px solid #333;
+}
+
+.dark-theme .dropdown-item {
+  color: #e0e0e0;
+}
+
+/* CHECKBOX CHECKED STATE */
+.dark-theme input[type="checkbox"]:checked + label {
+  background: #3b82f6 !important;
+  color: white !important;
+}
+
+/* BUTTON */
+.dark-theme .allbtn {
+  background: #2563eb !important;
+  color: #fff !important;
+}
+
+.dark-theme .allbtn:hover {
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Margin & Spacing Improvements for Edit Listing Form */
+/* Force margin for the edit listing container */
+/* 100% working spacing for the edit page */
+.edit-listing-row {
+  margin-top: 30px !important;
+  margin-bottom: 30px !important;
+}

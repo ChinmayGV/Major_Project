@@ -1,0 +1,43 @@
+/* ------------------------------------ */
+/*             INDEX PAGE CSS           */
+/* ------------------------------------ */
+
+/* Listing Cards */
+.listing-card {
+  border: none !important;
+  margin-bottom: 2rem;
+  border-radius: 2rem !important;
+  background-color: transparent !important;
+}
+
+.card-img-top {
+  border-radius: 2rem !important;
+  width: 100% !important;
+  object-fit: cover !important;
+  padding: 10px 10px 0 10px !important;
+}
+
+.listing-link {
+  text-decoration: none !important;
+}
+
+.card-img-overlay:hover {
+  opacity: 0.1;
+  background-color: lightblue;
+  border-radius: 1rem !important;
+}
+
+/* Price Section */
+.price-info {
+  font-weight: 300 !important;
+}
+
+.price-without-tax {
+  font-weight: 400 !important;
+}
+
+.price-with-tax {
+  font-weight: 400 !important;
+  color: #333;
+  font-size: 0.9rem;
+}

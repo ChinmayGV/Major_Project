@@ -216,3 +216,110 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   cursor: pointer; /* Changes the mouse to a hand */
 }
+
+/* ================================
+   DARK THEME (Hamburger Menu)
+   Triggered when <body class="dark-theme">
+================================ */
+
+/* Navbar itself */
+.dark-theme .navbar {
+  background-color: #121212;
+  border-bottom: 1px solid #1e1e1e;
+}
+
+/* The round button circle */
+.dark-theme .menu-toggle {
+  background: #1c1c1c;
+  border: 1px solid #333;
+}
+
+.dark-theme .menu-toggle:hover {
+  border-color: #555;
+  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.08);
+}
+
+/* Profile image in button */
+.dark-theme .nav-user-img {
+  filter: brightness(0.9);
+}
+
+/* Light dropdown (logged out) */
+.dark-theme .menu-content:not(.chrome-style) {
+  background: #1c1c1c;
+  border: 1px solid #333;
+}
+
+.dark-theme .menu-content:not(.chrome-style) a {
+  color: #eaeaea;
+}
+
+.dark-theme .menu-content:not(.chrome-style) a:hover {
+  background: #2a2a2a;
+}
+
+/* ===========================
+      DARK Chrome Style
+=========================== */
+
+.dark-theme .menu-content.chrome-style {
+  background-color: #1c1c1c;
+  border: 1px solid #333;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
+}
+
+.dark-theme #menu-button i {
+  color: white !important;
+}
+
+/* Profile block */
+.dark-theme .menu-header {
+  border-bottom: 1px solid #333;
+}
+
+.dark-theme .header-avatar {
+  background-color: #2a2a2a;
+  /* color: #eaeaea; */
+  color: white;
+}
+
+.dark-theme .header-avatar img {
+  filter: brightness(0.92);
+}
+
+.dark-theme .header-info .user-name {
+  color: #fff;
+}
+
+.dark-theme .header-info .user-email {
+  color: #b7b7b7;
+}
+
+/* Menu links */
+.dark-theme .chrome-style .menu-links a {
+  color: #f0f0f0;
+}
+
+.dark-theme .chrome-style .menu-links a:hover {
+  background-color: #2a2a2a;
+}
+
+/* Divider */
+.dark-theme .menu-divider {
+  border-top: 1px solid #333;
+}
+
+/* Logout */
+.dark-theme .chrome-style .logout-link {
+  color: #ff7676;
+}
+
+.dark-theme .chrome-style .logout-link:hover {
+  background-color: rgba(255, 118, 118, 0.13);
+}
+
+/* Avatar hover in dark */
+.dark-theme .header-avatar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.08);
+}

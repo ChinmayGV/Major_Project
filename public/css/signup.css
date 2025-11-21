@@ -1,0 +1,41 @@
+/* --------------------------- */
+/*        SIGNUP PAGE CSS      */
+/* --------------------------- */
+
+.password-container {
+  position: relative !important;
+}
+
+#togglePassword {
+  position: absolute !important;
+  top: 43px !important;
+  right: 13px !important;
+  cursor: pointer !important;
+  color: #6c757d !important;
+  font-size: 15px !important;
+}
+
+.login-box {
+  display: flex;
+  justify-content: space-between;
+}
+
+#have-acnt {
+  font-size: 13px;
+}
+
+.terms {
+  font-size: 13px !important;
+}
+
+/* Remove Bootstrap invalid background icon for inputs */
+.was-validated .form-control:invalid,
+.form-control.is-invalid {
+  background-image: none !important;
+  padding-right: 0 !important; /* optional, removes extra space */
+}
+
+.was-validated .form-control:valid,
+.form-control.is-valid {
+  background-image: none !important;
+}

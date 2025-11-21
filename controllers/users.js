@@ -60,7 +60,8 @@ module.exports.signup = async (req, res, next) => {
     // 4. Do NOT log them in. Instead, flash a message and redirect.
     // We have removed the req.login() block
 
-    // req.flash("success", "click on the link sent to your email");
+    req.flash("success", "click on the link sent to your email");
+
     res.render("partials/renderEmail.ejs", { process: "verify" }); // Send them to the login page
   } catch (e) {
     req.flash("error", e.message);
@@ -217,7 +218,7 @@ module.exports.submitForgotPassForm = async (req, res) => {
 
     // SECURITY: Generic response to prevent user enumeration.
     if (!user) {
-      req.flash("error", "user with this mail doesn't exist ");
+      req.flash("error", "This mail is not registered");
       return res.redirect("/signup");
     }
 

@@ -1,0 +1,264 @@
+/* ------------------------------------ */
+/*             NAVBAR STYLES            */
+/* ------------------------------------ */
+
+body {
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+}
+/* Navbar */
+.navbar {
+  height: 5rem !important;
+  background-color: white !important;
+}
+
+/* Brand */
+.navbar-brand {
+  margin-right: 0 !important;
+}
+
+#brand {
+  font-family: "Playwrite DE SAS", cursive;
+  color: #fe424d;
+}
+
+.fa-compass {
+  color: #fe424d;
+  font-size: 1.7rem;
+}
+
+/* Nav links */
+.nav-link {
+  color: #222222 !important;
+  padding-left: 20px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+}
+
+/* Add Listing button */
+#addlisting {
+  height: 40px;
+  width: 135px;
+  margin-top: 10px;
+  margin-right: 10px;
+  border-radius: 50px;
+  background: #f4f6fb;
+  color: #1a1a1a;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+#addlisting:hover {
+  background: #eef1f7;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+/* Hamburger button */
+#menu-button {
+  margin-top: 10px;
+}
+
+/* Mobile navbar collapse */
+@media (max-width: 767.98px) {
+  .navbar-collapse {
+    position: absolute !important;
+    top: 65px !important;
+    left: 45% !important;
+    right: 5% !important;
+    width: 50% !important;
+    background-color: white !important;
+    border-radius: 12px !important;
+    padding: 1rem !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+    border: 1px solid #eee !important;
+    z-index: 1000 !important;
+  }
+
+  .navbar-collapse .navbar-nav .nav-link {
+    padding: 0.75rem 0 !important;
+  }
+}
+
+/* =================addlisting tooltip===================== */
+.host-tooltip-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* Tooltip hidden by default */
+.host-tooltip {
+  position: absolute;
+  bottom: -90px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(6px);
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  width: max-content;
+  white-space: nowrap;
+  color: #1b1f3b;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  z-index: 99;
+}
+
+/* Show tooltip when hovering the wrapper OR tooltip itself */
+.host-tooltip-wrapper:hover .host-tooltip,
+.host-tooltip:hover {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+/* Small tiny arrow */
+.host-tooltip::after {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 12px;
+  height: 12px;
+  background: inherit;
+  border-left: inherit;
+  border-top: inherit;
+}
+
+.dark-theme .host-tooltip {
+  background: rgba(22, 27, 34, 0.9);
+  color: #e6edf3;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.5);
+}
+
+/* =========================DarkMOde button ======================= */
+.custom-toggle-btn {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.custom-toggle-btn:hover {
+  transform: scale(1.04);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+.custom-toggle-btn i {
+  transition: color 0.3s ease;
+  font-size: 17px;
+}
+
+/* Moon mode (dark button) */
+.custom-toggle-btn.moon-mode {
+  background: #161b22 !important;
+  box-shadow: 0 4px 14px rgba(76, 139, 255, 0.45);
+}
+
+.custom-toggle-btn.moon-mode i {
+  color: #1e90ff !important;
+  opacity: 1;
+}
+
+/* Sun mode (light button) */
+.custom-toggle-btn.sun-mode {
+  background-color: #f3f7ff !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.custom-toggle-btn.sun-mode i {
+  color: #1e88e5 !important;
+}
+
+/* Hover floating text */
+.hover-wrapper {
+  position: relative;
+  display: inline-block;
+  padding: 10px;
+  padding-top: 12px;
+  padding-right: 14px;
+}
+
+.hover-text {
+  position: absolute;
+  bottom: -5px;
+  left: -50px;
+  transform: translateX(-50%);
+  background: rgba(30, 41, 59, 0.85);
+  color: #f1f5f9;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.hover-wrapper:hover .hover-text {
+  opacity: 1;
+  transform: translate(-50%, -5px);
+}
+
+/* Click animation (your original) */
+.toggle-anim {
+  transform: scale(1.1) rotate(12deg);
+  transition: transform 0.4s ease;
+}
+
+.custom-toggle-btn {
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+.custom-toggle-btn.sun-mode:hover {
+  background-color: #e7eeff !important; /* brighter on hover */
+}
+
+.custom-toggle-btn.sun-mode:hover i {
+  color: #1a7adf !important; /* slightly darker blue */
+}
+
+.custom-toggle-btn.moon-mode:hover {
+  background-color: #1d2430 !important; /* lighter navy glow */
+}
+
+.custom-toggle-btn.moon-mode:hover i {
+  color: #4c8bff !important; /* brighter blue icon on hover */
+}
+
+/* =========================Dark MOde================================== */
+.dark-theme .navbar,
+.dark-theme nav {
+  background-color: #1a1b1e !important;
+  border-bottom: 0.7px solid #2c2d31 !important;
+}
+
+.dark-theme .navbar-nav #addlisting:hover {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.55);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.dark-theme .navbar-nav #addlisting {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+  color: #e6edf3;
+  background: rgba(255, 255, 255, 0.05); /* glass white */
+}
+
+.dark-theme .nav-link {
+  color: white !important;
+  opacity: 0.7;
+}
+.dark-theme .nav-link:hover {
+  opacity: 0.9;
+}

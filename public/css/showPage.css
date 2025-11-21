@@ -1,0 +1,123 @@
+/* ------------------------------------ */
+/*             SHOW PAGE CSS            */
+/* ------------------------------------ */
+
+/* Main image */
+.show-img {
+  height: 30vh;
+}
+
+/* Edit/Delete button row */
+.btns {
+  display: flex;
+}
+
+/* Show card wrapper */
+.show-card {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Review box border wrapper */
+.review-border {
+  padding: 10px !important;
+}
+
+/* Review date text */
+.date {
+  font-size: 10px !important;
+}
+
+/* Review body layout */
+.review-body {
+  display: flex !important;
+  justify-content: space-between !important;
+}
+
+/* Stars color */
+.golden-star {
+  color: gold !important;
+}
+
+/* ( ) around rating */
+.rating-brdr {
+  font-weight: 100 !important;
+}
+
+/* Comment text */
+.rating-comment {
+  font-weight: 400 !important;
+  font-size: small;
+}
+
+/* Divider line */
+.review-breaker {
+  height: 0.2rem !important;
+}
+
+/* Delete review button */
+.rvw-del-btn {
+  height: 20px !important;
+  width: 50px !important;
+  font-size: 10px !important;
+  padding: 2px !important;
+}
+
+.rvw-del-btn:hover {
+  background-color: #fe424d !important;
+  color: white !important;
+}
+
+/* Each review container */
+.review-box {
+  border: none !important;
+  padding: 5px !important;
+}
+
+/* Review list scroll panel */
+.review-list {
+  margin-bottom: 2rem;
+  max-height: 420px !important;
+  overflow-y: auto !important;
+}
+
+/* Scrollbar styling */
+.review-list::-webkit-scrollbar {
+  width: 2px !important;
+}
+
+.review-list::-webkit-scrollbar-track {
+  background: #f1f1f1 !important;
+}
+
+.review-list::-webkit-scrollbar-thumb {
+  background: #888 !important;
+  border-radius: 4px !important;
+}
+
+.review-list::-webkit-scrollbar-thumb:hover {
+  background: #555 !important;
+}
+
+/* Star "Share Your View" title */
+#rvw {
+  font-weight: 200;
+}
+
+/* Location title */
+#lcn {
+  font-weight: 100;
+}
+
+/* Title inside description */
+#title {
+  font-weight: 300;
+}
+
+/* Map container */
+#map {
+  height: 300px;
+  width: 75%;
+  border-radius: 10px;
+  margin-top: 10px;
+}
