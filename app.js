@@ -84,24 +84,24 @@ app.use(flash());
 
 app.use(passport.initialize());
 app.use(passport.session());
-// passport.use(new LocalStrategy(User.authenticate())); // this don't tells specific name or password incorrect
-passport.use(
-  new LocalStrategy(async (username, password, done) => {
-    const user = await User.findOne({ username });
+passport.use(new LocalStrategy(User.authenticate())); // this don't tells specific name or password incorrect
+// passport.use(
+//   new LocalStrategy(async (username, password, done) => {
+//     const user = await User.findOne({ username });
 
-    if (!user) {
-      return done(null, false, { message: "Incorrect username" });
-    }
+//     if (!user) {
+//       return done(null, false, { message: "Incorrect username" });
+//     }
 
-    const isValid = await user.verifyPassword(password);
+//     const isValid = await user.verifyPassword(password);
 
-    if (!isValid) {
-      return done(null, false, { message: "Incorrect password" });
-    }
+//     if (!isValid) {
+//       return done(null, false, { message: "Incorrect password" });
+//     }
 
-    return done(null, user);
-  })
-);
+//     return done(null, user);
+//   })
+// );
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());

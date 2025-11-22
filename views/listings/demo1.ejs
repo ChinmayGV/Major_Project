@@ -1,0 +1,202 @@
+<% layout('/layouts/boilerplate') %>
+<link rel="stylesheet" href="/css/filterPage.css" />
+<div id="filter-component-wrapper">
+  <div class="outer">
+    <div id="filters">
+      <div class="filter">
+        <a
+          href="/listings?category=Trending"
+          class="<%= currentCategory.length === 1 && currentCategory.includes('Trending') ? 'active' : '' %>"
+        >
+          <i class="fa-solid fa-fire"></i>
+          <span>Trending</span>
+        </a>
+      </div>
+
+      <div class="filter">
+        <a
+          href="/listings?category=Rooms"
+          class="<%= currentCategory.length === 1 && currentCategory.includes('Rooms') ? 'active' : '' %>"
+        >
+          <i class="fa-solid fa-bed"></i>
+          <span>Rooms</span>
+        </a>
+      </div>
+
+      <div class="filter">
+        <a
+          href="/listings?category=Iconic Cities"
+          class="<%= currentCategory.length === 1 && currentCategory.includes('Iconic Cities') ? 'active' : '' %>"
+        >
+          <i class="fa-solid fa-mountain-city"></i>
+          <span>Iconic Cities</span>
+        </a>
+      </div>
+
+      <div class="filter">
+        <a
+          href="/listings?category=Mountains"
+          class="<%= currentCategory.length === 1 && currentCategory.includes('Mountains') ? 'active' : '' %>"
+        >
+          <i class="fa-solid fa-mountain"></i>
+          <span>Mountains</span>
+        </a>
+      </div>
+
+      <div class="filter">
+        <a
+          href="/listings?category=Castles"
+          class="<%= currentCategory.length === 1 && currentCategory.includes('Castles') ? 'active' : '' %>"
+        >
+          <i class="fa-solid fa-house-chimney"></i>
+          <span>Castles</span>
+        </a>
+      </div>
+
+      <div class="filter">
+        <a
+          href="/listings?category=Pools"
+          class="<%= currentCategory.length === 1 && currentCategory.includes('Pools') ? 'active' : '' %>"
+        >
+          <i class="fa-solid fa-person-swimming"></i>
+          <span>Pools</span>
+        </a>
+      </div>
+
+      <div class="filter">
+        <a
+          href="/listings?category=Camping"
+          class="<%= currentCategory.length === 1 && currentCategory.includes('Camping') ? 'active' : '' %>"
+        >
+          <i class="fa-solid fa-campground"></i>
+          <span>Camping</span>
+        </a>
+      </div>
+
+      <div class="filter">
+        <a
+          href="/listings?category=Farms"
+          class="<%= currentCategory.length === 1 && currentCategory.includes('Farms') ? 'active' : '' %>"
+        >
+          <i class="fa-solid fa-tractor"></i>
+          <span>Farms</span>
+        </a>
+      </div>
+
+      <div class="filter">
+        <a
+          href="/listings?category=Arctic"
+          class="<%= currentCategory.length === 1 && currentCategory.includes('Arctic') ? 'active' : '' %>"
+        >
+          <i class="fa-solid fa-snowflake"></i>
+          <span>Arctic</span>
+        </a>
+      </div>
+
+      <div class="filter">
+        <a
+          href="/listings?category=Domes"
+          class="<%= currentCategory.length === 1 && currentCategory.includes('Domes') ? 'active' : '' %>"
+        >
+          <i class="fa-solid fa-igloo"></i>
+          <span>Domes</span>
+        </a>
+      </div>
+
+      <div class="filter">
+        <a
+          href="/listings?category=Boats"
+          class="<%= currentCategory.length === 1 && currentCategory.includes('Boats') ? 'active' : '' %>"
+        >
+          <i class="fa-solid fa-sailboat"></i>
+          <span>Boats</span>
+        </a>
+      </div>
+    </div>
+    <div class="tax-switch">
+      <div class="form-check-reverse form-switch">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          role="switch"
+          id="switchCheckDefault"
+        />
+        <label class="form-check-label" for="switchCheckDefault"
+          >Check Taxes</label
+        >
+      </div>
+    </div>
+    <button
+      class="btn btn-outline-light"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#filterOffcanvas"
+      aria-controls="filterOffcanvas"
+    >
+      <i class="fa-solid fa-filter"></i> Filters
+    </button>
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="filterOffcanvas"
+      aria-labelledby="filterOffcanvasLabel"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="filterOffcanvasLabel">Filters</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="offcanvas-body"><%- include('../partials/filter.ejs') %></div>
+    </div>
+  </div>
+</div>
+
+<div class="row row-cols-lg-3 mt-2 row-cols-sm-1">
+  <%for(let listing of allListings){%>
+  <a href="/listings/<%= listing._id %>" class="listing-link">
+    <div class="card col listing-card">
+      <img
+        src="<%- listing.image.url %>"
+        class="card-img-top"
+        alt="Listing_image"
+        style="height: 20rem"
+      />
+      <div class="card-img-overlay"></div>
+      <div class="card-body">
+        <p class="card-text price-info">
+          <b><%= listing.title %> </b><br />
+          <span class="price-without-tax">
+            &#8377;<%= listing.price.toLocaleString("en-IN") %> / night
+          </span>
+          <span class="price-with-tax" style="display: none">
+            &#8377;<%= (listing.price * 1.18).toLocaleString("en-IN") %> / night
+            <i style="font-size: smaller"> (includes 18% tax)</i>
+          </span>
+        </p>
+      </div>
+    </div>
+  </a>
+  <% }%>
+</div>
+
+<script>
+  let taxSwitch = document.getElementById("switchCheckDefault");
+  taxSwitch.addEventListener("click", () => {
+    let allPrices = document.getElementsByClassName("price-info");
+    for (let price of allPrices) {
+      let priceWithoutTax = price.querySelector(".price-without-tax");
+      let priceWithTax = price.querySelector(".price-with-tax");
+      if (taxSwitch.checked) {
+        priceWithoutTax.style.display = "none";
+        priceWithTax.style.display = "inline";
+      } else {
+        priceWithoutTax.style.display = "inline";
+        priceWithTax.style.display = "none";
+      }
+    }
+  });
+</script>

@@ -121,3 +121,17 @@
   border-radius: 10px;
   margin-top: 10px;
 }
+
+.listing-card {
+  border: none !important;
+  margin-bottom: 2rem;
+  border-radius: 2rem !important;
+  background-color: transparent !important;
+}
+
+.card-img-top {
+  border-radius: 2rem !important;
+  width: 100% !important;
+  object-fit: cover !important;
+  padding: 10px 10px 0 10px !important;
+}

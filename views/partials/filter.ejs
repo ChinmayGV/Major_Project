@@ -1,3 +1,5 @@
+<!-- <link rel="stylesheet" href="/css/filterPage.css" /> -->
+
 <%
   const safeCurrentCategory = (typeof currentCategory !== 'undefined') ? currentCategory : [];
   const safeSelectedSort = (typeof selectedSort !== 'undefined') ? selectedSort : "";
@@ -10,7 +12,7 @@
   <input type="hidden" name="category" value="<%= safeCurrentCategory %>">
 
   <div class="accordion" id="filterAccordion">
-
+    <br><br>
     <!-- SORT -->
     <div class="accordion-item">
       <h2 class="accordion-header" id="headingSort">
