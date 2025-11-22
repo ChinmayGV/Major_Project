@@ -54,11 +54,23 @@
         </div>
 
         <span id="addlisting" class="host-tooltip-wrapper">
-          <a class="nav-link" href="/listings/new">Add new Listing</a>
+          <%if(!hasListings){%>
+          <a class="nav-link" href="/listings/new"
+            ><i class="fa-solid fa-earth-americas"></i>&nbsp;Become Host</a
+          >
+
           <div class="host-tooltip">
             ✨ <strong>Become a Host</strong> <br />
             Add your listing here 🏠
           </div>
+          <%}else{%>
+          <a class="nav-link" href="/listings/new">Add new Listings</a>
+
+          <div class="host-tooltip">
+            <strong>✨Welcome Host</strong> <br />
+            Add more Listings!
+          </div>
+          <%}%>
         </span>
 
         <% if(!currUser) {%>

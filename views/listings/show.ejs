@@ -1,4 +1,5 @@
 <% layout('/layouts/boilerplate') %>
+
 <script >
   const lng = "<%=listing.geometry.coordinates[0]%>"
   const lat = "<%=listing.geometry.coordinates[1]%>"
@@ -25,6 +26,16 @@
     </div>
   </div>
 </div>
+<% if (!currUser || currUser._id.toString() !== listing.owner._id.toString()) { %>
+<div class="btns ps-3 mt-2">
+  <a
+    href=""
+    class="btn btn-dark col-1 offset-3 edit-btn"
+  >Book</a>
+</div>
+<% } %>
+
+
 <% if(currUser && currUser._id.equals(listing.owner._id)){ %>
 <div class="btns ps-3 mt-2">
   <a

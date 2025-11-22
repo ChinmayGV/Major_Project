@@ -113,6 +113,26 @@ app.use((req, res, next) => {
   next();
 });
 
+const Listing = require("./models/listing");
+
+//----------------------for navbar
+// Check if logged-in user owns any listings
+app.use(async (req, res, next) => {
+  try {
+    if (req.user) {
+      const userListings = await Listing.find({ owner: req.user._id });
+
+      res.locals.hasListings = userListings.length > 0; // true or false
+      // listing data if needed
+    } else {
+      res.locals.hasListings = false; // user not logged in
+    }
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
+//------------------for navbar--------------------//
 app.get("/demouser", async (req, res) => {
   let fakeUser = new User({
     email: "student@33gmail.com",
