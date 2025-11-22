@@ -148,3 +148,16 @@ module.exports.checkIfUserLoggedIn = async (req, res, next) => {
     next();
   }
 };
+
+module.exports.checkIfUserEligibleToChangeEmail = async (req, res, next) => {
+  let listings = await Listing.find({ owner: req.user._id });
+
+  if (listings.length === 0) {
+    // User has no listings → allow email change
+    return next();
+  }
+
+  // User has listings → block email change
+  req.flash("error", "First delete all your listings to change your email");
+  return res.redirect("/myProfile");
+};

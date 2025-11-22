@@ -37,6 +37,7 @@ module.exports.updateProfile = async (req, res, next) => {
     // =========================================================================
     // 2. UNIQUE EMAIL CHECK & VERIFICATION RESET (NEW LOGIC)
     // =========================================================================
+
     let emailChanged = false;
 
     if (email !== undefined && email.trim() === "") {
@@ -57,6 +58,21 @@ module.exports.updateProfile = async (req, res, next) => {
           "That email address is already registered by another user."
         );
         return res.redirect("/myProfile");
+      }
+
+      if (!existingUserWithNewEmail) {
+        // Check if this user has listings under the old email (i.e., owner)
+        const listingCount = await Listing.countDocuments({
+          owner: req.user._id,
+        });
+
+        if (listingCount > 0) {
+          req.flash(
+            "error",
+            "You have listings associated with your account. Delete them before changing your email."
+          );
+          return res.redirect("/myProfile");
+        }
       }
 
       emailChanged = true;
