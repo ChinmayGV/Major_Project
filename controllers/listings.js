@@ -1,7 +1,6 @@
 const countryList = require("../utils/countries.js");
 const Listing = require("../models/listing.js");
 const User = require("../models/user.js");
-// const countryMap = require("../init/countryCode.js");
 const multer = require("multer");
 const ExpressError = require("../utils/ExpressError.js");
 const axios = require("axios");
