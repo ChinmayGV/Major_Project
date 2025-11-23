@@ -3,12 +3,12 @@ const crypto = require("crypto");
 const transporter = require("../config/nodemail.js");
 const bcrypt = require("bcrypt");
 
+// ===============================SIGN UP=================================
 module.exports.renderSignUp = (req, res) => {
   res.render("users/signup.ejs");
 };
 
-module.exports.signup = async (req, res, next) => {
-  // Added 'next' for error handling
+module.exports.signup = async (req, res) => {
   try {
     let { username, password, email } = req.body;
 
@@ -50,15 +50,6 @@ module.exports.signup = async (req, res, next) => {
       `,
     });
 
-    // --- For Testing (simulates sending the link) ---
-    // You can copy/paste this link from your terminal to test verification
-    // console.log("--- VERIFICATION LINK (FOR TESTING) ---");
-    // console.log(verificationLink);
-    // console.log("---------------------------------------");
-
-    // 4. Do NOT log them in. Instead, flash a message and redirect.
-    // We have removed the req.login() block
-
     req.flash("success", "click on the link sent to your email");
 
     res.render("partials/renderEmail.ejs", { process: "verify" }); // Send them to the login page
@@ -68,6 +59,7 @@ module.exports.signup = async (req, res, next) => {
   }
 };
 
+// =======================================LOGIN=====================================
 module.exports.renderLoginForm = (req, res) => {
   res.render("users/login.ejs");
 };
@@ -130,6 +122,7 @@ module.exports.renderEmailPage = (req, res) => {
   res.render("partials/renderEmail.ejs");
 };
 
+// ========================REVERIFY EMAIL=======================================
 module.exports.renderReVerifyEmailPage = (req, res) => {
   res.render("users/verifyEmail.ejs", { email: req.user.email });
 };
@@ -203,6 +196,7 @@ module.exports.resendEmail = async (req, res, next) => {
   }
 };
 
+// ===============================FORGOT PASSWORD===============================
 module.exports.renderForgotPasswordPage = (req, res) => {
   res.render("users/forgotPassword.ejs");
 };

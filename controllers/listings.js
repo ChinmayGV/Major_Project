@@ -7,51 +7,8 @@ const axios = require("axios");
 const Fuse = require("fuse.js");
 const { cloudinary } = require("../cloudConfig.js");
 
-// module.exports.index = async (req, res) => {
-//   const { category, sort, country } = req.query;
+// =========================MAIN INDEX PAGE==============================
 
-//   let filter = {};
-//   if (category) {
-//     filter.category = category;
-//   }
-
-//   let selectedCountries = [];
-//   if (!country) {
-//     selectedCountries = [];
-//   } else if (typeof country === "string") {
-//     selectedCountries = [country];
-//   } else {
-//     selectedCountries = country;
-//   }
-
-//   if (selectedCountries.length > 0) {
-//     const regexCountries = selectedCountries.map((c) => new RegExp(c, "i"));
-//     // Add it to the *same* filter object
-//     filter.country = { $in: regexCountries };
-//   }
-
-//   // 3. Build the sort object
-//   let sortOption = {};
-//   if (sort === "price_asc") sortOption = { price: 1 };
-//   else if (sort === "price_desc") sortOption = { price: -1 };
-//   const allListings = await Listing.find(filter).sort(sortOption);
-//   if (allListings.length === 0) {
-//     // Check if any filters were applied at all
-//     if (category || selectedCountries.length > 0) {
-//       req.flash("error", "No listings found matching your current filters.");
-//       res.redirect("/listings");
-//       return;
-//     }
-//   }
-//   // 6. Render the page with ALL data for the EJS files
-//   res.render("./listings/index.ejs", {
-//     allListings,
-//     currentCategory: category, // Your original variable
-//     allCountries: countryList, // For the filter partial
-//     selectedCountries, // For the filter partial
-//     selectedSort: sort || "", // For the filter partial
-//   });
-// };
 module.exports.index = async (req, res) => {
   const { category, sort, country } = req.query;
 
@@ -177,6 +134,7 @@ module.exports.index = async (req, res) => {
   });
 };
 
+//====================================SEARCH BAR===============================
 module.exports.search = async (req, res) => {
   try {
     const query = req.query.q;
@@ -213,10 +171,7 @@ module.exports.search = async (req, res) => {
   }
 };
 
-module.exports.renderNewForm = (req, res) => {
-  res.render("listings/new.ejs");
-};
-
+//=============================SHOW LISTING=================================
 module.exports.showListing = async (req, res) => {
   let { id } = req.params;
 
@@ -237,6 +192,12 @@ module.exports.showListing = async (req, res) => {
   res.render("listings/show.ejs", { listing });
 };
 
+// ===========================NEW LISTING=====================================
+
+module.exports.renderNewForm = (req, res) => {
+  res.render("listings/new.ejs");
+};
+
 module.exports.createListing = async (req, res) => {
   let url = req.file.path;
   let filename = req.file.filename;
@@ -255,10 +216,7 @@ module.exports.createListing = async (req, res) => {
   // Make the API call
   const response = await axios.get(geocodeUrl, { params });
   const geometry = response.data.results[0].geometry;
-  // const newListing = new Listing(req.body.listing);
-  // newListing.location.coordinates = [geometry.lng, geometry.lat];
   const newListingData = req.body;
-  // const countryName = countryMap[newListingData.country];
 
   await Listing.create({
     ...newListingData,
@@ -276,6 +234,7 @@ module.exports.createListing = async (req, res) => {
   res.redirect("/listings");
 };
 
+// ===============================EDIT LISTING===================================
 module.exports.renderEditForm = async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id);
@@ -290,7 +249,6 @@ module.exports.editListing = async (req, res) => {
   let { id } = req.params;
 
   const newListingData = req.body;
-  // const countryName = countryMap[newListingData.country];
   const locationString = req.body.location;
   const geocodeUrl = `https://api.opencagedata.com/geocode/v1/json`;
   const params = {
@@ -304,7 +262,6 @@ module.exports.editListing = async (req, res) => {
     id,
     {
       ...newListingData,
-      // country: countryName,
       geometry: {
         type: "Point",
         coordinates: [geometry.lng, geometry.lat],
@@ -312,7 +269,6 @@ module.exports.editListing = async (req, res) => {
     },
     { runValidators: true }
   );
-  // console.log(result);
   if (req.file) {
     let url = req.file.path;
     let filename = req.file.filename;
@@ -320,7 +276,6 @@ module.exports.editListing = async (req, res) => {
       id,
       {
         ...newListingData,
-        // country: countryName,
         image: {
           filename: filename,
           url: url,
@@ -338,6 +293,7 @@ module.exports.editListing = async (req, res) => {
   res.redirect(`/listings/${id}`);
 };
 
+// =======================DELETE LISTING============================
 module.exports.deleteListing = async (req, res) => {
   let { id } = req.params;
 
@@ -352,7 +308,6 @@ module.exports.deleteListing = async (req, res) => {
 
 module.exports.multerSizehandler = (error, req, res, next) => {
   if (error instanceof multer.MulterError && error.code === "LIMIT_FILE_SIZE") {
-    // Handle the specific error for oversized files
     req.flash("error", "File is too large. Maximum size is 5MB.");
     return res.redirect("/listings/new");
   }

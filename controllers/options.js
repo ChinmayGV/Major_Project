@@ -3,16 +3,10 @@ const User = require("../models/user.js");
 const Listing = require("../models/listing.js");
 const { cloudinary } = require("../cloudConfig.js");
 
+// ====================MyProfile================================
 module.exports.renderMyProfilePage = (req, res) => {
   let user = req.user;
   res.render("options/profile.ejs", { currUser: user });
-};
-
-module.exports.renderMyReviewsPage = async (req, res) => {
-  let reviews = await Review.find({ author: req.user._id }).populate("listing");
-  //   console.log(reviews[0].listing.image.url);
-  //   console.log(reviews);
-  res.render("options/myreviews.ejs", { reviews });
 };
 
 module.exports.updateProfile = async (req, res, next) => {
@@ -153,14 +147,16 @@ module.exports.updateProfile = async (req, res, next) => {
   }
 };
 
+//============================REVIEW PAGE========================================
+module.exports.renderMyReviewsPage = async (req, res) => {
+  let reviews = await Review.find({ author: req.user._id }).populate("listing");
+  res.render("options/myreviews.ejs", { reviews });
+};
+
+// =============================DELETE USER=============================
 module.exports.deleteUser = async (req, res, next) => {
   const userId = req.user._id;
-
   try {
-    // 1. Perform Data Cleanup (Removing Reviews and Listings)
-
-    // Find and delete all Listings owned by this user
-    // (Assuming your Listing model has a field like 'owner' or 'author' referencing the User ID)
     await Listing.deleteMany({ owner: userId });
 
     // Find and delete all Reviews authored by this user
@@ -189,6 +185,7 @@ module.exports.deleteUser = async (req, res, next) => {
   }
 };
 
+// ===========================MY LISTING================================
 module.exports.renderMyListingPage = async (req, res) => {
   try {
     let listings = await Listing.find({ owner: req.user._id });
