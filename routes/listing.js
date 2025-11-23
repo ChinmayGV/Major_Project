@@ -8,7 +8,7 @@ const {
 } = require("../schema.js");
 const ExpressError = require("../utils/ExpressError.js");
 const Listing = require("../models/listing.js");
-const countryMap = require("../init/countryCode.js");
+
 const {
   isLoggedIn,
   isOwner,

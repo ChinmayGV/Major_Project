@@ -1,7 +1,7 @@
 const countryList = require("../utils/countries.js");
 const Listing = require("../models/listing.js");
 const User = require("../models/user.js");
-const countryMap = require("../init/countryCode.js");
+// const countryMap = require("../init/countryCode.js");
 const multer = require("multer");
 const ExpressError = require("../utils/ExpressError.js");
 const axios = require("axios");
@@ -259,11 +259,10 @@ module.exports.createListing = async (req, res) => {
   // const newListing = new Listing(req.body.listing);
   // newListing.location.coordinates = [geometry.lng, geometry.lat];
   const newListingData = req.body;
-  const countryName = countryMap[newListingData.country];
+  // const countryName = countryMap[newListingData.country];
 
   await Listing.create({
     ...newListingData,
-    country: countryName,
     image: {
       filename: filename,
       url: url,
@@ -285,14 +284,14 @@ module.exports.renderEditForm = async (req, res) => {
     req.flash("error", "Listing you requested for does not exist");
     return res.redirect("/listings");
   }
-  res.render("listings/edit.ejs", { listing, countryMap });
+  res.render("listings/edit.ejs", { listing });
 };
 
 module.exports.editListing = async (req, res) => {
   let { id } = req.params;
 
   const newListingData = req.body;
-  const countryName = countryMap[newListingData.country];
+  // const countryName = countryMap[newListingData.country];
   const locationString = req.body.location;
   const geocodeUrl = `https://api.opencagedata.com/geocode/v1/json`;
   const params = {
@@ -306,7 +305,7 @@ module.exports.editListing = async (req, res) => {
     id,
     {
       ...newListingData,
-      country: countryName,
+      // country: countryName,
       geometry: {
         type: "Point",
         coordinates: [geometry.lng, geometry.lat],
@@ -322,7 +321,7 @@ module.exports.editListing = async (req, res) => {
       id,
       {
         ...newListingData,
-        country: countryName,
+        // country: countryName,
         image: {
           filename: filename,
           url: url,

@@ -127,14 +127,7 @@
         </div>
         <div class="mb-3 col-12 col-md-8">
           <label for="country" class="form-label">Country</label>
-          <!-- <input
-            type="text"
-            name="country"
-            value="<%= listing.country%>"
-            class="form-control"
-            required
-          /> -->
-          <!-- <br /> -->
+
           <select
             id="country-select"
             name="country"
@@ -142,9 +135,7 @@
             required
             aria-label="Default select example"
           >
-            <option
-              value="<%= Object.keys(countryMap).find(key => countryMap[key] === listing.country) %>"
-            >
+            <option value="<%=listing.country %>">
               &nbsp;&nbsp;<%= listing.country%>
             </option>
             <%- include('../includes/country.ejs') %>
